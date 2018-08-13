@@ -1,0 +1,66 @@
+﻿@model ROTM.training_course_instance
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>training_course_instance</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Instance_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Instance_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Instance_Start_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Instance_Start_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Instance_End_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Instance_End_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.instructor.Instructor_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.instructor.Instructor_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.training_course.Training_Course_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.training_course.Training_Course_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.venue.Venue_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.venue.Venue_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Training_Course_Instance_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

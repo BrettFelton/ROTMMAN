@@ -1,0 +1,82 @@
+﻿@model ROTM.booking
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>booking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Booking_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Booking_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Booking_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Booking_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Booking_Start_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Booking_Start_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Booking_End_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Booking_End_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.address.Street_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address.Street_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.booking_type.Booking_Type_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.booking_type.Booking_Type_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client.Client_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client.Client_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employee.Employee_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employee.Employee_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Booking_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

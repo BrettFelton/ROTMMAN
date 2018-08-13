@@ -1,0 +1,114 @@
+﻿@model ROTM.employee
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee_Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee_Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee_Home_Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee_Home_Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee_Cellphone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee_Cellphone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee_RSA_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee_RSA_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee_Avatar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee_Avatar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Encrypted_Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Encrypted_Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.address.Street_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address.Street_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employee_type.Type_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employee_type.Type_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gender.Gender1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gender.Gender1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.title.Title1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title.Title1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Employee_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

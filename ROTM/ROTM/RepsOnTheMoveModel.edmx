@@ -1,0 +1,2983 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="repsont1_rotmModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="access_level">
+          <Key>
+            <PropertyRef Name="Access_Level_ID" />
+          </Key>
+          <Property Name="Access_Level_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Access_Level_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Access_Level_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="address">
+          <Key>
+            <PropertyRef Name="Address_ID" />
+          </Key>
+          <Property Name="Address_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Street_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Suburb" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Province" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="attendance">
+          <Key>
+            <PropertyRef Name="Training_Course_Instance_ID" />
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Training_Course_Instance_ID" Type="int" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" Nullable="false" />
+          <Property Name="Replied_Going" Type="bit" />
+          <Property Name="Actual_Attendance" Type="bit" />
+        </EntityType>
+        <EntityType Name="audit_trail">
+          <Key>
+            <PropertyRef Name="Audit_Trail_ID" />
+          </Key>
+          <Property Name="Audit_Trail_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Trail_DateTime" Type="datetime" Precision="0" />
+          <Property Name="Trail_Description" Type="varchar" MaxLength="255" />
+          <Property Name="Deleted_Record" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="booking">
+          <Key>
+            <PropertyRef Name="Booking_ID" />
+          </Key>
+          <Property Name="Booking_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Booking_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Booking_Date" Type="date" />
+          <Property Name="Booking_Start_Time" Type="time" Precision="0" />
+          <Property Name="Booking_End_Time" Type="time" Precision="0" />
+          <Property Name="Booking_Type_ID" Type="int" />
+          <Property Name="Client_ID" Type="int" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Address_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="booking_instance">
+          <Key>
+            <PropertyRef Name="Booking_Instance_ID" />
+          </Key>
+          <Property Name="Booking_Instance_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Instance_Comments" Type="text" />
+          <Property Name="Instance_Start_Time" Type="time" Precision="0" />
+          <Property Name="Instance_End_Time" Type="time" Precision="0" />
+          <Property Name="Booking_ID" Type="int" />
+          <Property Name="Quote_ID" Type="int" />
+          <Property Name="Address_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="booking_reminders">
+          <Key>
+            <PropertyRef Name="Booking_ID" />
+            <PropertyRef Name="Reminder_ID" />
+          </Key>
+          <Property Name="Booking_ID" Type="int" Nullable="false" />
+          <Property Name="Reminder_ID" Type="int" Nullable="false" />
+          <Property Name="Reminder_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="booking_type">
+          <Key>
+            <PropertyRef Name="Booking_Type_ID" />
+          </Key>
+          <Property Name="Booking_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Booking_Type_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Booking_Type_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="Client_ID" />
+          </Key>
+          <Property Name="Client_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Client_Cellphone" Type="char" MaxLength="10" />
+          <Property Name="Client_Email" Type="varchar" MaxLength="255" />
+          <Property Name="Client_Rating_ID" Type="int" />
+          <Property Name="Client_Type_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="client_contact">
+          <Key>
+            <PropertyRef Name="Client_Contact_ID" />
+          </Key>
+          <Property Name="Client_Contact_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Contact_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Contact_Surname" Type="varchar" MaxLength="50" />
+          <Property Name="Contact_Phone" Type="char" MaxLength="10" />
+          <Property Name="Contact_Email" Type="varchar" MaxLength="255" />
+          <Property Name="Title_ID" Type="int" />
+          <Property Name="Client_Contact_Type_ID" Type="int" />
+          <Property Name="Client_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="client_contact_type">
+          <Key>
+            <PropertyRef Name="Client_Contact_Type_ID" />
+          </Key>
+          <Property Name="Client_Contact_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Type_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="client_mailinglist">
+          <Key>
+            <PropertyRef Name="Client_ID" />
+            <PropertyRef Name="Mailing_List_ID" />
+          </Key>
+          <Property Name="Client_ID" Type="int" Nullable="false" />
+          <Property Name="Mailing_List_ID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="client_rating">
+          <Key>
+            <PropertyRef Name="Client_Rating_ID" />
+          </Key>
+          <Property Name="Client_Rating_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rating_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Rating_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="client_type">
+          <Key>
+            <PropertyRef Name="Client_Type_ID" />
+          </Key>
+          <Property Name="Client_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_Type_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Client_Type_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Employee_Surname" Type="varchar" MaxLength="50" />
+          <Property Name="Employee_Email" Type="varchar" MaxLength="255" />
+          <Property Name="Employee_Home_Phone" Type="char" MaxLength="10" />
+          <Property Name="Employee_Cellphone" Type="char" MaxLength="10" />
+          <Property Name="Employee_RSA_ID" Type="char" MaxLength="13" />
+          <Property Name="Employee_Avatar" Type="blob" />
+          <Property Name="Employee_Type_ID" Type="int" />
+          <Property Name="Encrypted_Password" Type="varchar" MaxLength="256" />
+          <Property Name="Gender_ID" Type="int" />
+          <Property Name="Address_ID" Type="int" />
+          <Property Name="Title_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="employee_client">
+          <Key>
+            <PropertyRef Name="Client_ID" />
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Client_ID" Type="int" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" Nullable="false" />
+          <Property Name="Relationship_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="employee_mailinglist">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+            <PropertyRef Name="Mailing_List_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="int" Nullable="false" />
+          <Property Name="Mailing_List_ID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="employee_milestone">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+            <PropertyRef Name="Milestone_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="int" Nullable="false" />
+          <Property Name="Milestone_ID" Type="int" Nullable="false" />
+          <Property Name="Task_Repetions" Type="int" />
+        </EntityType>
+        <EntityType Name="employee_type">
+          <Key>
+            <PropertyRef Name="Employee_Type_ID" />
+          </Key>
+          <Property Name="Employee_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="gender">
+          <Key>
+            <PropertyRef Name="Gender_ID" />
+          </Key>
+          <Property Name="Gender_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="instructor">
+          <Key>
+            <PropertyRef Name="Instructor_ID" />
+          </Key>
+          <Property Name="Instructor_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Instructor_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Instructor_Surname" Type="varchar" MaxLength="50" />
+          <Property Name="Instructor_Email" Type="varchar" MaxLength="255" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Supplier_ID" Type="int" />
+          <Property Name="Title_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="mailing_list">
+          <Key>
+            <PropertyRef Name="Mailing_List_ID" />
+          </Key>
+          <Property Name="Mailing_List_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mailing_List_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Mailing_List_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="marketing">
+          <Key>
+            <PropertyRef Name="Marketing_ID" />
+          </Key>
+          <Property Name="Marketing_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marketing_Description" Type="varchar" MaxLength="255" />
+          <Property Name="Marketing_Image" Type="blob" />
+          <Property Name="Marketing_Type_ID" Type="int" />
+          <Property Name="Mailing_List_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="marketing_type">
+          <Key>
+            <PropertyRef Name="Marketing_Type_ID" />
+          </Key>
+          <Property Name="Marketing_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marketing_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Marketing_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="milestone">
+          <Key>
+            <PropertyRef Name="Milestone_ID" />
+          </Key>
+          <Property Name="Milestone_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Milestone_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Milestone_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="Notification_ID" />
+          </Key>
+          <Property Name="Notification_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Notification_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Notification_Text" Type="varchar" MaxLength="500" />
+          <Property Name="Notification_DateTime" Type="datetime" Precision="0" />
+          <Property Name="Mailing_List_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="quote">
+          <Key>
+            <PropertyRef Name="Quote_ID" />
+          </Key>
+          <Property Name="Quote_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quote_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Quote_Ref_Num" Type="varchar" MaxLength="50" />
+          <Property Name="Quote_Date" Type="date" />
+          <Property Name="Quote_Price" Type="char" MaxLength="10" />
+          <Property Name="Quote_Status_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="quote_status">
+          <Key>
+            <PropertyRef Name="Quote_Status_ID" />
+          </Key>
+          <Property Name="Quote_Status_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Status_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="registration_token">
+          <Key>
+            <PropertyRef Name="Registration_Token_ID" />
+          </Key>
+          <Property Name="Registration_Token_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Registration_Token" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="New_Email" Type="varchar" MaxLength="255" />
+          <Property Name="Access_Level_ID" Type="int" />
+          <Property Name="Employee_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="reminder">
+          <Key>
+            <PropertyRef Name="Reminder_ID" />
+          </Key>
+          <Property Name="Reminder_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Reminder_Type_ID" Type="int" />
+          <Property Name="Reminder_DateTime" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="reminder_type">
+          <Key>
+            <PropertyRef Name="Reminder_Type_ID" />
+          </Key>
+          <Property Name="Reminder_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Reminder_Type_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Reminder_Type_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="Supplier_ID" />
+          </Key>
+          <Property Name="Supplier_ID" Type="int" Nullable="false" />
+          <Property Name="Supplier_Company" Type="varchar" MaxLength="50" />
+          <Property Name="Supplier_Phone" Type="char" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="task">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Task_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Task_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="task_milestone">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+            <PropertyRef Name="Milestone_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="int" Nullable="false" />
+          <Property Name="Milestone_ID" Type="int" Nullable="false" />
+          <Property Name="Reason_Milestone" Type="varchar" MaxLength="255" />
+          <Property Name="Milestone_Progress" Type="int" />
+        </EntityType>
+        <EntityType Name="tasks_completed">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+            <PropertyRef Name="Booking_Instance_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="int" Nullable="false" />
+          <Property Name="Booking_Instance_ID" Type="int" Nullable="false" />
+          <Property Name="Task_Comments" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="title">
+          <Key>
+            <PropertyRef Name="Title_ID" />
+          </Key>
+          <Property Name="Title_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="training_course">
+          <Key>
+            <PropertyRef Name="Training_Course_ID" />
+          </Key>
+          <Property Name="Training_Course_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Training_Course_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Training_Course_Description" Type="varchar" MaxLength="255" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Training_Course_Type_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="training_course_instance">
+          <Key>
+            <PropertyRef Name="Training_Course_Instance_ID" />
+          </Key>
+          <Property Name="Training_Course_Instance_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Instance_Date" Type="date" />
+          <Property Name="Instance_Start_Time" Type="time" Precision="0" />
+          <Property Name="Instance_End_Time" Type="time" Precision="0" />
+          <Property Name="Venue_ID" Type="int" />
+          <Property Name="Instructor_ID" Type="int" />
+          <Property Name="Training_Course_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="training_course_type">
+          <Key>
+            <PropertyRef Name="Training_Course_Type_ID" />
+          </Key>
+          <Property Name="Training_Course_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Course_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Course_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="venue">
+          <Key>
+            <PropertyRef Name="Venue_ID" />
+          </Key>
+          <Property Name="Venue_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Venue_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Venue_Description" Type="varchar" MaxLength="255" />
+          <Property Name="Venue_Size" Type="int" />
+          <Property Name="Address_ID" Type="int" />
+        </EntityType>
+        <Association Name="attendance_ibfk_1">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="attendance_ibfk_2">
+          <End Role="training_course_instance" Type="Self.training_course_instance" Multiplicity="1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="training_course_instance">
+              <PropertyRef Name="Training_Course_Instance_ID" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="Training_Course_Instance_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="audit_trail_ibfk_1">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="audit_trail" Type="Self.audit_trail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="audit_trail">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_ibfk_1">
+          <End Role="booking_type" Type="Self.booking_type" Multiplicity="0..1" />
+          <End Role="booking" Type="Self.booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="booking_type">
+              <PropertyRef Name="Booking_Type_ID" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="Booking_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_ibfk_2">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="booking" Type="Self.booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Client_ID" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_ibfk_3">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="booking" Type="Self.booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_ibfk_4">
+          <End Role="address" Type="Self.address" Multiplicity="0..1" />
+          <End Role="booking" Type="Self.booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_instance_ibfk_1">
+          <End Role="quote" Type="Self.quote" Multiplicity="0..1" />
+          <End Role="booking_instance" Type="Self.booking_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quote">
+              <PropertyRef Name="Quote_ID" />
+            </Principal>
+            <Dependent Role="booking_instance">
+              <PropertyRef Name="Quote_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_instance_ibfk_2">
+          <End Role="booking" Type="Self.booking" Multiplicity="0..1" />
+          <End Role="booking_instance" Type="Self.booking_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="booking">
+              <PropertyRef Name="Booking_ID" />
+            </Principal>
+            <Dependent Role="booking_instance">
+              <PropertyRef Name="Booking_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_instance_ibfk_3">
+          <End Role="address" Type="Self.address" Multiplicity="0..1" />
+          <End Role="booking_instance" Type="Self.booking_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="booking_instance">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_reminders_ibfk_1">
+          <End Role="booking" Type="Self.booking" Multiplicity="1" />
+          <End Role="booking_reminders" Type="Self.booking_reminders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="booking">
+              <PropertyRef Name="Booking_ID" />
+            </Principal>
+            <Dependent Role="booking_reminders">
+              <PropertyRef Name="Booking_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_reminders_ibfk_2">
+          <End Role="reminder" Type="Self.reminder" Multiplicity="1" />
+          <End Role="booking_reminders" Type="Self.booking_reminders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="reminder">
+              <PropertyRef Name="Reminder_ID" />
+            </Principal>
+            <Dependent Role="booking_reminders">
+              <PropertyRef Name="Reminder_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_contact_ibfk_1">
+          <End Role="client_contact_type" Type="Self.client_contact_type" Multiplicity="0..1" />
+          <End Role="client_contact" Type="Self.client_contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client_contact_type">
+              <PropertyRef Name="Client_Contact_Type_ID" />
+            </Principal>
+            <Dependent Role="client_contact">
+              <PropertyRef Name="Client_Contact_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_contact_ibfk_2">
+          <End Role="title" Type="Self.title" Multiplicity="0..1" />
+          <End Role="client_contact" Type="Self.client_contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="title">
+              <PropertyRef Name="Title_ID" />
+            </Principal>
+            <Dependent Role="client_contact">
+              <PropertyRef Name="Title_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_contact_ibfk_3">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="client_contact" Type="Self.client_contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Client_ID" />
+            </Principal>
+            <Dependent Role="client_contact">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_ibfk_1">
+          <End Role="client_rating" Type="Self.client_rating" Multiplicity="0..1" />
+          <End Role="client" Type="Self.client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client_rating">
+              <PropertyRef Name="Client_Rating_ID" />
+            </Principal>
+            <Dependent Role="client">
+              <PropertyRef Name="Client_Rating_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_ibfk_2">
+          <End Role="client_type" Type="Self.client_type" Multiplicity="0..1" />
+          <End Role="client" Type="Self.client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client_type">
+              <PropertyRef Name="Client_Type_ID" />
+            </Principal>
+            <Dependent Role="client">
+              <PropertyRef Name="Client_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_mailinglist_ibfk_1">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="client_mailinglist" Type="Self.client_mailinglist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Client_ID" />
+            </Principal>
+            <Dependent Role="client_mailinglist">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_mailinglist_ibfk_2">
+          <End Role="mailing_list" Type="Self.mailing_list" Multiplicity="1" />
+          <End Role="client_mailinglist" Type="Self.client_mailinglist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mailing_list">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Principal>
+            <Dependent Role="client_mailinglist">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_client_ibfk_1">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employee_client" Type="Self.employee_client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="employee_client">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_client_ibfk_2">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="employee_client" Type="Self.employee_client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Client_ID" />
+            </Principal>
+            <Dependent Role="employee_client">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_ibfk_1">
+          <End Role="employee_type" Type="Self.employee_type" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee_type">
+              <PropertyRef Name="Employee_Type_ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="Employee_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_ibfk_2">
+          <End Role="gender" Type="Self.gender" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="Gender_ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="Gender_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_ibfk_3">
+          <End Role="address" Type="Self.address" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_ibfk_4">
+          <End Role="title" Type="Self.title" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="title">
+              <PropertyRef Name="Title_ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="Title_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_mailinglist_ibfk_1">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employee_mailinglist" Type="Self.employee_mailinglist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="employee_mailinglist">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_mailinglist_ibfk_2">
+          <End Role="mailing_list" Type="Self.mailing_list" Multiplicity="1" />
+          <End Role="employee_mailinglist" Type="Self.employee_mailinglist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mailing_list">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Principal>
+            <Dependent Role="employee_mailinglist">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_milestone_ibfk_1">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employee_milestone" Type="Self.employee_milestone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="employee_milestone">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_milestone_ibfk_2">
+          <End Role="milestone" Type="Self.milestone" Multiplicity="1" />
+          <End Role="employee_milestone" Type="Self.employee_milestone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="milestone">
+              <PropertyRef Name="Milestone_ID" />
+            </Principal>
+            <Dependent Role="employee_milestone">
+              <PropertyRef Name="Milestone_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="instructor_ibfk_1">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="instructor" Type="Self.instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="instructor">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="instructor_ibfk_2">
+          <End Role="supplier" Type="Self.supplier" Multiplicity="0..1" />
+          <End Role="instructor" Type="Self.instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="supplier">
+              <PropertyRef Name="Supplier_ID" />
+            </Principal>
+            <Dependent Role="instructor">
+              <PropertyRef Name="Supplier_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="instructor_ibfk_3">
+          <End Role="title" Type="Self.title" Multiplicity="0..1" />
+          <End Role="instructor" Type="Self.instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="title">
+              <PropertyRef Name="Title_ID" />
+            </Principal>
+            <Dependent Role="instructor">
+              <PropertyRef Name="Title_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="marketing_ibfk_1">
+          <End Role="marketing_type" Type="Self.marketing_type" Multiplicity="0..1" />
+          <End Role="marketing" Type="Self.marketing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="marketing_type">
+              <PropertyRef Name="Marketing_Type_ID" />
+            </Principal>
+            <Dependent Role="marketing">
+              <PropertyRef Name="Marketing_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="marketing_ibfk_2">
+          <End Role="mailing_list" Type="Self.mailing_list" Multiplicity="0..1" />
+          <End Role="marketing" Type="Self.marketing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mailing_list">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Principal>
+            <Dependent Role="marketing">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="notification_ibfk_1">
+          <End Role="mailing_list" Type="Self.mailing_list" Multiplicity="0..1" />
+          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mailing_list">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="quote_ibfk_1">
+          <End Role="quote_status" Type="Self.quote_status" Multiplicity="0..1" />
+          <End Role="quote" Type="Self.quote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quote_status">
+              <PropertyRef Name="Quote_Status_ID" />
+            </Principal>
+            <Dependent Role="quote">
+              <PropertyRef Name="Quote_Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="registration_token_ibfk_1">
+          <End Role="access_level" Type="Self.access_level" Multiplicity="0..1" />
+          <End Role="registration_token" Type="Self.registration_token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="access_level">
+              <PropertyRef Name="Access_Level_ID" />
+            </Principal>
+            <Dependent Role="registration_token">
+              <PropertyRef Name="Access_Level_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="registration_token_ibfk_2">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="registration_token" Type="Self.registration_token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="registration_token">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reminder_ibfk_1">
+          <End Role="reminder_type" Type="Self.reminder_type" Multiplicity="0..1" />
+          <End Role="reminder" Type="Self.reminder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="reminder_type">
+              <PropertyRef Name="Reminder_Type_ID" />
+            </Principal>
+            <Dependent Role="reminder">
+              <PropertyRef Name="Reminder_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="task_milestone_ibfk_1">
+          <End Role="task" Type="Self.task" Multiplicity="1" />
+          <End Role="task_milestone" Type="Self.task_milestone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="task">
+              <PropertyRef Name="Task_ID" />
+            </Principal>
+            <Dependent Role="task_milestone">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="task_milestone_ibfk_2">
+          <End Role="milestone" Type="Self.milestone" Multiplicity="1" />
+          <End Role="task_milestone" Type="Self.task_milestone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="milestone">
+              <PropertyRef Name="Milestone_ID" />
+            </Principal>
+            <Dependent Role="task_milestone">
+              <PropertyRef Name="Milestone_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tasks_completed_ibfk_1">
+          <End Role="task" Type="Self.task" Multiplicity="1" />
+          <End Role="tasks_completed" Type="Self.tasks_completed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="task">
+              <PropertyRef Name="Task_ID" />
+            </Principal>
+            <Dependent Role="tasks_completed">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tasks_completed_ibfk_2">
+          <End Role="booking_instance" Type="Self.booking_instance" Multiplicity="1" />
+          <End Role="tasks_completed" Type="Self.tasks_completed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="booking_instance">
+              <PropertyRef Name="Booking_Instance_ID" />
+            </Principal>
+            <Dependent Role="tasks_completed">
+              <PropertyRef Name="Booking_Instance_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="training_course_ibfk_1">
+          <End Role="training_course_type" Type="Self.training_course_type" Multiplicity="0..1" />
+          <End Role="training_course" Type="Self.training_course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="training_course_type">
+              <PropertyRef Name="Training_Course_Type_ID" />
+            </Principal>
+            <Dependent Role="training_course">
+              <PropertyRef Name="Training_Course_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="training_course_ibfk_2">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="training_course" Type="Self.training_course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="training_course">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="training_course_instance_ibfk_1">
+          <End Role="training_course" Type="Self.training_course" Multiplicity="0..1" />
+          <End Role="training_course_instance" Type="Self.training_course_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="training_course">
+              <PropertyRef Name="Training_Course_ID" />
+            </Principal>
+            <Dependent Role="training_course_instance">
+              <PropertyRef Name="Training_Course_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="training_course_instance_ibfk_2">
+          <End Role="instructor" Type="Self.instructor" Multiplicity="0..1" />
+          <End Role="training_course_instance" Type="Self.training_course_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="instructor">
+              <PropertyRef Name="Instructor_ID" />
+            </Principal>
+            <Dependent Role="training_course_instance">
+              <PropertyRef Name="Instructor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="training_course_instance_ibfk_3">
+          <End Role="venue" Type="Self.venue" Multiplicity="0..1" />
+          <End Role="training_course_instance" Type="Self.training_course_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="venue">
+              <PropertyRef Name="Venue_ID" />
+            </Principal>
+            <Dependent Role="training_course_instance">
+              <PropertyRef Name="Venue_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venue_ibfk_1">
+          <End Role="address" Type="Self.address" Multiplicity="0..1" />
+          <End Role="venue" Type="Self.venue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="venue">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="LoginEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="repsont1_rotm">
+          <Parameter Name="email" Type="varchar" Mode="InOut" />
+          <Parameter Name="passwords" Type="varchar" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="repsont1_rotmModelStoreContainer">
+          <EntitySet Name="access_level" EntityType="Self.access_level" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="address" EntityType="Self.address" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="attendance" EntityType="Self.attendance" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="audit_trail" EntityType="Self.audit_trail" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="booking" EntityType="Self.booking" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="booking_instance" EntityType="Self.booking_instance" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="booking_reminders" EntityType="Self.booking_reminders" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="booking_type" EntityType="Self.booking_type" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="client" EntityType="Self.client" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="client_contact" EntityType="Self.client_contact" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="client_contact_type" EntityType="Self.client_contact_type" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="client_mailinglist" EntityType="Self.client_mailinglist" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="client_rating" EntityType="Self.client_rating" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="client_type" EntityType="Self.client_type" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="employee_client" EntityType="Self.employee_client" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="employee_mailinglist" EntityType="Self.employee_mailinglist" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="employee_milestone" EntityType="Self.employee_milestone" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="employee_type" EntityType="Self.employee_type" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="gender" EntityType="Self.gender" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="instructor" EntityType="Self.instructor" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="mailing_list" EntityType="Self.mailing_list" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="marketing" EntityType="Self.marketing" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="marketing_type" EntityType="Self.marketing_type" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="milestone" EntityType="Self.milestone" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="notification" EntityType="Self.notification" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="quote" EntityType="Self.quote" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="quote_status" EntityType="Self.quote_status" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="registration_token" EntityType="Self.registration_token" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="reminder" EntityType="Self.reminder" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="reminder_type" EntityType="Self.reminder_type" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="supplier" EntityType="Self.supplier" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="task" EntityType="Self.task" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="task_milestone" EntityType="Self.task_milestone" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="tasks_completed" EntityType="Self.tasks_completed" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="title" EntityType="Self.title" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="training_course" EntityType="Self.training_course" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="training_course_instance" EntityType="Self.training_course_instance" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="training_course_type" EntityType="Self.training_course_type" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="venue" EntityType="Self.venue" Schema="repsont1_rotm" store:Type="Tables" />
+          <AssociationSet Name="attendance_ibfk_1" Association="Self.attendance_ibfk_1">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="attendance_ibfk_2" Association="Self.attendance_ibfk_2">
+            <End Role="training_course_instance" EntitySet="training_course_instance" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="audit_trail_ibfk_1" Association="Self.audit_trail_ibfk_1">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="audit_trail" EntitySet="audit_trail" />
+          </AssociationSet>
+          <AssociationSet Name="booking_ibfk_1" Association="Self.booking_ibfk_1">
+            <End Role="booking_type" EntitySet="booking_type" />
+            <End Role="booking" EntitySet="booking" />
+          </AssociationSet>
+          <AssociationSet Name="booking_ibfk_2" Association="Self.booking_ibfk_2">
+            <End Role="client" EntitySet="client" />
+            <End Role="booking" EntitySet="booking" />
+          </AssociationSet>
+          <AssociationSet Name="booking_ibfk_3" Association="Self.booking_ibfk_3">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="booking" EntitySet="booking" />
+          </AssociationSet>
+          <AssociationSet Name="booking_ibfk_4" Association="Self.booking_ibfk_4">
+            <End Role="address" EntitySet="address" />
+            <End Role="booking" EntitySet="booking" />
+          </AssociationSet>
+          <AssociationSet Name="booking_instance_ibfk_1" Association="Self.booking_instance_ibfk_1">
+            <End Role="quote" EntitySet="quote" />
+            <End Role="booking_instance" EntitySet="booking_instance" />
+          </AssociationSet>
+          <AssociationSet Name="booking_instance_ibfk_2" Association="Self.booking_instance_ibfk_2">
+            <End Role="booking" EntitySet="booking" />
+            <End Role="booking_instance" EntitySet="booking_instance" />
+          </AssociationSet>
+          <AssociationSet Name="booking_instance_ibfk_3" Association="Self.booking_instance_ibfk_3">
+            <End Role="address" EntitySet="address" />
+            <End Role="booking_instance" EntitySet="booking_instance" />
+          </AssociationSet>
+          <AssociationSet Name="booking_reminders_ibfk_1" Association="Self.booking_reminders_ibfk_1">
+            <End Role="booking" EntitySet="booking" />
+            <End Role="booking_reminders" EntitySet="booking_reminders" />
+          </AssociationSet>
+          <AssociationSet Name="booking_reminders_ibfk_2" Association="Self.booking_reminders_ibfk_2">
+            <End Role="reminder" EntitySet="reminder" />
+            <End Role="booking_reminders" EntitySet="booking_reminders" />
+          </AssociationSet>
+          <AssociationSet Name="client_contact_ibfk_1" Association="Self.client_contact_ibfk_1">
+            <End Role="client_contact_type" EntitySet="client_contact_type" />
+            <End Role="client_contact" EntitySet="client_contact" />
+          </AssociationSet>
+          <AssociationSet Name="client_contact_ibfk_2" Association="Self.client_contact_ibfk_2">
+            <End Role="title" EntitySet="title" />
+            <End Role="client_contact" EntitySet="client_contact" />
+          </AssociationSet>
+          <AssociationSet Name="client_contact_ibfk_3" Association="Self.client_contact_ibfk_3">
+            <End Role="client" EntitySet="client" />
+            <End Role="client_contact" EntitySet="client_contact" />
+          </AssociationSet>
+          <AssociationSet Name="client_ibfk_1" Association="Self.client_ibfk_1">
+            <End Role="client_rating" EntitySet="client_rating" />
+            <End Role="client" EntitySet="client" />
+          </AssociationSet>
+          <AssociationSet Name="client_ibfk_2" Association="Self.client_ibfk_2">
+            <End Role="client_type" EntitySet="client_type" />
+            <End Role="client" EntitySet="client" />
+          </AssociationSet>
+          <AssociationSet Name="client_mailinglist_ibfk_1" Association="Self.client_mailinglist_ibfk_1">
+            <End Role="client" EntitySet="client" />
+            <End Role="client_mailinglist" EntitySet="client_mailinglist" />
+          </AssociationSet>
+          <AssociationSet Name="client_mailinglist_ibfk_2" Association="Self.client_mailinglist_ibfk_2">
+            <End Role="mailing_list" EntitySet="mailing_list" />
+            <End Role="client_mailinglist" EntitySet="client_mailinglist" />
+          </AssociationSet>
+          <AssociationSet Name="employee_client_ibfk_1" Association="Self.employee_client_ibfk_1">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="employee_client" EntitySet="employee_client" />
+          </AssociationSet>
+          <AssociationSet Name="employee_client_ibfk_2" Association="Self.employee_client_ibfk_2">
+            <End Role="client" EntitySet="client" />
+            <End Role="employee_client" EntitySet="employee_client" />
+          </AssociationSet>
+          <AssociationSet Name="employee_ibfk_1" Association="Self.employee_ibfk_1">
+            <End Role="employee_type" EntitySet="employee_type" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="employee_ibfk_2" Association="Self.employee_ibfk_2">
+            <End Role="gender" EntitySet="gender" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="employee_ibfk_3" Association="Self.employee_ibfk_3">
+            <End Role="address" EntitySet="address" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="employee_ibfk_4" Association="Self.employee_ibfk_4">
+            <End Role="title" EntitySet="title" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="employee_mailinglist_ibfk_1" Association="Self.employee_mailinglist_ibfk_1">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="employee_mailinglist" EntitySet="employee_mailinglist" />
+          </AssociationSet>
+          <AssociationSet Name="employee_mailinglist_ibfk_2" Association="Self.employee_mailinglist_ibfk_2">
+            <End Role="mailing_list" EntitySet="mailing_list" />
+            <End Role="employee_mailinglist" EntitySet="employee_mailinglist" />
+          </AssociationSet>
+          <AssociationSet Name="employee_milestone_ibfk_1" Association="Self.employee_milestone_ibfk_1">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="employee_milestone" EntitySet="employee_milestone" />
+          </AssociationSet>
+          <AssociationSet Name="employee_milestone_ibfk_2" Association="Self.employee_milestone_ibfk_2">
+            <End Role="milestone" EntitySet="milestone" />
+            <End Role="employee_milestone" EntitySet="employee_milestone" />
+          </AssociationSet>
+          <AssociationSet Name="instructor_ibfk_1" Association="Self.instructor_ibfk_1">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="instructor" EntitySet="instructor" />
+          </AssociationSet>
+          <AssociationSet Name="instructor_ibfk_2" Association="Self.instructor_ibfk_2">
+            <End Role="supplier" EntitySet="supplier" />
+            <End Role="instructor" EntitySet="instructor" />
+          </AssociationSet>
+          <AssociationSet Name="instructor_ibfk_3" Association="Self.instructor_ibfk_3">
+            <End Role="title" EntitySet="title" />
+            <End Role="instructor" EntitySet="instructor" />
+          </AssociationSet>
+          <AssociationSet Name="marketing_ibfk_1" Association="Self.marketing_ibfk_1">
+            <End Role="marketing_type" EntitySet="marketing_type" />
+            <End Role="marketing" EntitySet="marketing" />
+          </AssociationSet>
+          <AssociationSet Name="marketing_ibfk_2" Association="Self.marketing_ibfk_2">
+            <End Role="mailing_list" EntitySet="mailing_list" />
+            <End Role="marketing" EntitySet="marketing" />
+          </AssociationSet>
+          <AssociationSet Name="notification_ibfk_1" Association="Self.notification_ibfk_1">
+            <End Role="mailing_list" EntitySet="mailing_list" />
+            <End Role="notification" EntitySet="notification" />
+          </AssociationSet>
+          <AssociationSet Name="quote_ibfk_1" Association="Self.quote_ibfk_1">
+            <End Role="quote_status" EntitySet="quote_status" />
+            <End Role="quote" EntitySet="quote" />
+          </AssociationSet>
+          <AssociationSet Name="registration_token_ibfk_1" Association="Self.registration_token_ibfk_1">
+            <End Role="access_level" EntitySet="access_level" />
+            <End Role="registration_token" EntitySet="registration_token" />
+          </AssociationSet>
+          <AssociationSet Name="registration_token_ibfk_2" Association="Self.registration_token_ibfk_2">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="registration_token" EntitySet="registration_token" />
+          </AssociationSet>
+          <AssociationSet Name="reminder_ibfk_1" Association="Self.reminder_ibfk_1">
+            <End Role="reminder_type" EntitySet="reminder_type" />
+            <End Role="reminder" EntitySet="reminder" />
+          </AssociationSet>
+          <AssociationSet Name="task_milestone_ibfk_1" Association="Self.task_milestone_ibfk_1">
+            <End Role="task" EntitySet="task" />
+            <End Role="task_milestone" EntitySet="task_milestone" />
+          </AssociationSet>
+          <AssociationSet Name="task_milestone_ibfk_2" Association="Self.task_milestone_ibfk_2">
+            <End Role="milestone" EntitySet="milestone" />
+            <End Role="task_milestone" EntitySet="task_milestone" />
+          </AssociationSet>
+          <AssociationSet Name="tasks_completed_ibfk_1" Association="Self.tasks_completed_ibfk_1">
+            <End Role="task" EntitySet="task" />
+            <End Role="tasks_completed" EntitySet="tasks_completed" />
+          </AssociationSet>
+          <AssociationSet Name="tasks_completed_ibfk_2" Association="Self.tasks_completed_ibfk_2">
+            <End Role="booking_instance" EntitySet="booking_instance" />
+            <End Role="tasks_completed" EntitySet="tasks_completed" />
+          </AssociationSet>
+          <AssociationSet Name="training_course_ibfk_1" Association="Self.training_course_ibfk_1">
+            <End Role="training_course_type" EntitySet="training_course_type" />
+            <End Role="training_course" EntitySet="training_course" />
+          </AssociationSet>
+          <AssociationSet Name="training_course_ibfk_2" Association="Self.training_course_ibfk_2">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="training_course" EntitySet="training_course" />
+          </AssociationSet>
+          <AssociationSet Name="training_course_instance_ibfk_1" Association="Self.training_course_instance_ibfk_1">
+            <End Role="training_course" EntitySet="training_course" />
+            <End Role="training_course_instance" EntitySet="training_course_instance" />
+          </AssociationSet>
+          <AssociationSet Name="training_course_instance_ibfk_2" Association="Self.training_course_instance_ibfk_2">
+            <End Role="instructor" EntitySet="instructor" />
+            <End Role="training_course_instance" EntitySet="training_course_instance" />
+          </AssociationSet>
+          <AssociationSet Name="training_course_instance_ibfk_3" Association="Self.training_course_instance_ibfk_3">
+            <End Role="venue" EntitySet="venue" />
+            <End Role="training_course_instance" EntitySet="training_course_instance" />
+          </AssociationSet>
+          <AssociationSet Name="venue_ibfk_1" Association="Self.venue_ibfk_1">
+            <End Role="address" EntitySet="address" />
+            <End Role="venue" EntitySet="venue" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="repsont1_rotmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="LoginEmail" ReturnType="Collection(repsont1_rotmModel.LoginEmail_Result)">
+            <Parameter Name="email" Mode="InOut" Type="String" />
+            <Parameter Name="passwords" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="employees" EntityType="repsont1_rotmModel.employee" />
+          <EntitySet Name="access_level" EntityType="repsont1_rotmModel.access_level" />
+          <EntitySet Name="addresses" EntityType="repsont1_rotmModel.address" />
+          <EntitySet Name="attendances" EntityType="repsont1_rotmModel.attendance" />
+          <EntitySet Name="audit_trail" EntityType="repsont1_rotmModel.audit_trail" />
+          <EntitySet Name="bookings" EntityType="repsont1_rotmModel.booking" />
+          <EntitySet Name="booking_instance" EntityType="repsont1_rotmModel.booking_instance" />
+          <EntitySet Name="booking_reminders" EntityType="repsont1_rotmModel.booking_reminders" />
+          <EntitySet Name="booking_type" EntityType="repsont1_rotmModel.booking_type" />
+          <EntitySet Name="clients" EntityType="repsont1_rotmModel.client" />
+          <EntitySet Name="client_contact" EntityType="repsont1_rotmModel.client_contact" />
+          <EntitySet Name="client_contact_type" EntityType="repsont1_rotmModel.client_contact_type" />
+          <EntitySet Name="client_mailinglist" EntityType="repsont1_rotmModel.client_mailinglist" />
+          <EntitySet Name="client_rating" EntityType="repsont1_rotmModel.client_rating" />
+          <EntitySet Name="client_type" EntityType="repsont1_rotmModel.client_type" />
+          <EntitySet Name="employee_client" EntityType="repsont1_rotmModel.employee_client" />
+          <EntitySet Name="employee_mailinglist" EntityType="repsont1_rotmModel.employee_mailinglist" />
+          <EntitySet Name="employee_milestone" EntityType="repsont1_rotmModel.employee_milestone" />
+          <EntitySet Name="employee_type" EntityType="repsont1_rotmModel.employee_type" />
+          <EntitySet Name="genders" EntityType="repsont1_rotmModel.gender" />
+          <EntitySet Name="instructors" EntityType="repsont1_rotmModel.instructor" />
+          <EntitySet Name="mailing_list" EntityType="repsont1_rotmModel.mailing_list" />
+          <EntitySet Name="marketings" EntityType="repsont1_rotmModel.marketing" />
+          <EntitySet Name="marketing_type" EntityType="repsont1_rotmModel.marketing_type" />
+          <EntitySet Name="milestones" EntityType="repsont1_rotmModel.milestone" />
+          <EntitySet Name="notifications" EntityType="repsont1_rotmModel.notification" />
+          <EntitySet Name="quotes" EntityType="repsont1_rotmModel.quote" />
+          <EntitySet Name="quote_status" EntityType="repsont1_rotmModel.quote_status" />
+          <EntitySet Name="registration_token" EntityType="repsont1_rotmModel.registration_token" />
+          <EntitySet Name="reminders" EntityType="repsont1_rotmModel.reminder" />
+          <EntitySet Name="reminder_type" EntityType="repsont1_rotmModel.reminder_type" />
+          <EntitySet Name="suppliers" EntityType="repsont1_rotmModel.supplier" />
+          <EntitySet Name="tasks" EntityType="repsont1_rotmModel.task" />
+          <EntitySet Name="task_milestone" EntityType="repsont1_rotmModel.task_milestone" />
+          <EntitySet Name="tasks_completed" EntityType="repsont1_rotmModel.tasks_completed" />
+          <EntitySet Name="titles" EntityType="repsont1_rotmModel.title" />
+          <EntitySet Name="training_course" EntityType="repsont1_rotmModel.training_course" />
+          <EntitySet Name="training_course_instance" EntityType="repsont1_rotmModel.training_course_instance" />
+          <EntitySet Name="training_course_type" EntityType="repsont1_rotmModel.training_course_type" />
+          <EntitySet Name="venues" EntityType="repsont1_rotmModel.venue" />
+          <AssociationSet Name="registration_token_ibfk_1" Association="repsont1_rotmModel.registration_token_ibfk_1">
+            <End Role="access_level" EntitySet="access_level" />
+            <End Role="registration_token" EntitySet="registration_token" />
+          </AssociationSet>
+          <AssociationSet Name="booking_ibfk_4" Association="repsont1_rotmModel.booking_ibfk_4">
+            <End Role="address" EntitySet="addresses" />
+            <End Role="booking" EntitySet="bookings" />
+          </AssociationSet>
+          <AssociationSet Name="booking_instance_ibfk_3" Association="repsont1_rotmModel.booking_instance_ibfk_3">
+            <End Role="address" EntitySet="addresses" />
+            <End Role="booking_instance" EntitySet="booking_instance" />
+          </AssociationSet>
+          <AssociationSet Name="employee_ibfk_3" Association="repsont1_rotmModel.employee_ibfk_3">
+            <End Role="address" EntitySet="addresses" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="venue_ibfk_1" Association="repsont1_rotmModel.venue_ibfk_1">
+            <End Role="address" EntitySet="addresses" />
+            <End Role="venue" EntitySet="venues" />
+          </AssociationSet>
+          <AssociationSet Name="attendance_ibfk_1" Association="repsont1_rotmModel.attendance_ibfk_1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="attendance" EntitySet="attendances" />
+          </AssociationSet>
+          <AssociationSet Name="attendance_ibfk_2" Association="repsont1_rotmModel.attendance_ibfk_2">
+            <End Role="training_course_instance" EntitySet="training_course_instance" />
+            <End Role="attendance" EntitySet="attendances" />
+          </AssociationSet>
+          <AssociationSet Name="audit_trail_ibfk_1" Association="repsont1_rotmModel.audit_trail_ibfk_1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="audit_trail" EntitySet="audit_trail" />
+          </AssociationSet>
+          <AssociationSet Name="booking_ibfk_1" Association="repsont1_rotmModel.booking_ibfk_1">
+            <End Role="booking_type" EntitySet="booking_type" />
+            <End Role="booking" EntitySet="bookings" />
+          </AssociationSet>
+          <AssociationSet Name="booking_ibfk_2" Association="repsont1_rotmModel.booking_ibfk_2">
+            <End Role="client" EntitySet="clients" />
+            <End Role="booking" EntitySet="bookings" />
+          </AssociationSet>
+          <AssociationSet Name="booking_ibfk_3" Association="repsont1_rotmModel.booking_ibfk_3">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="booking" EntitySet="bookings" />
+          </AssociationSet>
+          <AssociationSet Name="booking_instance_ibfk_2" Association="repsont1_rotmModel.booking_instance_ibfk_2">
+            <End Role="booking" EntitySet="bookings" />
+            <End Role="booking_instance" EntitySet="booking_instance" />
+          </AssociationSet>
+          <AssociationSet Name="booking_reminders_ibfk_1" Association="repsont1_rotmModel.booking_reminders_ibfk_1">
+            <End Role="booking" EntitySet="bookings" />
+            <End Role="booking_reminders" EntitySet="booking_reminders" />
+          </AssociationSet>
+          <AssociationSet Name="booking_instance_ibfk_1" Association="repsont1_rotmModel.booking_instance_ibfk_1">
+            <End Role="quote" EntitySet="quotes" />
+            <End Role="booking_instance" EntitySet="booking_instance" />
+          </AssociationSet>
+          <AssociationSet Name="tasks_completed_ibfk_2" Association="repsont1_rotmModel.tasks_completed_ibfk_2">
+            <End Role="booking_instance" EntitySet="booking_instance" />
+            <End Role="tasks_completed" EntitySet="tasks_completed" />
+          </AssociationSet>
+          <AssociationSet Name="booking_reminders_ibfk_2" Association="repsont1_rotmModel.booking_reminders_ibfk_2">
+            <End Role="reminder" EntitySet="reminders" />
+            <End Role="booking_reminders" EntitySet="booking_reminders" />
+          </AssociationSet>
+          <AssociationSet Name="client_contact_ibfk_3" Association="repsont1_rotmModel.client_contact_ibfk_3">
+            <End Role="client" EntitySet="clients" />
+            <End Role="client_contact" EntitySet="client_contact" />
+          </AssociationSet>
+          <AssociationSet Name="client_ibfk_1" Association="repsont1_rotmModel.client_ibfk_1">
+            <End Role="client_rating" EntitySet="client_rating" />
+            <End Role="client" EntitySet="clients" />
+          </AssociationSet>
+          <AssociationSet Name="client_ibfk_2" Association="repsont1_rotmModel.client_ibfk_2">
+            <End Role="client_type" EntitySet="client_type" />
+            <End Role="client" EntitySet="clients" />
+          </AssociationSet>
+          <AssociationSet Name="client_mailinglist_ibfk_1" Association="repsont1_rotmModel.client_mailinglist_ibfk_1">
+            <End Role="client" EntitySet="clients" />
+            <End Role="client_mailinglist" EntitySet="client_mailinglist" />
+          </AssociationSet>
+          <AssociationSet Name="employee_client_ibfk_2" Association="repsont1_rotmModel.employee_client_ibfk_2">
+            <End Role="client" EntitySet="clients" />
+            <End Role="employee_client" EntitySet="employee_client" />
+          </AssociationSet>
+          <AssociationSet Name="client_contact_ibfk_1" Association="repsont1_rotmModel.client_contact_ibfk_1">
+            <End Role="client_contact_type" EntitySet="client_contact_type" />
+            <End Role="client_contact" EntitySet="client_contact" />
+          </AssociationSet>
+          <AssociationSet Name="client_contact_ibfk_2" Association="repsont1_rotmModel.client_contact_ibfk_2">
+            <End Role="title" EntitySet="titles" />
+            <End Role="client_contact" EntitySet="client_contact" />
+          </AssociationSet>
+          <AssociationSet Name="client_mailinglist_ibfk_2" Association="repsont1_rotmModel.client_mailinglist_ibfk_2">
+            <End Role="mailing_list" EntitySet="mailing_list" />
+            <End Role="client_mailinglist" EntitySet="client_mailinglist" />
+          </AssociationSet>
+          <AssociationSet Name="employee_client_ibfk_1" Association="repsont1_rotmModel.employee_client_ibfk_1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="employee_client" EntitySet="employee_client" />
+          </AssociationSet>
+          <AssociationSet Name="employee_ibfk_1" Association="repsont1_rotmModel.employee_ibfk_1">
+            <End Role="employee_type" EntitySet="employee_type" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="employee_ibfk_2" Association="repsont1_rotmModel.employee_ibfk_2">
+            <End Role="gender" EntitySet="genders" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="employee_ibfk_4" Association="repsont1_rotmModel.employee_ibfk_4">
+            <End Role="title" EntitySet="titles" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="employee_mailinglist_ibfk_1" Association="repsont1_rotmModel.employee_mailinglist_ibfk_1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="employee_mailinglist" EntitySet="employee_mailinglist" />
+          </AssociationSet>
+          <AssociationSet Name="employee_milestone_ibfk_1" Association="repsont1_rotmModel.employee_milestone_ibfk_1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="employee_milestone" EntitySet="employee_milestone" />
+          </AssociationSet>
+          <AssociationSet Name="instructor_ibfk_1" Association="repsont1_rotmModel.instructor_ibfk_1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="instructor" EntitySet="instructors" />
+          </AssociationSet>
+          <AssociationSet Name="registration_token_ibfk_2" Association="repsont1_rotmModel.registration_token_ibfk_2">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="registration_token" EntitySet="registration_token" />
+          </AssociationSet>
+          <AssociationSet Name="training_course_ibfk_2" Association="repsont1_rotmModel.training_course_ibfk_2">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="training_course" EntitySet="training_course" />
+          </AssociationSet>
+          <AssociationSet Name="employee_mailinglist_ibfk_2" Association="repsont1_rotmModel.employee_mailinglist_ibfk_2">
+            <End Role="mailing_list" EntitySet="mailing_list" />
+            <End Role="employee_mailinglist" EntitySet="employee_mailinglist" />
+          </AssociationSet>
+          <AssociationSet Name="employee_milestone_ibfk_2" Association="repsont1_rotmModel.employee_milestone_ibfk_2">
+            <End Role="milestone" EntitySet="milestones" />
+            <End Role="employee_milestone" EntitySet="employee_milestone" />
+          </AssociationSet>
+          <AssociationSet Name="instructor_ibfk_2" Association="repsont1_rotmModel.instructor_ibfk_2">
+            <End Role="supplier" EntitySet="suppliers" />
+            <End Role="instructor" EntitySet="instructors" />
+          </AssociationSet>
+          <AssociationSet Name="instructor_ibfk_3" Association="repsont1_rotmModel.instructor_ibfk_3">
+            <End Role="title" EntitySet="titles" />
+            <End Role="instructor" EntitySet="instructors" />
+          </AssociationSet>
+          <AssociationSet Name="training_course_instance_ibfk_2" Association="repsont1_rotmModel.training_course_instance_ibfk_2">
+            <End Role="instructor" EntitySet="instructors" />
+            <End Role="training_course_instance" EntitySet="training_course_instance" />
+          </AssociationSet>
+          <AssociationSet Name="marketing_ibfk_2" Association="repsont1_rotmModel.marketing_ibfk_2">
+            <End Role="mailing_list" EntitySet="mailing_list" />
+            <End Role="marketing" EntitySet="marketings" />
+          </AssociationSet>
+          <AssociationSet Name="notification_ibfk_1" Association="repsont1_rotmModel.notification_ibfk_1">
+            <End Role="mailing_list" EntitySet="mailing_list" />
+            <End Role="notification" EntitySet="notifications" />
+          </AssociationSet>
+          <AssociationSet Name="marketing_ibfk_1" Association="repsont1_rotmModel.marketing_ibfk_1">
+            <End Role="marketing_type" EntitySet="marketing_type" />
+            <End Role="marketing" EntitySet="marketings" />
+          </AssociationSet>
+          <AssociationSet Name="task_milestone_ibfk_2" Association="repsont1_rotmModel.task_milestone_ibfk_2">
+            <End Role="milestone" EntitySet="milestones" />
+            <End Role="task_milestone" EntitySet="task_milestone" />
+          </AssociationSet>
+          <AssociationSet Name="quote_ibfk_1" Association="repsont1_rotmModel.quote_ibfk_1">
+            <End Role="quote_status" EntitySet="quote_status" />
+            <End Role="quote" EntitySet="quotes" />
+          </AssociationSet>
+          <AssociationSet Name="reminder_ibfk_1" Association="repsont1_rotmModel.reminder_ibfk_1">
+            <End Role="reminder_type" EntitySet="reminder_type" />
+            <End Role="reminder" EntitySet="reminders" />
+          </AssociationSet>
+          <AssociationSet Name="task_milestone_ibfk_1" Association="repsont1_rotmModel.task_milestone_ibfk_1">
+            <End Role="task" EntitySet="tasks" />
+            <End Role="task_milestone" EntitySet="task_milestone" />
+          </AssociationSet>
+          <AssociationSet Name="tasks_completed_ibfk_1" Association="repsont1_rotmModel.tasks_completed_ibfk_1">
+            <End Role="task" EntitySet="tasks" />
+            <End Role="tasks_completed" EntitySet="tasks_completed" />
+          </AssociationSet>
+          <AssociationSet Name="training_course_ibfk_1" Association="repsont1_rotmModel.training_course_ibfk_1">
+            <End Role="training_course_type" EntitySet="training_course_type" />
+            <End Role="training_course" EntitySet="training_course" />
+          </AssociationSet>
+          <AssociationSet Name="training_course_instance_ibfk_1" Association="repsont1_rotmModel.training_course_instance_ibfk_1">
+            <End Role="training_course" EntitySet="training_course" />
+            <End Role="training_course_instance" EntitySet="training_course_instance" />
+          </AssociationSet>
+          <AssociationSet Name="training_course_instance_ibfk_3" Association="repsont1_rotmModel.training_course_instance_ibfk_3">
+            <End Role="venue" EntitySet="venues" />
+            <End Role="training_course_instance" EntitySet="training_course_instance" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="LoginEmail_Result" />
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_Home_Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_Cellphone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_RSA_ID" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_Avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Employee_Type_ID" Type="Int32" />
+          <Property Name="Encrypted_Password" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Gender_ID" Type="Int32" />
+          <Property Name="Address_ID" Type="Int32" />
+          <Property Name="Title_ID" Type="Int32" />
+          <NavigationProperty Name="address" Relationship="repsont1_rotmModel.employee_ibfk_3" FromRole="employee" ToRole="address" />
+          <NavigationProperty Name="attendances" Relationship="repsont1_rotmModel.attendance_ibfk_1" FromRole="employee" ToRole="attendance" />
+          <NavigationProperty Name="audit_trail" Relationship="repsont1_rotmModel.audit_trail_ibfk_1" FromRole="employee" ToRole="audit_trail" />
+          <NavigationProperty Name="bookings" Relationship="repsont1_rotmModel.booking_ibfk_3" FromRole="employee" ToRole="booking" />
+          <NavigationProperty Name="employee_client" Relationship="repsont1_rotmModel.employee_client_ibfk_1" FromRole="employee" ToRole="employee_client" />
+          <NavigationProperty Name="employee_type" Relationship="repsont1_rotmModel.employee_ibfk_1" FromRole="employee" ToRole="employee_type" />
+          <NavigationProperty Name="gender" Relationship="repsont1_rotmModel.employee_ibfk_2" FromRole="employee" ToRole="gender" />
+          <NavigationProperty Name="title" Relationship="repsont1_rotmModel.employee_ibfk_4" FromRole="employee" ToRole="title" />
+          <NavigationProperty Name="employee_mailinglist" Relationship="repsont1_rotmModel.employee_mailinglist_ibfk_1" FromRole="employee" ToRole="employee_mailinglist" />
+          <NavigationProperty Name="employee_milestone" Relationship="repsont1_rotmModel.employee_milestone_ibfk_1" FromRole="employee" ToRole="employee_milestone" />
+          <NavigationProperty Name="instructors" Relationship="repsont1_rotmModel.instructor_ibfk_1" FromRole="employee" ToRole="instructor" />
+          <NavigationProperty Name="registration_token" Relationship="repsont1_rotmModel.registration_token_ibfk_2" FromRole="employee" ToRole="registration_token" />
+          <NavigationProperty Name="training_course" Relationship="repsont1_rotmModel.training_course_ibfk_2" FromRole="employee" ToRole="training_course" />
+        </EntityType>
+        <EntityType Name="access_level">
+          <Key>
+            <PropertyRef Name="Access_Level_ID" />
+          </Key>
+          <Property Name="Access_Level_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Access_Level_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Access_Level_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="registration_token" Relationship="repsont1_rotmModel.registration_token_ibfk_1" FromRole="access_level" ToRole="registration_token" />
+        </EntityType>
+        <EntityType Name="address">
+          <Key>
+            <PropertyRef Name="Address_ID" />
+          </Key>
+          <Property Name="Address_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Street_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Suburb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bookings" Relationship="repsont1_rotmModel.booking_ibfk_4" FromRole="address" ToRole="booking" />
+          <NavigationProperty Name="booking_instance" Relationship="repsont1_rotmModel.booking_instance_ibfk_3" FromRole="address" ToRole="booking_instance" />
+          <NavigationProperty Name="employees" Relationship="repsont1_rotmModel.employee_ibfk_3" FromRole="address" ToRole="employee" />
+          <NavigationProperty Name="venues" Relationship="repsont1_rotmModel.venue_ibfk_1" FromRole="address" ToRole="venue" />
+        </EntityType>
+        <EntityType Name="attendance">
+          <Key>
+            <PropertyRef Name="Training_Course_Instance_ID" />
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Training_Course_Instance_ID" Type="Int32" Nullable="false" />
+          <Property Name="Employee_ID" Type="Int32" Nullable="false" />
+          <Property Name="Replied_Going" Type="Boolean" />
+          <Property Name="Actual_Attendance" Type="Boolean" />
+          <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.attendance_ibfk_1" FromRole="attendance" ToRole="employee" />
+          <NavigationProperty Name="training_course_instance" Relationship="repsont1_rotmModel.attendance_ibfk_2" FromRole="attendance" ToRole="training_course_instance" />
+        </EntityType>
+        <EntityType Name="audit_trail">
+          <Key>
+            <PropertyRef Name="Audit_Trail_ID" />
+          </Key>
+          <Property Name="Audit_Trail_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Trail_DateTime" Type="DateTime" />
+          <Property Name="Trail_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted_Record" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.audit_trail_ibfk_1" FromRole="audit_trail" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="booking">
+          <Key>
+            <PropertyRef Name="Booking_ID" />
+          </Key>
+          <Property Name="Booking_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Booking_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Booking_Date" Type="DateTime" />
+          <Property Name="Booking_Start_Time" Type="Time" />
+          <Property Name="Booking_End_Time" Type="Time" />
+          <Property Name="Booking_Type_ID" Type="Int32" />
+          <Property Name="Client_ID" Type="Int32" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Address_ID" Type="Int32" />
+          <NavigationProperty Name="address" Relationship="repsont1_rotmModel.booking_ibfk_4" FromRole="booking" ToRole="address" />
+          <NavigationProperty Name="booking_type" Relationship="repsont1_rotmModel.booking_ibfk_1" FromRole="booking" ToRole="booking_type" />
+          <NavigationProperty Name="client" Relationship="repsont1_rotmModel.booking_ibfk_2" FromRole="booking" ToRole="client" />
+          <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.booking_ibfk_3" FromRole="booking" ToRole="employee" />
+          <NavigationProperty Name="booking_instance" Relationship="repsont1_rotmModel.booking_instance_ibfk_2" FromRole="booking" ToRole="booking_instance" />
+          <NavigationProperty Name="booking_reminders" Relationship="repsont1_rotmModel.booking_reminders_ibfk_1" FromRole="booking" ToRole="booking_reminders" />
+        </EntityType>
+        <EntityType Name="booking_instance">
+          <Key>
+            <PropertyRef Name="Booking_Instance_ID" />
+          </Key>
+          <Property Name="Booking_Instance_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Instance_Comments" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Instance_Start_Time" Type="Time" />
+          <Property Name="Instance_End_Time" Type="Time" />
+          <Property Name="Booking_ID" Type="Int32" />
+          <Property Name="Quote_ID" Type="Int32" />
+          <Property Name="Address_ID" Type="Int32" />
+          <NavigationProperty Name="address" Relationship="repsont1_rotmModel.booking_instance_ibfk_3" FromRole="booking_instance" ToRole="address" />
+          <NavigationProperty Name="booking" Relationship="repsont1_rotmModel.booking_instance_ibfk_2" FromRole="booking_instance" ToRole="booking" />
+          <NavigationProperty Name="quote" Relationship="repsont1_rotmModel.booking_instance_ibfk_1" FromRole="booking_instance" ToRole="quote" />
+          <NavigationProperty Name="tasks_completed" Relationship="repsont1_rotmModel.tasks_completed_ibfk_2" FromRole="booking_instance" ToRole="tasks_completed" />
+        </EntityType>
+        <EntityType Name="booking_reminders">
+          <Key>
+            <PropertyRef Name="Booking_ID" />
+            <PropertyRef Name="Reminder_ID" />
+          </Key>
+          <Property Name="Booking_ID" Type="Int32" Nullable="false" />
+          <Property Name="Reminder_ID" Type="Int32" Nullable="false" />
+          <Property Name="Reminder_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="booking" Relationship="repsont1_rotmModel.booking_reminders_ibfk_1" FromRole="booking_reminders" ToRole="booking" />
+          <NavigationProperty Name="reminder" Relationship="repsont1_rotmModel.booking_reminders_ibfk_2" FromRole="booking_reminders" ToRole="reminder" />
+        </EntityType>
+        <EntityType Name="booking_type">
+          <Key>
+            <PropertyRef Name="Booking_Type_ID" />
+          </Key>
+          <Property Name="Booking_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Booking_Type_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Booking_Type_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bookings" Relationship="repsont1_rotmModel.booking_ibfk_1" FromRole="booking_type" ToRole="booking" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="Client_ID" />
+          </Key>
+          <Property Name="Client_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Client_Cellphone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Client_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Client_Rating_ID" Type="Int32" />
+          <Property Name="Client_Type_ID" Type="Int32" />
+          <NavigationProperty Name="bookings" Relationship="repsont1_rotmModel.booking_ibfk_2" FromRole="client" ToRole="booking" />
+          <NavigationProperty Name="client_contact" Relationship="repsont1_rotmModel.client_contact_ibfk_3" FromRole="client" ToRole="client_contact" />
+          <NavigationProperty Name="client_rating" Relationship="repsont1_rotmModel.client_ibfk_1" FromRole="client" ToRole="client_rating" />
+          <NavigationProperty Name="client_type" Relationship="repsont1_rotmModel.client_ibfk_2" FromRole="client" ToRole="client_type" />
+          <NavigationProperty Name="client_mailinglist" Relationship="repsont1_rotmModel.client_mailinglist_ibfk_1" FromRole="client" ToRole="client_mailinglist" />
+          <NavigationProperty Name="employee_client" Relationship="repsont1_rotmModel.employee_client_ibfk_2" FromRole="client" ToRole="employee_client" />
+        </EntityType>
+        <EntityType Name="client_contact">
+          <Key>
+            <PropertyRef Name="Client_Contact_ID" />
+          </Key>
+          <Property Name="Client_Contact_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Contact_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contact_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contact_Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Contact_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Title_ID" Type="Int32" />
+          <Property Name="Client_Contact_Type_ID" Type="Int32" />
+          <Property Name="Client_ID" Type="Int32" />
+          <NavigationProperty Name="client" Relationship="repsont1_rotmModel.client_contact_ibfk_3" FromRole="client_contact" ToRole="client" />
+          <NavigationProperty Name="client_contact_type" Relationship="repsont1_rotmModel.client_contact_ibfk_1" FromRole="client_contact" ToRole="client_contact_type" />
+          <NavigationProperty Name="title" Relationship="repsont1_rotmModel.client_contact_ibfk_2" FromRole="client_contact" ToRole="title" />
+        </EntityType>
+        <EntityType Name="client_contact_type">
+          <Key>
+            <PropertyRef Name="Client_Contact_Type_ID" />
+          </Key>
+          <Property Name="Client_Contact_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="client_contact" Relationship="repsont1_rotmModel.client_contact_ibfk_1" FromRole="client_contact_type" ToRole="client_contact" />
+        </EntityType>
+        <EntityType Name="client_mailinglist">
+          <Key>
+            <PropertyRef Name="Client_ID" />
+            <PropertyRef Name="Mailing_List_ID" />
+          </Key>
+          <Property Name="Client_ID" Type="Int32" Nullable="false" />
+          <Property Name="Mailing_List_ID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="client" Relationship="repsont1_rotmModel.client_mailinglist_ibfk_1" FromRole="client_mailinglist" ToRole="client" />
+          <NavigationProperty Name="mailing_list" Relationship="repsont1_rotmModel.client_mailinglist_ibfk_2" FromRole="client_mailinglist" ToRole="mailing_list" />
+        </EntityType>
+        <EntityType Name="client_rating">
+          <Key>
+            <PropertyRef Name="Client_Rating_ID" />
+          </Key>
+          <Property Name="Client_Rating_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rating_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rating_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="clients" Relationship="repsont1_rotmModel.client_ibfk_1" FromRole="client_rating" ToRole="client" />
+        </EntityType>
+        <EntityType Name="client_type">
+          <Key>
+            <PropertyRef Name="Client_Type_ID" />
+          </Key>
+          <Property Name="Client_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Type_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Client_Type_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="clients" Relationship="repsont1_rotmModel.client_ibfk_2" FromRole="client_type" ToRole="client" />
+        </EntityType>
+        <EntityType Name="employee_client">
+          <Key>
+            <PropertyRef Name="Client_ID" />
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Client_ID" Type="Int32" Nullable="false" />
+          <Property Name="Employee_ID" Type="Int32" Nullable="false" />
+          <Property Name="Relationship_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="client" Relationship="repsont1_rotmModel.employee_client_ibfk_2" FromRole="employee_client" ToRole="client" />
+          <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.employee_client_ibfk_1" FromRole="employee_client" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="employee_mailinglist">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+            <PropertyRef Name="Mailing_List_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="Int32" Nullable="false" />
+          <Property Name="Mailing_List_ID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.employee_mailinglist_ibfk_1" FromRole="employee_mailinglist" ToRole="employee" />
+          <NavigationProperty Name="mailing_list" Relationship="repsont1_rotmModel.employee_mailinglist_ibfk_2" FromRole="employee_mailinglist" ToRole="mailing_list" />
+        </EntityType>
+        <EntityType Name="employee_milestone">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+            <PropertyRef Name="Milestone_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="Int32" Nullable="false" />
+          <Property Name="Milestone_ID" Type="Int32" Nullable="false" />
+          <Property Name="Task_Repetions" Type="Int32" />
+          <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.employee_milestone_ibfk_1" FromRole="employee_milestone" ToRole="employee" />
+          <NavigationProperty Name="milestone" Relationship="repsont1_rotmModel.employee_milestone_ibfk_2" FromRole="employee_milestone" ToRole="milestone" />
+        </EntityType>
+        <EntityType Name="employee_type">
+          <Key>
+            <PropertyRef Name="Employee_Type_ID" />
+          </Key>
+          <Property Name="Employee_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employees" Relationship="repsont1_rotmModel.employee_ibfk_1" FromRole="employee_type" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="gender">
+          <Key>
+            <PropertyRef Name="Gender_ID" />
+          </Key>
+          <Property Name="Gender_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employees" Relationship="repsont1_rotmModel.employee_ibfk_2" FromRole="gender" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="instructor">
+          <Key>
+            <PropertyRef Name="Instructor_ID" />
+          </Key>
+          <Property Name="Instructor_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Instructor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Instructor_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Instructor_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Supplier_ID" Type="Int32" />
+          <Property Name="Title_ID" Type="Int32" />
+          <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.instructor_ibfk_1" FromRole="instructor" ToRole="employee" />
+          <NavigationProperty Name="supplier" Relationship="repsont1_rotmModel.instructor_ibfk_2" FromRole="instructor" ToRole="supplier" />
+          <NavigationProperty Name="title" Relationship="repsont1_rotmModel.instructor_ibfk_3" FromRole="instructor" ToRole="title" />
+          <NavigationProperty Name="training_course_instance" Relationship="repsont1_rotmModel.training_course_instance_ibfk_2" FromRole="instructor" ToRole="training_course_instance" />
+        </EntityType>
+        <EntityType Name="mailing_list">
+          <Key>
+            <PropertyRef Name="Mailing_List_ID" />
+          </Key>
+          <Property Name="Mailing_List_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mailing_List_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mailing_List_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="client_mailinglist" Relationship="repsont1_rotmModel.client_mailinglist_ibfk_2" FromRole="mailing_list" ToRole="client_mailinglist" />
+          <NavigationProperty Name="employee_mailinglist" Relationship="repsont1_rotmModel.employee_mailinglist_ibfk_2" FromRole="mailing_list" ToRole="employee_mailinglist" />
+          <NavigationProperty Name="marketings" Relationship="repsont1_rotmModel.marketing_ibfk_2" FromRole="mailing_list" ToRole="marketing" />
+          <NavigationProperty Name="notifications" Relationship="repsont1_rotmModel.notification_ibfk_1" FromRole="mailing_list" ToRole="notification" />
+        </EntityType>
+        <EntityType Name="marketing">
+          <Key>
+            <PropertyRef Name="Marketing_ID" />
+          </Key>
+          <Property Name="Marketing_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marketing_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Marketing_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Marketing_Type_ID" Type="Int32" />
+          <Property Name="Mailing_List_ID" Type="Int32" />
+          <NavigationProperty Name="mailing_list" Relationship="repsont1_rotmModel.marketing_ibfk_2" FromRole="marketing" ToRole="mailing_list" />
+          <NavigationProperty Name="marketing_type" Relationship="repsont1_rotmModel.marketing_ibfk_1" FromRole="marketing" ToRole="marketing_type" />
+        </EntityType>
+        <EntityType Name="marketing_type">
+          <Key>
+            <PropertyRef Name="Marketing_Type_ID" />
+          </Key>
+          <Property Name="Marketing_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marketing_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Marketing_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="marketings" Relationship="repsont1_rotmModel.marketing_ibfk_1" FromRole="marketing_type" ToRole="marketing" />
+        </EntityType>
+        <EntityType Name="milestone">
+          <Key>
+            <PropertyRef Name="Milestone_ID" />
+          </Key>
+          <Property Name="Milestone_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Milestone_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Milestone_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employee_milestone" Relationship="repsont1_rotmModel.employee_milestone_ibfk_2" FromRole="milestone" ToRole="employee_milestone" />
+          <NavigationProperty Name="task_milestone" Relationship="repsont1_rotmModel.task_milestone_ibfk_2" FromRole="milestone" ToRole="task_milestone" />
+        </EntityType>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="Notification_ID" />
+          </Key>
+          <Property Name="Notification_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Notification_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Notification_Text" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Notification_DateTime" Type="DateTime" />
+          <Property Name="Mailing_List_ID" Type="Int32" />
+          <NavigationProperty Name="mailing_list" Relationship="repsont1_rotmModel.notification_ibfk_1" FromRole="notification" ToRole="mailing_list" />
+        </EntityType>
+        <EntityType Name="quote">
+          <Key>
+            <PropertyRef Name="Quote_ID" />
+          </Key>
+          <Property Name="Quote_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quote_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quote_Ref_Num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quote_Date" Type="DateTime" />
+          <Property Name="Quote_Price" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Quote_Status_ID" Type="Int32" />
+          <NavigationProperty Name="booking_instance" Relationship="repsont1_rotmModel.booking_instance_ibfk_1" FromRole="quote" ToRole="booking_instance" />
+          <NavigationProperty Name="quote_status" Relationship="repsont1_rotmModel.quote_ibfk_1" FromRole="quote" ToRole="quote_status" />
+        </EntityType>
+        <EntityType Name="quote_status">
+          <Key>
+            <PropertyRef Name="Quote_Status_ID" />
+          </Key>
+          <Property Name="Quote_Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="quotes" Relationship="repsont1_rotmModel.quote_ibfk_1" FromRole="quote_status" ToRole="quote" />
+        </EntityType>
+        <EntityType Name="registration_token">
+          <Key>
+            <PropertyRef Name="Registration_Token_ID" />
+          </Key>
+          <Property Name="Registration_Token_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Registration_Token1" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="New_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Access_Level_ID" Type="Int32" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <NavigationProperty Name="access_level" Relationship="repsont1_rotmModel.registration_token_ibfk_1" FromRole="registration_token" ToRole="access_level" />
+          <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.registration_token_ibfk_2" FromRole="registration_token" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="reminder">
+          <Key>
+            <PropertyRef Name="Reminder_ID" />
+          </Key>
+          <Property Name="Reminder_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Reminder_Type_ID" Type="Int32" />
+          <Property Name="Reminder_DateTime" Type="DateTime" />
+          <NavigationProperty Name="booking_reminders" Relationship="repsont1_rotmModel.booking_reminders_ibfk_2" FromRole="reminder" ToRole="booking_reminders" />
+          <NavigationProperty Name="reminder_type" Relationship="repsont1_rotmModel.reminder_ibfk_1" FromRole="reminder" ToRole="reminder_type" />
+        </EntityType>
+        <EntityType Name="reminder_type">
+          <Key>
+            <PropertyRef Name="Reminder_Type_ID" />
+          </Key>
+          <Property Name="Reminder_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Reminder_Type_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Reminder_Type_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="reminders" Relationship="repsont1_rotmModel.reminder_ibfk_1" FromRole="reminder_type" ToRole="reminder" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="Supplier_ID" />
+          </Key>
+          <Property Name="Supplier_ID" Type="Int32" Nullable="false" />
+          <Property Name="Supplier_Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Supplier_Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="instructors" Relationship="repsont1_rotmModel.instructor_ibfk_2" FromRole="supplier" ToRole="instructor" />
+        </EntityType>
+        <EntityType Name="task">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Task_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Task_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="task_milestone" Relationship="repsont1_rotmModel.task_milestone_ibfk_1" FromRole="task" ToRole="task_milestone" />
+          <NavigationProperty Name="tasks_completed" Relationship="repsont1_rotmModel.tasks_completed_ibfk_1" FromRole="task" ToRole="tasks_completed" />
+        </EntityType>
+        <EntityType Name="task_milestone">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+            <PropertyRef Name="Milestone_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="Int32" Nullable="false" />
+          <Property Name="Milestone_ID" Type="Int32" Nullable="false" />
+          <Property Name="Reason_Milestone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Milestone_Progress" Type="Int32" />
+          <NavigationProperty Name="milestone" Relationship="repsont1_rotmModel.task_milestone_ibfk_2" FromRole="task_milestone" ToRole="milestone" />
+          <NavigationProperty Name="task" Relationship="repsont1_rotmModel.task_milestone_ibfk_1" FromRole="task_milestone" ToRole="task" />
+        </EntityType>
+        <EntityType Name="tasks_completed">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+            <PropertyRef Name="Booking_Instance_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="Int32" Nullable="false" />
+          <Property Name="Booking_Instance_ID" Type="Int32" Nullable="false" />
+          <Property Name="Task_Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="booking_instance" Relationship="repsont1_rotmModel.tasks_completed_ibfk_2" FromRole="tasks_completed" ToRole="booking_instance" />
+          <NavigationProperty Name="task" Relationship="repsont1_rotmModel.tasks_completed_ibfk_1" FromRole="tasks_completed" ToRole="task" />
+        </EntityType>
+        <EntityType Name="title">
+          <Key>
+            <PropertyRef Name="Title_ID" />
+          </Key>
+          <Property Name="Title_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="client_contact" Relationship="repsont1_rotmModel.client_contact_ibfk_2" FromRole="title" ToRole="client_contact" />
+          <NavigationProperty Name="employees" Relationship="repsont1_rotmModel.employee_ibfk_4" FromRole="title" ToRole="employee" />
+          <NavigationProperty Name="instructors" Relationship="repsont1_rotmModel.instructor_ibfk_3" FromRole="title" ToRole="instructor" />
+        </EntityType>
+        <EntityType Name="training_course">
+          <Key>
+            <PropertyRef Name="Training_Course_ID" />
+          </Key>
+          <Property Name="Training_Course_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Training_Course_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Training_Course_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Training_Course_Type_ID" Type="Int32" />
+          <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.training_course_ibfk_2" FromRole="training_course" ToRole="employee" />
+          <NavigationProperty Name="training_course_type" Relationship="repsont1_rotmModel.training_course_ibfk_1" FromRole="training_course" ToRole="training_course_type" />
+          <NavigationProperty Name="training_course_instance" Relationship="repsont1_rotmModel.training_course_instance_ibfk_1" FromRole="training_course" ToRole="training_course_instance" />
+        </EntityType>
+        <EntityType Name="training_course_instance">
+          <Key>
+            <PropertyRef Name="Training_Course_Instance_ID" />
+          </Key>
+          <Property Name="Training_Course_Instance_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Instance_Date" Type="DateTime" />
+          <Property Name="Instance_Start_Time" Type="Time" />
+          <Property Name="Instance_End_Time" Type="Time" />
+          <Property Name="Venue_ID" Type="Int32" />
+          <Property Name="Instructor_ID" Type="Int32" />
+          <Property Name="Training_Course_ID" Type="Int32" />
+          <NavigationProperty Name="attendances" Relationship="repsont1_rotmModel.attendance_ibfk_2" FromRole="training_course_instance" ToRole="attendance" />
+          <NavigationProperty Name="instructor" Relationship="repsont1_rotmModel.training_course_instance_ibfk_2" FromRole="training_course_instance" ToRole="instructor" />
+          <NavigationProperty Name="training_course" Relationship="repsont1_rotmModel.training_course_instance_ibfk_1" FromRole="training_course_instance" ToRole="training_course" />
+          <NavigationProperty Name="venue" Relationship="repsont1_rotmModel.training_course_instance_ibfk_3" FromRole="training_course_instance" ToRole="venue" />
+        </EntityType>
+        <EntityType Name="training_course_type">
+          <Key>
+            <PropertyRef Name="Training_Course_Type_ID" />
+          </Key>
+          <Property Name="Training_Course_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Course_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Course_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="training_course" Relationship="repsont1_rotmModel.training_course_ibfk_1" FromRole="training_course_type" ToRole="training_course" />
+        </EntityType>
+        <EntityType Name="venue">
+          <Key>
+            <PropertyRef Name="Venue_ID" />
+          </Key>
+          <Property Name="Venue_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Venue_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Venue_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Venue_Size" Type="Int32" />
+          <Property Name="Address_ID" Type="Int32" />
+          <NavigationProperty Name="address" Relationship="repsont1_rotmModel.venue_ibfk_1" FromRole="venue" ToRole="address" />
+          <NavigationProperty Name="training_course_instance" Relationship="repsont1_rotmModel.training_course_instance_ibfk_3" FromRole="venue" ToRole="training_course_instance" />
+        </EntityType>
+        <Association Name="registration_token_ibfk_1">
+          <End Type="repsont1_rotmModel.access_level" Role="access_level" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.registration_token" Role="registration_token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="access_level">
+              <PropertyRef Name="Access_Level_ID" />
+            </Principal>
+            <Dependent Role="registration_token">
+              <PropertyRef Name="Access_Level_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_ibfk_4">
+          <End Type="repsont1_rotmModel.address" Role="address" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.booking" Role="booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_instance_ibfk_3">
+          <End Type="repsont1_rotmModel.address" Role="address" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.booking_instance" Role="booking_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="booking_instance">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_ibfk_3">
+          <End Type="repsont1_rotmModel.address" Role="address" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venue_ibfk_1">
+          <End Type="repsont1_rotmModel.address" Role="address" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.venue" Role="venue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="venue">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="attendance_ibfk_1">
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.attendance" Role="attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="attendance_ibfk_2">
+          <End Type="repsont1_rotmModel.training_course_instance" Role="training_course_instance" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.attendance" Role="attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="training_course_instance">
+              <PropertyRef Name="Training_Course_Instance_ID" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="Training_Course_Instance_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="audit_trail_ibfk_1">
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.audit_trail" Role="audit_trail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="audit_trail">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_ibfk_1">
+          <End Type="repsont1_rotmModel.booking_type" Role="booking_type" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.booking" Role="booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="booking_type">
+              <PropertyRef Name="Booking_Type_ID" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="Booking_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_ibfk_2">
+          <End Type="repsont1_rotmModel.client" Role="client" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.booking" Role="booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Client_ID" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_ibfk_3">
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.booking" Role="booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_instance_ibfk_2">
+          <End Type="repsont1_rotmModel.booking" Role="booking" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.booking_instance" Role="booking_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="booking">
+              <PropertyRef Name="Booking_ID" />
+            </Principal>
+            <Dependent Role="booking_instance">
+              <PropertyRef Name="Booking_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_reminders_ibfk_1">
+          <End Type="repsont1_rotmModel.booking" Role="booking" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.booking_reminders" Role="booking_reminders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="booking">
+              <PropertyRef Name="Booking_ID" />
+            </Principal>
+            <Dependent Role="booking_reminders">
+              <PropertyRef Name="Booking_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_instance_ibfk_1">
+          <End Type="repsont1_rotmModel.quote" Role="quote" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.booking_instance" Role="booking_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quote">
+              <PropertyRef Name="Quote_ID" />
+            </Principal>
+            <Dependent Role="booking_instance">
+              <PropertyRef Name="Quote_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tasks_completed_ibfk_2">
+          <End Type="repsont1_rotmModel.booking_instance" Role="booking_instance" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.tasks_completed" Role="tasks_completed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="booking_instance">
+              <PropertyRef Name="Booking_Instance_ID" />
+            </Principal>
+            <Dependent Role="tasks_completed">
+              <PropertyRef Name="Booking_Instance_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="booking_reminders_ibfk_2">
+          <End Type="repsont1_rotmModel.reminder" Role="reminder" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.booking_reminders" Role="booking_reminders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="reminder">
+              <PropertyRef Name="Reminder_ID" />
+            </Principal>
+            <Dependent Role="booking_reminders">
+              <PropertyRef Name="Reminder_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_contact_ibfk_3">
+          <End Type="repsont1_rotmModel.client" Role="client" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.client_contact" Role="client_contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Client_ID" />
+            </Principal>
+            <Dependent Role="client_contact">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_ibfk_1">
+          <End Type="repsont1_rotmModel.client_rating" Role="client_rating" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.client" Role="client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client_rating">
+              <PropertyRef Name="Client_Rating_ID" />
+            </Principal>
+            <Dependent Role="client">
+              <PropertyRef Name="Client_Rating_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_ibfk_2">
+          <End Type="repsont1_rotmModel.client_type" Role="client_type" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.client" Role="client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client_type">
+              <PropertyRef Name="Client_Type_ID" />
+            </Principal>
+            <Dependent Role="client">
+              <PropertyRef Name="Client_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_mailinglist_ibfk_1">
+          <End Type="repsont1_rotmModel.client" Role="client" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.client_mailinglist" Role="client_mailinglist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Client_ID" />
+            </Principal>
+            <Dependent Role="client_mailinglist">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_client_ibfk_2">
+          <End Type="repsont1_rotmModel.client" Role="client" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.employee_client" Role="employee_client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Client_ID" />
+            </Principal>
+            <Dependent Role="employee_client">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_contact_ibfk_1">
+          <End Type="repsont1_rotmModel.client_contact_type" Role="client_contact_type" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.client_contact" Role="client_contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client_contact_type">
+              <PropertyRef Name="Client_Contact_Type_ID" />
+            </Principal>
+            <Dependent Role="client_contact">
+              <PropertyRef Name="Client_Contact_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_contact_ibfk_2">
+          <End Type="repsont1_rotmModel.title" Role="title" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.client_contact" Role="client_contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="title">
+              <PropertyRef Name="Title_ID" />
+            </Principal>
+            <Dependent Role="client_contact">
+              <PropertyRef Name="Title_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_mailinglist_ibfk_2">
+          <End Type="repsont1_rotmModel.mailing_list" Role="mailing_list" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.client_mailinglist" Role="client_mailinglist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mailing_list">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Principal>
+            <Dependent Role="client_mailinglist">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_client_ibfk_1">
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.employee_client" Role="employee_client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="employee_client">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_ibfk_1">
+          <End Type="repsont1_rotmModel.employee_type" Role="employee_type" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee_type">
+              <PropertyRef Name="Employee_Type_ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="Employee_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_ibfk_2">
+          <End Type="repsont1_rotmModel.gender" Role="gender" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="Gender_ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="Gender_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_ibfk_4">
+          <End Type="repsont1_rotmModel.title" Role="title" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="title">
+              <PropertyRef Name="Title_ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="Title_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_mailinglist_ibfk_1">
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.employee_mailinglist" Role="employee_mailinglist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="employee_mailinglist">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_milestone_ibfk_1">
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.employee_milestone" Role="employee_milestone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="employee_milestone">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="instructor_ibfk_1">
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="instructor">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="registration_token_ibfk_2">
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.registration_token" Role="registration_token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="registration_token">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="training_course_ibfk_2">
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.training_course" Role="training_course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="training_course">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_mailinglist_ibfk_2">
+          <End Type="repsont1_rotmModel.mailing_list" Role="mailing_list" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.employee_mailinglist" Role="employee_mailinglist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mailing_list">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Principal>
+            <Dependent Role="employee_mailinglist">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employee_milestone_ibfk_2">
+          <End Type="repsont1_rotmModel.milestone" Role="milestone" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.employee_milestone" Role="employee_milestone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="milestone">
+              <PropertyRef Name="Milestone_ID" />
+            </Principal>
+            <Dependent Role="employee_milestone">
+              <PropertyRef Name="Milestone_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="instructor_ibfk_2">
+          <End Type="repsont1_rotmModel.supplier" Role="supplier" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="supplier">
+              <PropertyRef Name="Supplier_ID" />
+            </Principal>
+            <Dependent Role="instructor">
+              <PropertyRef Name="Supplier_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="instructor_ibfk_3">
+          <End Type="repsont1_rotmModel.title" Role="title" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="title">
+              <PropertyRef Name="Title_ID" />
+            </Principal>
+            <Dependent Role="instructor">
+              <PropertyRef Name="Title_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="training_course_instance_ibfk_2">
+          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.training_course_instance" Role="training_course_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="instructor">
+              <PropertyRef Name="Instructor_ID" />
+            </Principal>
+            <Dependent Role="training_course_instance">
+              <PropertyRef Name="Instructor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="marketing_ibfk_2">
+          <End Type="repsont1_rotmModel.mailing_list" Role="mailing_list" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.marketing" Role="marketing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mailing_list">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Principal>
+            <Dependent Role="marketing">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="notification_ibfk_1">
+          <End Type="repsont1_rotmModel.mailing_list" Role="mailing_list" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.notification" Role="notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mailing_list">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="Mailing_List_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="marketing_ibfk_1">
+          <End Type="repsont1_rotmModel.marketing_type" Role="marketing_type" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.marketing" Role="marketing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="marketing_type">
+              <PropertyRef Name="Marketing_Type_ID" />
+            </Principal>
+            <Dependent Role="marketing">
+              <PropertyRef Name="Marketing_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="task_milestone_ibfk_2">
+          <End Type="repsont1_rotmModel.milestone" Role="milestone" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.task_milestone" Role="task_milestone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="milestone">
+              <PropertyRef Name="Milestone_ID" />
+            </Principal>
+            <Dependent Role="task_milestone">
+              <PropertyRef Name="Milestone_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="quote_ibfk_1">
+          <End Type="repsont1_rotmModel.quote_status" Role="quote_status" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.quote" Role="quote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quote_status">
+              <PropertyRef Name="Quote_Status_ID" />
+            </Principal>
+            <Dependent Role="quote">
+              <PropertyRef Name="Quote_Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reminder_ibfk_1">
+          <End Type="repsont1_rotmModel.reminder_type" Role="reminder_type" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.reminder" Role="reminder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="reminder_type">
+              <PropertyRef Name="Reminder_Type_ID" />
+            </Principal>
+            <Dependent Role="reminder">
+              <PropertyRef Name="Reminder_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="task_milestone_ibfk_1">
+          <End Type="repsont1_rotmModel.task" Role="task" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.task_milestone" Role="task_milestone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="task">
+              <PropertyRef Name="Task_ID" />
+            </Principal>
+            <Dependent Role="task_milestone">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tasks_completed_ibfk_1">
+          <End Type="repsont1_rotmModel.task" Role="task" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.tasks_completed" Role="tasks_completed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="task">
+              <PropertyRef Name="Task_ID" />
+            </Principal>
+            <Dependent Role="tasks_completed">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="training_course_ibfk_1">
+          <End Type="repsont1_rotmModel.training_course_type" Role="training_course_type" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.training_course" Role="training_course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="training_course_type">
+              <PropertyRef Name="Training_Course_Type_ID" />
+            </Principal>
+            <Dependent Role="training_course">
+              <PropertyRef Name="Training_Course_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="training_course_instance_ibfk_1">
+          <End Type="repsont1_rotmModel.training_course" Role="training_course" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.training_course_instance" Role="training_course_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="training_course">
+              <PropertyRef Name="Training_Course_ID" />
+            </Principal>
+            <Dependent Role="training_course_instance">
+              <PropertyRef Name="Training_Course_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="training_course_instance_ibfk_3">
+          <End Type="repsont1_rotmModel.venue" Role="venue" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.training_course_instance" Role="training_course_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="venue">
+              <PropertyRef Name="Venue_ID" />
+            </Principal>
+            <Dependent Role="training_course_instance">
+              <PropertyRef Name="Venue_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="repsont1_rotmModelStoreContainer" CdmEntityContainer="Entities" >
+          <FunctionImportMapping FunctionImportName="LoginEmail" FunctionName="repsont1_rotmModel.Store.LoginEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="repsont1_rotmModel.LoginEmail_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="Gender_ID" ColumnName="Gender_ID" />
+                <ScalarProperty Name="Encrypted_Password" ColumnName="Encrypted_Password" />
+                <ScalarProperty Name="Employee_Type_ID" ColumnName="Employee_Type_ID" />
+                <ScalarProperty Name="Employee_Avatar" ColumnName="Employee_Avatar" />
+                <ScalarProperty Name="Employee_RSA_ID" ColumnName="Employee_RSA_ID" />
+                <ScalarProperty Name="Employee_Cellphone" ColumnName="Employee_Cellphone" />
+                <ScalarProperty Name="Employee_Home_Phone" ColumnName="Employee_Home_Phone" />
+                <ScalarProperty Name="Employee_Email" ColumnName="Employee_Email" />
+                <ScalarProperty Name="Employee_Surname" ColumnName="Employee_Surname" />
+                <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="access_level">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.access_level">
+              <MappingFragment StoreEntitySet="access_level">
+                <ScalarProperty Name="Access_Level_Description" ColumnName="Access_Level_Description" />
+                <ScalarProperty Name="Access_Level_Name" ColumnName="Access_Level_Name" />
+                <ScalarProperty Name="Access_Level_ID" ColumnName="Access_Level_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="addresses">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.address">
+              <MappingFragment StoreEntitySet="address">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Suburb" ColumnName="Suburb" />
+                <ScalarProperty Name="Street_Name" ColumnName="Street_Name" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="attendances">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.attendance">
+              <MappingFragment StoreEntitySet="attendance">
+                <ScalarProperty Name="Actual_Attendance" ColumnName="Actual_Attendance" />
+                <ScalarProperty Name="Replied_Going" ColumnName="Replied_Going" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Training_Course_Instance_ID" ColumnName="Training_Course_Instance_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="audit_trail">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.audit_trail">
+              <MappingFragment StoreEntitySet="audit_trail">
+                <ScalarProperty Name="Deleted_Record" ColumnName="Deleted_Record" />
+                <ScalarProperty Name="Trail_Description" ColumnName="Trail_Description" />
+                <ScalarProperty Name="Trail_DateTime" ColumnName="Trail_DateTime" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Audit_Trail_ID" ColumnName="Audit_Trail_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bookings">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.booking">
+              <MappingFragment StoreEntitySet="booking">
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+                <ScalarProperty Name="Booking_Type_ID" ColumnName="Booking_Type_ID" />
+                <ScalarProperty Name="Booking_End_Time" ColumnName="Booking_End_Time" />
+                <ScalarProperty Name="Booking_Start_Time" ColumnName="Booking_Start_Time" />
+                <ScalarProperty Name="Booking_Date" ColumnName="Booking_Date" />
+                <ScalarProperty Name="Booking_Name" ColumnName="Booking_Name" />
+                <ScalarProperty Name="Booking_ID" ColumnName="Booking_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="booking_instance">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.booking_instance">
+              <MappingFragment StoreEntitySet="booking_instance">
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="Quote_ID" ColumnName="Quote_ID" />
+                <ScalarProperty Name="Booking_ID" ColumnName="Booking_ID" />
+                <ScalarProperty Name="Instance_End_Time" ColumnName="Instance_End_Time" />
+                <ScalarProperty Name="Instance_Start_Time" ColumnName="Instance_Start_Time" />
+                <ScalarProperty Name="Instance_Comments" ColumnName="Instance_Comments" />
+                <ScalarProperty Name="Booking_Instance_ID" ColumnName="Booking_Instance_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="booking_reminders">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.booking_reminders">
+              <MappingFragment StoreEntitySet="booking_reminders">
+                <ScalarProperty Name="Reminder_Description" ColumnName="Reminder_Description" />
+                <ScalarProperty Name="Reminder_ID" ColumnName="Reminder_ID" />
+                <ScalarProperty Name="Booking_ID" ColumnName="Booking_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="booking_type">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.booking_type">
+              <MappingFragment StoreEntitySet="booking_type">
+                <ScalarProperty Name="Booking_Type_Description" ColumnName="Booking_Type_Description" />
+                <ScalarProperty Name="Booking_Type_Name" ColumnName="Booking_Type_Name" />
+                <ScalarProperty Name="Booking_Type_ID" ColumnName="Booking_Type_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clients">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="Client_Type_ID" ColumnName="Client_Type_ID" />
+                <ScalarProperty Name="Client_Rating_ID" ColumnName="Client_Rating_ID" />
+                <ScalarProperty Name="Client_Email" ColumnName="Client_Email" />
+                <ScalarProperty Name="Client_Cellphone" ColumnName="Client_Cellphone" />
+                <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
+                <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client_contact">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.client_contact">
+              <MappingFragment StoreEntitySet="client_contact">
+                <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+                <ScalarProperty Name="Client_Contact_Type_ID" ColumnName="Client_Contact_Type_ID" />
+                <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
+                <ScalarProperty Name="Contact_Email" ColumnName="Contact_Email" />
+                <ScalarProperty Name="Contact_Phone" ColumnName="Contact_Phone" />
+                <ScalarProperty Name="Contact_Surname" ColumnName="Contact_Surname" />
+                <ScalarProperty Name="Contact_Name" ColumnName="Contact_Name" />
+                <ScalarProperty Name="Client_Contact_ID" ColumnName="Client_Contact_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client_contact_type">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.client_contact_type">
+              <MappingFragment StoreEntitySet="client_contact_type">
+                <ScalarProperty Name="Type_Description" ColumnName="Type_Description" />
+                <ScalarProperty Name="Type_Name" ColumnName="Type_Name" />
+                <ScalarProperty Name="Client_Contact_Type_ID" ColumnName="Client_Contact_Type_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client_mailinglist">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.client_mailinglist">
+              <MappingFragment StoreEntitySet="client_mailinglist">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Mailing_List_ID" ColumnName="Mailing_List_ID" />
+                <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client_rating">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.client_rating">
+              <MappingFragment StoreEntitySet="client_rating">
+                <ScalarProperty Name="Rating_Description" ColumnName="Rating_Description" />
+                <ScalarProperty Name="Rating_Name" ColumnName="Rating_Name" />
+                <ScalarProperty Name="Client_Rating_ID" ColumnName="Client_Rating_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client_type">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.client_type">
+              <MappingFragment StoreEntitySet="client_type">
+                <ScalarProperty Name="Client_Type_Description" ColumnName="Client_Type_Description" />
+                <ScalarProperty Name="Client_Type_Name" ColumnName="Client_Type_Name" />
+                <ScalarProperty Name="Client_Type_ID" ColumnName="Client_Type_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee_client">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.employee_client">
+              <MappingFragment StoreEntitySet="employee_client">
+                <ScalarProperty Name="Relationship_Description" ColumnName="Relationship_Description" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee_mailinglist">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.employee_mailinglist">
+              <MappingFragment StoreEntitySet="employee_mailinglist">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Mailing_List_ID" ColumnName="Mailing_List_ID" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee_milestone">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.employee_milestone">
+              <MappingFragment StoreEntitySet="employee_milestone">
+                <ScalarProperty Name="Task_Repetions" ColumnName="Task_Repetions" />
+                <ScalarProperty Name="Milestone_ID" ColumnName="Milestone_ID" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee_type">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.employee_type">
+              <MappingFragment StoreEntitySet="employee_type">
+                <ScalarProperty Name="Type_Description" ColumnName="Type_Description" />
+                <ScalarProperty Name="Type_Name" ColumnName="Type_Name" />
+                <ScalarProperty Name="Employee_Type_ID" ColumnName="Employee_Type_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genders">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.gender">
+              <MappingFragment StoreEntitySet="gender">
+                <ScalarProperty Name="Gender1" ColumnName="Gender" />
+                <ScalarProperty Name="Gender_ID" ColumnName="Gender_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="instructors">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.instructor">
+              <MappingFragment StoreEntitySet="instructor">
+                <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
+                <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Instructor_Email" ColumnName="Instructor_Email" />
+                <ScalarProperty Name="Instructor_Surname" ColumnName="Instructor_Surname" />
+                <ScalarProperty Name="Instructor_Name" ColumnName="Instructor_Name" />
+                <ScalarProperty Name="Instructor_ID" ColumnName="Instructor_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mailing_list">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.mailing_list">
+              <MappingFragment StoreEntitySet="mailing_list">
+                <ScalarProperty Name="Mailing_List_Description" ColumnName="Mailing_List_Description" />
+                <ScalarProperty Name="Mailing_List_Name" ColumnName="Mailing_List_Name" />
+                <ScalarProperty Name="Mailing_List_ID" ColumnName="Mailing_List_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marketings">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.marketing">
+              <MappingFragment StoreEntitySet="marketing">
+                <ScalarProperty Name="Mailing_List_ID" ColumnName="Mailing_List_ID" />
+                <ScalarProperty Name="Marketing_Type_ID" ColumnName="Marketing_Type_ID" />
+                <ScalarProperty Name="Marketing_Image" ColumnName="Marketing_Image" />
+                <ScalarProperty Name="Marketing_Description" ColumnName="Marketing_Description" />
+                <ScalarProperty Name="Marketing_ID" ColumnName="Marketing_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marketing_type">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.marketing_type">
+              <MappingFragment StoreEntitySet="marketing_type">
+                <ScalarProperty Name="Marketing_Description" ColumnName="Marketing_Description" />
+                <ScalarProperty Name="Marketing_Name" ColumnName="Marketing_Name" />
+                <ScalarProperty Name="Marketing_Type_ID" ColumnName="Marketing_Type_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="milestones">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.milestone">
+              <MappingFragment StoreEntitySet="milestone">
+                <ScalarProperty Name="Milestone_Description" ColumnName="Milestone_Description" />
+                <ScalarProperty Name="Milestone_Name" ColumnName="Milestone_Name" />
+                <ScalarProperty Name="Milestone_ID" ColumnName="Milestone_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifications">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.notification">
+              <MappingFragment StoreEntitySet="notification">
+                <ScalarProperty Name="Mailing_List_ID" ColumnName="Mailing_List_ID" />
+                <ScalarProperty Name="Notification_DateTime" ColumnName="Notification_DateTime" />
+                <ScalarProperty Name="Notification_Text" ColumnName="Notification_Text" />
+                <ScalarProperty Name="Notification_Name" ColumnName="Notification_Name" />
+                <ScalarProperty Name="Notification_ID" ColumnName="Notification_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quotes">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.quote">
+              <MappingFragment StoreEntitySet="quote">
+                <ScalarProperty Name="Quote_Status_ID" ColumnName="Quote_Status_ID" />
+                <ScalarProperty Name="Quote_Price" ColumnName="Quote_Price" />
+                <ScalarProperty Name="Quote_Date" ColumnName="Quote_Date" />
+                <ScalarProperty Name="Quote_Ref_Num" ColumnName="Quote_Ref_Num" />
+                <ScalarProperty Name="Quote_Name" ColumnName="Quote_Name" />
+                <ScalarProperty Name="Quote_ID" ColumnName="Quote_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quote_status">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.quote_status">
+              <MappingFragment StoreEntitySet="quote_status">
+                <ScalarProperty Name="Status_Description" ColumnName="Status_Description" />
+                <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
+                <ScalarProperty Name="Quote_Status_ID" ColumnName="Quote_Status_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="registration_token">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.registration_token">
+              <MappingFragment StoreEntitySet="registration_token">
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Access_Level_ID" ColumnName="Access_Level_ID" />
+                <ScalarProperty Name="New_Email" ColumnName="New_Email" />
+                <ScalarProperty Name="Registration_Token1" ColumnName="Registration_Token" />
+                <ScalarProperty Name="Registration_Token_ID" ColumnName="Registration_Token_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reminders">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.reminder">
+              <MappingFragment StoreEntitySet="reminder">
+                <ScalarProperty Name="Reminder_DateTime" ColumnName="Reminder_DateTime" />
+                <ScalarProperty Name="Reminder_Type_ID" ColumnName="Reminder_Type_ID" />
+                <ScalarProperty Name="Reminder_ID" ColumnName="Reminder_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reminder_type">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.reminder_type">
+              <MappingFragment StoreEntitySet="reminder_type">
+                <ScalarProperty Name="Reminder_Type_Description" ColumnName="Reminder_Type_Description" />
+                <ScalarProperty Name="Reminder_Type_Name" ColumnName="Reminder_Type_Name" />
+                <ScalarProperty Name="Reminder_Type_ID" ColumnName="Reminder_Type_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.supplier">
+              <MappingFragment StoreEntitySet="supplier">
+                <ScalarProperty Name="Supplier_Phone" ColumnName="Supplier_Phone" />
+                <ScalarProperty Name="Supplier_Company" ColumnName="Supplier_Company" />
+                <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tasks">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.task">
+              <MappingFragment StoreEntitySet="task">
+                <ScalarProperty Name="Task_Description" ColumnName="Task_Description" />
+                <ScalarProperty Name="Task_Name" ColumnName="Task_Name" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="task_milestone">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.task_milestone">
+              <MappingFragment StoreEntitySet="task_milestone">
+                <ScalarProperty Name="Milestone_Progress" ColumnName="Milestone_Progress" />
+                <ScalarProperty Name="Reason_Milestone" ColumnName="Reason_Milestone" />
+                <ScalarProperty Name="Milestone_ID" ColumnName="Milestone_ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tasks_completed">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.tasks_completed">
+              <MappingFragment StoreEntitySet="tasks_completed">
+                <ScalarProperty Name="Task_Comments" ColumnName="Task_Comments" />
+                <ScalarProperty Name="Booking_Instance_ID" ColumnName="Booking_Instance_ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="titles">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.title">
+              <MappingFragment StoreEntitySet="title">
+                <ScalarProperty Name="Title1" ColumnName="Title" />
+                <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="training_course">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.training_course">
+              <MappingFragment StoreEntitySet="training_course">
+                <ScalarProperty Name="Training_Course_Type_ID" ColumnName="Training_Course_Type_ID" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Training_Course_Description" ColumnName="Training_Course_Description" />
+                <ScalarProperty Name="Training_Course_Name" ColumnName="Training_Course_Name" />
+                <ScalarProperty Name="Training_Course_ID" ColumnName="Training_Course_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="training_course_instance">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.training_course_instance">
+              <MappingFragment StoreEntitySet="training_course_instance">
+                <ScalarProperty Name="Training_Course_ID" ColumnName="Training_Course_ID" />
+                <ScalarProperty Name="Instructor_ID" ColumnName="Instructor_ID" />
+                <ScalarProperty Name="Venue_ID" ColumnName="Venue_ID" />
+                <ScalarProperty Name="Instance_End_Time" ColumnName="Instance_End_Time" />
+                <ScalarProperty Name="Instance_Start_Time" ColumnName="Instance_Start_Time" />
+                <ScalarProperty Name="Instance_Date" ColumnName="Instance_Date" />
+                <ScalarProperty Name="Training_Course_Instance_ID" ColumnName="Training_Course_Instance_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="training_course_type">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.training_course_type">
+              <MappingFragment StoreEntitySet="training_course_type">
+                <ScalarProperty Name="Course_Description" ColumnName="Course_Description" />
+                <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
+                <ScalarProperty Name="Training_Course_Type_ID" ColumnName="Training_Course_Type_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="venues">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.venue">
+              <MappingFragment StoreEntitySet="venue">
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="Venue_Size" ColumnName="Venue_Size" />
+                <ScalarProperty Name="Venue_Description" ColumnName="Venue_Description" />
+                <ScalarProperty Name="Venue_Name" ColumnName="Venue_Name" />
+                <ScalarProperty Name="Venue_ID" ColumnName="Venue_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,99 @@
+﻿@model IEnumerable<ROTM.employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee_Surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee_Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee_Home_Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee_Cellphone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee_RSA_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee_Avatar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Encrypted_Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address.Street_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employee_type.Type_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gender.Gender1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title.Title1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_Surname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_Home_Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_Cellphone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_RSA_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_Avatar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Encrypted_Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address.Street_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employee_type.Type_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gender.Gender1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.title.Title1)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Employee_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Employee_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Employee_ID })
+        </td>
+    </tr>
+}
+
+</table>

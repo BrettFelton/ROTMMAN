@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ROTM.booking>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking_Start_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking_End_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address.Street_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.booking_type.Booking_Type_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.client.Client_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employee.Employee_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Booking_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Booking_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Booking_Start_Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Booking_End_Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address.Street_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.booking_type.Booking_Type_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.client.Client_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employee.Employee_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Booking_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Booking_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Booking_ID })
+        </td>
+    </tr>
+}
+
+</table>

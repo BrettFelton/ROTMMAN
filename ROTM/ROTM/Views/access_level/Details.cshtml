@@ -1,0 +1,34 @@
+﻿@model ROTM.access_level
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>access_level</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Access_Level_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Access_Level_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Access_Level_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Access_Level_Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Access_Level_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

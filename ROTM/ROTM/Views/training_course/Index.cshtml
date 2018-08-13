@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ROTM.training_course>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Training_Course_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Training_Course_Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employee.Employee_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.training_course_type.Course_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Training_Course_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Training_Course_Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employee.Employee_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.training_course_type.Course_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Training_Course_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Training_Course_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Training_Course_ID })
+        </td>
+    </tr>
+}
+
+</table>
