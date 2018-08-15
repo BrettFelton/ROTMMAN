@@ -10,6 +10,7 @@ using ROTM;
 
 namespace ROTM.Controllers
 {
+    [Authorize]
     public class clientsController : Controller
     {
         private Entities db = new Entities();

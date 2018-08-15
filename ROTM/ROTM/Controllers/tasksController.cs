@@ -10,6 +10,7 @@ using ROTM;
 
 namespace ROTM.Controllers
 {
+    [Authorize]
     public class tasksController : Controller
     {
         private Entities db = new Entities();

@@ -10,6 +10,7 @@ using ROTM;
 
 namespace ROTM.Controllers
 {
+    [Authorize]
     public class booking_typeController : Controller
     {
         private Entities db = new Entities();

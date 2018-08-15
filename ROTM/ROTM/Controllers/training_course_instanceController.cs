@@ -10,6 +10,7 @@ using ROTM;
 
 namespace ROTM.Controllers
 {
+    [Authorize]
     public class training_course_instanceController : Controller
     {
         private Entities db = new Entities();

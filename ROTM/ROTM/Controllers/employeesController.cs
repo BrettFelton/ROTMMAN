@@ -4,12 +4,15 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using ROTM;
 
 namespace ROTM.Controllers
 {
+    [Authorize]
     public class employeesController : Controller
     {
         private Entities db = new Entities();
@@ -95,10 +98,24 @@ namespace ROTM.Controllers
         {
             if (ModelState.IsValid)
             {
+                SHA1 sha1 = SHA1.Create();
+                var hashData = sha1.ComputeHash(Encoding.UTF8.GetBytes(employee.Encrypted_Password));
+                var stringbuilder = new StringBuilder(hashData.Length * 2);
+                foreach (byte b in hashData)
+                {
+                    stringbuilder.Append(b.ToString("X2"));
+                }
+                employee.Encrypted_Password = stringbuilder.ToString();//changes the state of the object by assigning it our values
                 db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            //if (ModelState.IsValid)
+            //{
+            //    db.Entry(employee).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
             ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name", employee.Address_ID);
             ViewBag.Employee_Type_ID = new SelectList(db.employee_type, "Employee_Type_ID", "Type_Name", employee.Employee_Type_ID);
             ViewBag.Gender_ID = new SelectList(db.genders, "Gender_ID", "Gender1", employee.Gender_ID);
