@@ -1,0 +1,50 @@
+﻿@model ROTM.registration_token
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>registration_token</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Registration_Token1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Registration_Token1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.New_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.New_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.access_level.Access_Level_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.access_level.Access_Level_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employee.Employee_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employee.Employee_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Registration_Token_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

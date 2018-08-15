@@ -20,7 +20,8 @@ namespace ROTM
         {
             this.registration_token = new HashSet<registration_token>();
         }
-    
+
+        [Display(Name = "Access Level")]
         public int Access_Level_ID { get; set; }
 
         [Required]
