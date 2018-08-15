@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ROTM.Models;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ROTM.Controllers
 {
@@ -54,7 +56,14 @@ namespace ROTM.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
+                    SHA1 sha1 = SHA1.Create();
+                    var hashData = sha1.ComputeHash(Encoding.UTF8.GetBytes(model.Encrypted_Password));
+                    var stringbuilder = new StringBuilder(hashData.Length * 2);
+                    foreach (byte b in hashData)
+                    {
+                        stringbuilder.Append(b.ToString("X2"));
+                    }
+                    model.Encrypted_Password = stringbuilder.ToString();
                     var details = (from userlist in db.employees
                                    where userlist.Employee_Email == model.Employee_Email && userlist.Encrypted_Password == model.Encrypted_Password
                                    select new
@@ -62,6 +71,7 @@ namespace ROTM.Controllers
                                        userlist.Employee_ID,
                                        userlist.Employee_Name
                                    }).ToList();
+
                     if (details != null && details.Count() > 0)
                     {
                         var logindetails = details.First();
@@ -99,12 +109,33 @@ namespace ROTM.Controllers
        [ValidateAntiForgeryToken]
         public ActionResult Register(employee model)
         {
-            var Reg = new RegisterViewModel();
-            if (ModelState.IsValid)
+            try
             {
-                db.employees.Add(model);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                using (db)
+                {
+                    var chkUser = (from s in db.employees where s.Employee_Email == model.Employee_Email select s).FirstOrDefault();
+                    if (chkUser == null && ModelState.IsValid)
+                    {
+                        SHA1 sha1 = SHA1.Create();
+                        var hashData = sha1.ComputeHash(Encoding.UTF8.GetBytes(model.Encrypted_Password));
+                        var stringbuilder = new StringBuilder(hashData.Length * 2);
+                        foreach (byte b in hashData)
+                        {
+                            stringbuilder.Append(b.ToString("X2"));
+                        }
+                        model.Encrypted_Password = stringbuilder.ToString();
+                        db.employees.Add(model);
+                        db.SaveChanges();
+                        return RedirectToAction("Index", "Home");
+                    }
+                    ModelState.AddModelError(string.Empty, "User Already Exist");
+                    return View();
+                }
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty,"Some exception occured" + e);
+                return View();
             }
             //return View();
             //if (ModelState.IsValid)
@@ -127,7 +158,6 @@ namespace ROTM.Controllers
             //}
             
             //// If we got this far, something failed, redisplay form
-            return View(Reg);
         }
 
         //
