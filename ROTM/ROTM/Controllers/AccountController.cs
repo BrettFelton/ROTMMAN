@@ -64,8 +64,20 @@ namespace ROTM.Controllers
                         stringbuilder.Append(b.ToString("X2"));
                     }
                     model.Encrypted_Password = stringbuilder.ToString();
+                    //var details = (from userlist in db.employees
+                    //               where userlist.Employee_Email == model.Employee_Email && userlist.Encrypted_Password == model.Encrypted_Password
+                    //               select new
+                    //               {
+                    //                   userlist.Employee_ID,
+                    //                   userlist.Employee_Name
+                    //               }).ToList();
+
                     var details = (from userlist in db.employees
-                                   where userlist.Employee_Email == model.Employee_Email && userlist.Encrypted_Password == model.Encrypted_Password
+                                   join reg in db.registration_token
+
+                                   on userlist.Employee_Email equals reg.New_Email
+
+                                   where userlist.Employee_Email == model.Employee_Email && userlist.Encrypted_Password == model.Encrypted_Password && reg.New_Email == userlist.Employee_Email && (reg.Access_Level_ID == 1 || reg.Access_Level_ID == 2)
                                    select new
                                    {
                                        userlist.Employee_ID,

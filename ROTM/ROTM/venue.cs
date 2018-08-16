@@ -11,8 +11,7 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class venue
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,24 +21,9 @@ namespace ROTM
         }
     
         public int Venue_ID { get; set; }
-
-        [Required]
-        [Display(Name = "Venue Name")]
-        [StringLength(50)]
         public string Venue_Name { get; set; }
-
-        [Required]
-        [Display(Name = "Venue Description")]
-        [StringLength(255)]
         public string Venue_Description { get; set; }
-
-        [Required]
-        [Display(Name = "Venue Size")]
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
         public Nullable<int> Venue_Size { get; set; }
-
-        [Required]
-        [Display(Name = "Address")]
         public Nullable<int> Address_ID { get; set; }
     
         public virtual address address { get; set; }
