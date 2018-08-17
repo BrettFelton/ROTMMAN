@@ -1,0 +1,47 @@
+﻿+﻿@model IEnumerable<ROTM.registration_token>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Registration_Token1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.New_Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.access_level.Access_Level_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employee.Employee_Name)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Registration_Token1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.New_Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.access_level.Access_Level_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.employee.Employee_Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Registration_Token_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Registration_Token_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Registration_Token_ID })
+            </td>
+        </tr>
+    }
+</table>
