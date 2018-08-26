@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -249,6 +250,19 @@ namespace ROTM.Controllers
                         employee.Encrypted_Password = CONFIRM.ToString();
                         db.Entry(employee).State = EntityState.Modified;
                         db.SaveChanges();
+
+                        //This is for an emal service Remeber this !
+                        MailMessage mail = new MailMessage("no-reply@repsonthemove.com", employee.Employee_Email);
+                        SmtpClient client = new SmtpClient();
+                        client.Port = 25;
+                        client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        client.Credentials = new System.Net.NetworkCredential("no-reply@repsonthemove.com", "k1Yvi2&5");
+                        client.Host = "nl1-wss2.a2hosting.com";
+                        mail.Subject = "Password Change";
+                        mail.Body = "Hi " + employee.Employee_Name + " " + employee.Employee_Surname + "\n\nYour password has been successfully changed. If this was not you please contact admin immediately " + "\n\nRegards" + "\nReps On The Move Team";
+                        client.Send(mail);
+
+
                         return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
 
                     }

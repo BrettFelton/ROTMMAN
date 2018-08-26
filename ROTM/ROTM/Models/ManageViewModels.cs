@@ -39,7 +39,7 @@ namespace ROTM.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ChangePasswordViewModel : employee
+    public class ChangePasswordViewModel
     {
         [Required]
         [StringLength(100)]
