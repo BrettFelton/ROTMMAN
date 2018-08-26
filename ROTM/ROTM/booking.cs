@@ -34,10 +34,10 @@ namespace ROTM
         public virtual address address { get; set; }
         public virtual booking_type booking_type { get; set; }
         public virtual client client { get; set; }
-        public virtual employee employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<booking_instance> booking_instance { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<booking_reminders> booking_reminders { get; set; }
+        public virtual employee employee { get; set; }
     }
 }

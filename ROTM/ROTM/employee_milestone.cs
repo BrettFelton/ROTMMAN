@@ -18,7 +18,7 @@ namespace ROTM
         public int Milestone_ID { get; set; }
         public Nullable<int> Task_Repetions { get; set; }
     
-        public virtual employee employee { get; set; }
         public virtual milestone milestone { get; set; }
+        public virtual employee employee { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace ROTM
         public int Mailing_List_ID { get; set; }
         public string Description { get; set; }
     
-        public virtual employee employee { get; set; }
         public virtual mailing_list mailing_list { get; set; }
+        public virtual employee employee { get; set; }
     }
 }

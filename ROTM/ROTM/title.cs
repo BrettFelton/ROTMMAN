@@ -19,22 +19,20 @@ namespace ROTM
         public title()
         {
             this.client_contact = new HashSet<client_contact>();
-            this.employees = new HashSet<employee>();
             this.instructors = new HashSet<instructor>();
+            this.employees = new HashSet<employee>();
         }
     
         public int Title_ID { get; set; }
 
-        [Required]
         [Display(Name = "Title")]
-        [StringLength(50)]
         public string Title1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<client_contact> client_contact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<employee> employees { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<instructor> instructors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<employee> employees { get; set; }
     }
 }

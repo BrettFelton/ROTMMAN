@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
@@ -94,22 +95,60 @@ namespace ROTM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Employee_ID,Employee_Name,Employee_Surname,Employee_Email,Employee_Home_Phone,Employee_Cellphone,Employee_RSA_ID,Employee_Avatar,Employee_Type_ID,Encrypted_Password,Gender_ID,Address_ID,Title_ID")] employee employee)
+        public ActionResult Edit([Bind(Include = "Employee_ID,Employee_Name,Employee_Surname,Employee_Email,Employee_Home_Phone,Employee_Cellphone,Employee_RSA_ID,Employee_Avatar,Employee_Type_ID,Encrypted_Password,Gender_ID,Address_ID,Title_ID")] employee employee, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                SHA1 sha1 = SHA1.Create();
-                var hashData = sha1.ComputeHash(Encoding.UTF8.GetBytes(employee.Encrypted_Password));
-                var stringbuilder = new StringBuilder(hashData.Length * 2);
-                foreach (byte b in hashData)
+                try
                 {
-                    stringbuilder.Append(b.ToString("X2"));
+
+                    //Method 2 Get file details from HttpPostedFileBase class    
+
+                    SHA1 sha1 = SHA1.Create();
+                    var hashData = sha1.ComputeHash(Encoding.UTF8.GetBytes(employee.Encrypted_Password));
+                    var stringbuilder = new StringBuilder(hashData.Length * 2);
+                    foreach (byte b in hashData)
+                    {
+                        stringbuilder.Append(b.ToString("X2"));
+                    }
+                    employee.Encrypted_Password = stringbuilder.ToString();//changes the state of the object by assigning it our values
+                    
+
+                    if (file != null)
+                    {
+                        string path = Path.Combine(Server.MapPath("C:/Users/bmfel/OneDrive/Documents/GitHub/ROTMMAN/ROTM/ROTM/Content/Images"), Path.GetFileName(file.FileName));
+                        file.SaveAs(path);
+                        //employee.Employee_Avatar = path;
+                    }
+                    ViewBag.FileStatus = "File uploaded successfully.";
+
+                    
+
+                    db.Entry(employee).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                    //return View("Edit");
                 }
-                employee.Encrypted_Password = stringbuilder.ToString();//changes the state of the object by assigning it our values
-                db.Entry(employee).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                catch (Exception)
+                {
+                    ViewBag.FileStatus = "Error while file uploading."; ;
+                }
+
             }
+            //if (ModelState.IsValid)
+            //{
+            //    SHA1 sha1 = SHA1.Create();
+            //    var hashData = sha1.ComputeHash(Encoding.UTF8.GetBytes(employee.Encrypted_Password));
+            //    var stringbuilder = new StringBuilder(hashData.Length * 2);
+            //    foreach (byte b in hashData)
+            //    {
+            //        stringbuilder.Append(b.ToString("X2"));
+            //    }
+            //    employee.Encrypted_Password = stringbuilder.ToString();//changes the state of the object by assigning it our values
+            //    db.Entry(employee).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
             //if (ModelState.IsValid)
             //{
             //    db.Entry(employee).State = EntityState.Modified;

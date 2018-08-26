@@ -28,10 +28,10 @@ namespace ROTM
         public Nullable<int> Supplier_ID { get; set; }
         public Nullable<int> Title_ID { get; set; }
     
-        public virtual employee employee { get; set; }
         public virtual supplier supplier { get; set; }
         public virtual title title { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<training_course_instance> training_course_instance { get; set; }
+        public virtual employee employee { get; set; }
     }
 }

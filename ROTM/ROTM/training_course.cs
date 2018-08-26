@@ -26,9 +26,9 @@ namespace ROTM
         public Nullable<int> Employee_ID { get; set; }
         public Nullable<int> Training_Course_Type_ID { get; set; }
     
-        public virtual employee employee { get; set; }
         public virtual training_course_type training_course_type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<training_course_instance> training_course_instance { get; set; }
+        public virtual employee employee { get; set; }
     }
 }

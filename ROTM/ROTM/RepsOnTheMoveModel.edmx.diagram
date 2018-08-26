@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="13073013300a4b5fa853a8e75cbfad91" Name="Diagram1" ZoomLevel="82" >
-        <EntityTypeShape EntityType="repsont1_rotmModel.employee" Width="1.5" PointX="3" PointY="16.125" />
         <EntityTypeShape EntityType="repsont1_rotmModel.access_level" Width="1.5" PointX="9" PointY="7.25" />
         <EntityTypeShape EntityType="repsont1_rotmModel.address" Width="1.5" PointX="0.75" PointY="17.625" />
         <EntityTypeShape EntityType="repsont1_rotmModel.attendance" Width="1.5" PointX="5.25" PointY="22.125" />
@@ -48,14 +47,10 @@
         <AssociationConnector Association="repsont1_rotmModel.registration_token_ibfk_1" />
         <AssociationConnector Association="repsont1_rotmModel.booking_ibfk_4" />
         <AssociationConnector Association="repsont1_rotmModel.booking_instance_ibfk_3" />
-        <AssociationConnector Association="repsont1_rotmModel.employee_ibfk_3" />
         <AssociationConnector Association="repsont1_rotmModel.venue_ibfk_1" />
-        <AssociationConnector Association="repsont1_rotmModel.attendance_ibfk_1" />
         <AssociationConnector Association="repsont1_rotmModel.attendance_ibfk_2" />
-        <AssociationConnector Association="repsont1_rotmModel.audit_trail_ibfk_1" />
         <AssociationConnector Association="repsont1_rotmModel.booking_ibfk_1" />
         <AssociationConnector Association="repsont1_rotmModel.booking_ibfk_2" />
-        <AssociationConnector Association="repsont1_rotmModel.booking_ibfk_3" />
         <AssociationConnector Association="repsont1_rotmModel.booking_instance_ibfk_2" />
         <AssociationConnector Association="repsont1_rotmModel.booking_reminders_ibfk_1" />
         <AssociationConnector Association="repsont1_rotmModel.booking_instance_ibfk_1" />
@@ -69,15 +64,6 @@
         <AssociationConnector Association="repsont1_rotmModel.client_contact_ibfk_1" />
         <AssociationConnector Association="repsont1_rotmModel.client_contact_ibfk_2" />
         <AssociationConnector Association="repsont1_rotmModel.client_mailinglist_ibfk_2" />
-        <AssociationConnector Association="repsont1_rotmModel.employee_client_ibfk_1" />
-        <AssociationConnector Association="repsont1_rotmModel.employee_ibfk_1" />
-        <AssociationConnector Association="repsont1_rotmModel.employee_ibfk_2" />
-        <AssociationConnector Association="repsont1_rotmModel.employee_ibfk_4" />
-        <AssociationConnector Association="repsont1_rotmModel.employee_mailinglist_ibfk_1" />
-        <AssociationConnector Association="repsont1_rotmModel.employee_milestone_ibfk_1" />
-        <AssociationConnector Association="repsont1_rotmModel.instructor_ibfk_1" />
-        <AssociationConnector Association="repsont1_rotmModel.registration_token_ibfk_2" />
-        <AssociationConnector Association="repsont1_rotmModel.training_course_ibfk_2" />
         <AssociationConnector Association="repsont1_rotmModel.employee_mailinglist_ibfk_2" />
         <AssociationConnector Association="repsont1_rotmModel.employee_milestone_ibfk_2" />
         <AssociationConnector Association="repsont1_rotmModel.instructor_ibfk_2" />
@@ -94,6 +80,20 @@
         <AssociationConnector Association="repsont1_rotmModel.training_course_ibfk_1" />
         <AssociationConnector Association="repsont1_rotmModel.training_course_instance_ibfk_1" />
         <AssociationConnector Association="repsont1_rotmModel.training_course_instance_ibfk_3" />
+        <EntityTypeShape EntityType="repsont1_rotmModel.employee" Width="1.5" PointX="3" PointY="17.125" />
+        <AssociationConnector Association="repsont1_rotmModel.employee_ibfk_3" />
+        <AssociationConnector Association="repsont1_rotmModel.attendance_ibfk_1" />
+        <AssociationConnector Association="repsont1_rotmModel.audit_trail_ibfk_1" />
+        <AssociationConnector Association="repsont1_rotmModel.booking_ibfk_3" />
+        <AssociationConnector Association="repsont1_rotmModel.employee_client_ibfk_1" />
+        <AssociationConnector Association="repsont1_rotmModel.employee_ibfk_1" />
+        <AssociationConnector Association="repsont1_rotmModel.employee_ibfk_2" />
+        <AssociationConnector Association="repsont1_rotmModel.employee_ibfk_4" />
+        <AssociationConnector Association="repsont1_rotmModel.employee_mailinglist_ibfk_1" />
+        <AssociationConnector Association="repsont1_rotmModel.employee_milestone_ibfk_1" />
+        <AssociationConnector Association="repsont1_rotmModel.instructor_ibfk_1" />
+        <AssociationConnector Association="repsont1_rotmModel.registration_token_ibfk_2" />
+        <AssociationConnector Association="repsont1_rotmModel.training_course_ibfk_2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

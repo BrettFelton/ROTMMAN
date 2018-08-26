@@ -59,7 +59,7 @@ namespace ROTM
 
         [Display(Name = "Avatar")]
         [DataType(DataType.Upload)]
-        public byte[] Employee_Avatar { get; set; }
+        public string Employee_Avatar { get; set; }
 
         [Display(Name = "Employee Type")]
         public Nullable<int> Employee_Type_ID { get; set; }

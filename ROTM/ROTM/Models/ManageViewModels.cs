@@ -39,10 +39,10 @@ namespace ROTM.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ChangePasswordViewModel
+    public class ChangePasswordViewModel : employee
     {
         [Required]
-        [DataType(DataType.Password)]
+        [StringLength(100)]
         [Display(Name = "Current password")]
         public string OldPassword { get; set; }
 

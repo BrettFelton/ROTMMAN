@@ -85,40 +85,40 @@ namespace ROTM.Controllers
             return View(registration_token);
         }
 
-        //// GET: registration_token/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    registration_token registration_token = db.registration_token.Find(id);
-        //    if (registration_token == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.Access_Level_ID = new SelectList(db.access_level, "Access_Level_ID", "Access_Level_Name", registration_token.Access_Level_ID);
-        //    ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", registration_token.Employee_ID);
-        //    return View(registration_token);
-        //}
+        // GET: registration_token/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            registration_token registration_token = db.registration_token.Find(id);
+            if (registration_token == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Access_Level_ID = new SelectList(db.access_level, "Access_Level_ID", "Access_Level_Name", registration_token.Access_Level_ID);
+            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", registration_token.Employee_ID);
+            return View(registration_token);
+        }
 
-        //// POST: registration_token/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Registration_Token_ID,Registration_Token1,New_Email,Access_Level_ID,Employee_ID")] registration_token registration_token)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(registration_token).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.Access_Level_ID = new SelectList(db.access_level, "Access_Level_ID", "Access_Level_Name", registration_token.Access_Level_ID);
-        //    ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", registration_token.Employee_ID);
-        //    return View(registration_token);
-        //}
+        // POST: registration_token/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Registration_Token_ID,Registration_Token1,New_Email,Access_Level_ID,Employee_ID")] registration_token registration_token)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(registration_token).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.Access_Level_ID = new SelectList(db.access_level, "Access_Level_ID", "Access_Level_Name", registration_token.Access_Level_ID);
+            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", registration_token.Employee_ID);
+            return View(registration_token);
+        }
 
         // GET: registration_token/Delete/5
         public ActionResult Delete(int? id)

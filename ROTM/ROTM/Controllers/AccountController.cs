@@ -71,7 +71,17 @@ namespace ROTM.Controllers
                     //                   userlist.Employee_ID,
                     //                   userlist.Employee_Name
                     //               }).ToList();
+                    var salesRepInvalid = (from userlist in db.employees
+                                           join reg in db.registration_token
 
+                                           on userlist.Employee_Email equals reg.New_Email
+
+                                           where userlist.Employee_Email == model.Employee_Email && userlist.Encrypted_Password == model.Encrypted_Password && reg.New_Email == userlist.Employee_Email && (reg.Access_Level_ID == 32)
+                                           select new
+                                           {
+                                               userlist.Employee_ID,
+                                               userlist.Employee_Name
+                                           }).ToList();
                     var details = (from userlist in db.employees
                                    join reg in db.registration_token
 
@@ -89,8 +99,14 @@ namespace ROTM.Controllers
                         var logindetails = details.First();
                         // Login In.    
                         this.SignInUser(logindetails.Employee_Name, false);
-                        // Info.    
+                        // Info.
+                        System.Web.HttpContext.Current.Session["UserID"] = logindetails.Employee_ID.ToString();
+                        //Session["UserID"] = logindetails.Employee_ID;
                         return this.RedirectToLocal(returnUrl);
+                    }
+                    else if (salesRepInvalid != null)
+                    {
+                        ModelState.AddModelError(string.Empty, "Sales reps cannot log in to this system.");
                     }
                     else
                     {

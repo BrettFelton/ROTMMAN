@@ -19,7 +19,7 @@ namespace ROTM
         public Nullable<bool> Replied_Going { get; set; }
         public Nullable<bool> Actual_Attendance { get; set; }
     
-        public virtual employee employee { get; set; }
         public virtual training_course_instance training_course_instance { get; set; }
+        public virtual employee employee { get; set; }
     }
 }

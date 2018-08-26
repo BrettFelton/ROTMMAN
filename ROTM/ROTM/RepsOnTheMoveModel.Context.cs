@@ -27,7 +27,6 @@ namespace ROTM
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<employee> employees { get; set; }
         public virtual DbSet<access_level> access_level { get; set; }
         public virtual DbSet<address> addresses { get; set; }
         public virtual DbSet<attendance> attendances { get; set; }
@@ -67,6 +66,7 @@ namespace ROTM
         public virtual DbSet<training_course_instance> training_course_instance { get; set; }
         public virtual DbSet<training_course_type> training_course_type { get; set; }
         public virtual DbSet<venue> venues { get; set; }
+        public virtual DbSet<employee> employees { get; set; }
     
         public virtual ObjectResult<LoginEmail_Result> LoginEmail(ObjectParameter email, ObjectParameter passwords)
         {

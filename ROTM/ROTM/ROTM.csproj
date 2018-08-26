@@ -309,6 +309,7 @@
       <DependentUpon>RepsOnTheMoveModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Globals.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="notification.cs">
       <DependentUpon>RepsOnTheMoveModel.tt</DependentUpon>
@@ -394,7 +395,7 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="ApplicationInsights.config">
+    <Content Include="Views\ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EntityDeploy Include="RepsOnTheMoveModel.edmx">
@@ -513,6 +514,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Reporting\" />
+    <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
