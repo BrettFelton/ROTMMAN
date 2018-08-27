@@ -6,9 +6,9 @@
 
 <h2>Index</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
         <th>
@@ -29,12 +29,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Employee_RSA_ID)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Employee_Avatar)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Encrypted_Password)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.address.Street_Name)
         </th>
@@ -70,12 +70,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.Employee_RSA_ID)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Employee_Avatar)
         </td>
         <td >
             @Html.DisplayFor(modelItem => item.Encrypted_Password)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.address.Street_Name)
         </td>

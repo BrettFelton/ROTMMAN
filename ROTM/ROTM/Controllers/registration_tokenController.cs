@@ -64,6 +64,7 @@ namespace ROTM.Controllers
                 db.registration_token.Add(registration_token);
                 db.SaveChanges();
 
+                //info@repsonthemove.com upg$H101
                 //This is for an emal service Remeber this !
                 MailMessage mail = new MailMessage("no-reply@repsonthemove.com", registration_token.New_Email);
                 SmtpClient client = new SmtpClient();

@@ -76,7 +76,7 @@ namespace ROTM.Controllers
 
                                            on userlist.Employee_Email equals reg.New_Email
 
-                                           where userlist.Employee_Email == model.Employee_Email && userlist.Encrypted_Password == model.Encrypted_Password && reg.New_Email == userlist.Employee_Email && (reg.Access_Level_ID == 32)
+                                           where userlist.Employee_Email == model.Employee_Email && userlist.Encrypted_Password == model.Encrypted_Password && reg.New_Email == userlist.Employee_Email && (reg.Access_Level_ID == 3)
                                            select new
                                            {
                                                userlist.Employee_ID,
@@ -104,7 +104,7 @@ namespace ROTM.Controllers
                         //Session["UserID"] = logindetails.Employee_ID;
                         return this.RedirectToLocal(returnUrl);
                     }
-                    else if (salesRepInvalid != null)
+                    else if (salesRepInvalid != null && details.Count() > 0)
                     {
                         ModelState.AddModelError(string.Empty, "Sales reps cannot log in to this system.");
                     }

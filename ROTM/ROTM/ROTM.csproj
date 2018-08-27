@@ -309,6 +309,7 @@
       <DependentUpon>RepsOnTheMoveModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ContactViewModels.cs" />
     <Compile Include="Models\Globals.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="notification.cs">
