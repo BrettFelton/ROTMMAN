@@ -16,9 +16,18 @@ namespace ROTM.Controllers
         private Entities db = new Entities();
 
         // GET: tasks
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.tasks.ToList());
+            ViewData["CurrentFilter"] = searchString;
+
+            var tasks = from s in (db.tasks) select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                tasks = tasks.Where(s => s.Task_Name.Contains(searchString) || s.Task_Description.Contains(searchString));
+            }
+
+            return View(tasks.ToList());
         }
 
         // GET: tasks/Details/5

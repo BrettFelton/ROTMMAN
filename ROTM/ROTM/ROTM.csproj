@@ -255,6 +255,7 @@
     </Compile>
     <Compile Include="Controllers\access_levelController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\attendancesController.cs" />
     <Compile Include="Controllers\bookingsController.cs" />
     <Compile Include="Controllers\booking_typeController.cs" />
     <Compile Include="Controllers\clientsController.cs" />
@@ -262,6 +263,8 @@
     <Compile Include="Controllers\employeesController.cs" />
     <Compile Include="Controllers\employee_typeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\instructorsController.cs" />
+    <Compile Include="Controllers\instructor_typeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\registration_tokenController.cs" />
     <Compile Include="Controllers\tasksController.cs" />
@@ -291,6 +294,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="instructor.cs">
+      <DependentUpon>RepsOnTheMoveModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="instructor_type.cs">
       <DependentUpon>RepsOnTheMoveModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LoginEmail_Result.cs">
@@ -347,9 +353,6 @@
       <DependentUpon>RepsOnTheMoveModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="supplier.cs">
-      <DependentUpon>RepsOnTheMoveModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="task.cs">
       <DependentUpon>RepsOnTheMoveModel.tt</DependentUpon>
     </Compile>
@@ -379,6 +382,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap123.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\Group Photo.png" />
     <Content Include="Content\Images\ROTM.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -471,21 +475,11 @@
     <Content Include="Views\tasks\Details.cshtml" />
     <Content Include="Views\tasks\Edit.cshtml" />
     <Content Include="Views\tasks\Index.cshtml" />
-    <Content Include="Views\bookings\Create.cshtml" />
-    <Content Include="Views\bookings\Delete.cshtml" />
-    <Content Include="Views\bookings\Details.cshtml" />
-    <Content Include="Views\bookings\Edit.cshtml" />
-    <Content Include="Views\bookings\Index.cshtml" />
     <Content Include="Views\venues\Create.cshtml" />
     <Content Include="Views\venues\Delete.cshtml" />
     <Content Include="Views\venues\Details.cshtml" />
     <Content Include="Views\venues\Edit.cshtml" />
     <Content Include="Views\venues\Index.cshtml" />
-    <Content Include="Views\training_course_instance\Create.cshtml" />
-    <Content Include="Views\training_course_instance\Delete.cshtml" />
-    <Content Include="Views\training_course_instance\Details.cshtml" />
-    <Content Include="Views\training_course_instance\Edit.cshtml" />
-    <Content Include="Views\training_course_instance\Index.cshtml" />
     <Content Include="Views\training_course\Create.cshtml" />
     <Content Include="Views\training_course\Delete.cshtml" />
     <Content Include="Views\training_course\Details.cshtml" />
@@ -511,6 +505,31 @@
     <Content Include="Views\registration_token\Details.cshtml" />
     <Content Include="Views\registration_token\Edit.cshtml" />
     <Content Include="Views\registration_token\Index.cshtml" />
+    <Content Include="Views\bookings\Create.cshtml" />
+    <Content Include="Views\bookings\Delete.cshtml" />
+    <Content Include="Views\bookings\Details.cshtml" />
+    <Content Include="Views\bookings\Edit.cshtml" />
+    <Content Include="Views\bookings\Index.cshtml" />
+    <Content Include="Views\attendances\Create.cshtml" />
+    <Content Include="Views\attendances\Delete.cshtml" />
+    <Content Include="Views\attendances\Details.cshtml" />
+    <Content Include="Views\attendances\Edit.cshtml" />
+    <Content Include="Views\attendances\Index.cshtml" />
+    <Content Include="Views\training_course_instance\Create.cshtml" />
+    <Content Include="Views\training_course_instance\Delete.cshtml" />
+    <Content Include="Views\training_course_instance\Details.cshtml" />
+    <Content Include="Views\training_course_instance\Edit.cshtml" />
+    <Content Include="Views\training_course_instance\Index.cshtml" />
+    <Content Include="Views\instructors\Create.cshtml" />
+    <Content Include="Views\instructors\Delete.cshtml" />
+    <Content Include="Views\instructors\Details.cshtml" />
+    <Content Include="Views\instructors\Edit.cshtml" />
+    <Content Include="Views\instructors\Index.cshtml" />
+    <Content Include="Views\instructor_type\Create.cshtml" />
+    <Content Include="Views\instructor_type\Delete.cshtml" />
+    <Content Include="Views\instructor_type\Details.cshtml" />
+    <Content Include="Views\instructor_type\Edit.cshtml" />
+    <Content Include="Views\instructor_type\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

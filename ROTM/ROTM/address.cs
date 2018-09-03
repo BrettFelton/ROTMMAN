@@ -23,7 +23,6 @@ namespace ROTM
             this.venues = new HashSet<venue>();
             this.employees = new HashSet<employee>();
         }
-    
         public int Address_ID { get; set; }
 
         [Display(Name = "Street Name")]
@@ -36,7 +35,7 @@ namespace ROTM
         public string Province { get; set; }
         [Display(Name = "Country")]
         public string Country { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<booking> bookings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

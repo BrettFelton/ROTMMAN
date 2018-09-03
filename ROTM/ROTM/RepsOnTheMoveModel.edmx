@@ -107,7 +107,6 @@
           <Property Name="Contact_Surname" Type="varchar" MaxLength="50" />
           <Property Name="Contact_Phone" Type="char" MaxLength="10" />
           <Property Name="Contact_Email" Type="varchar" MaxLength="255" />
-          <Property Name="Title_ID" Type="int" />
           <Property Name="Client_Contact_Type_ID" Type="int" />
           <Property Name="Client_ID" Type="int" />
         </EntityType>
@@ -212,9 +211,19 @@
           <Property Name="Instructor_Name" Type="varchar" MaxLength="50" />
           <Property Name="Instructor_Surname" Type="varchar" MaxLength="50" />
           <Property Name="Instructor_Email" Type="varchar" MaxLength="255" />
+          <Property Name="Instructor_Cellphone" Type="char" MaxLength="10" />
           <Property Name="Employee_ID" Type="int" />
-          <Property Name="Supplier_ID" Type="int" />
+          <Property Name="Instructor_Type_ID" Type="int" />
           <Property Name="Title_ID" Type="int" />
+          <Property Name="Gender_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="instructor_type">
+          <Key>
+            <PropertyRef Name="Instructor_Type_ID" />
+          </Key>
+          <Property Name="Instructor_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Instructor_Type_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Instrutor_Type_Description" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="mailing_list">
           <Key>
@@ -304,14 +313,6 @@
           <Property Name="Reminder_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Reminder_Type_Name" Type="varchar" MaxLength="50" />
           <Property Name="Reminder_Type_Description" Type="varchar" MaxLength="255" />
-        </EntityType>
-        <EntityType Name="supplier">
-          <Key>
-            <PropertyRef Name="Supplier_ID" />
-          </Key>
-          <Property Name="Supplier_ID" Type="int" Nullable="false" />
-          <Property Name="Supplier_Company" Type="varchar" MaxLength="50" />
-          <Property Name="Supplier_Phone" Type="char" MaxLength="10" />
         </EntityType>
         <EntityType Name="task">
           <Key>
@@ -543,20 +544,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="client_contact_ibfk_2">
-          <End Role="title" Type="Self.title" Multiplicity="0..1" />
-          <End Role="client_contact" Type="Self.client_contact" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="title">
-              <PropertyRef Name="Title_ID" />
-            </Principal>
-            <Dependent Role="client_contact">
-              <PropertyRef Name="Title_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="client_contact_ibfk_3">
-          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="client" Type="Self.client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="client_contact" Type="Self.client_contact" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="client">
@@ -735,6 +726,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ins_FK-4">
+          <End Role="gender" Type="Self.gender" Multiplicity="1" />
+          <End Role="instructor" Type="Self.instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="Gender_ID" />
+            </Principal>
+            <Dependent Role="instructor">
+              <PropertyRef Name="Gender_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="instructor_ibfk_1">
           <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
           <End Role="instructor" Type="Self.instructor" Multiplicity="*" />
@@ -747,18 +750,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="instructor_ibfk_2">
-          <End Role="supplier" Type="Self.supplier" Multiplicity="0..1" />
-          <End Role="instructor" Type="Self.instructor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="supplier">
-              <PropertyRef Name="Supplier_ID" />
-            </Principal>
-            <Dependent Role="instructor">
-              <PropertyRef Name="Supplier_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="instructor_ibfk_3">
           <End Role="title" Type="Self.title" Multiplicity="0..1" />
           <End Role="instructor" Type="Self.instructor" Multiplicity="*" />
@@ -768,6 +759,18 @@
             </Principal>
             <Dependent Role="instructor">
               <PropertyRef Name="Title_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="instructorfk_2">
+          <End Role="instructor_type" Type="Self.instructor_type" Multiplicity="0..1" />
+          <End Role="instructor" Type="Self.instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="instructor_type">
+              <PropertyRef Name="Instructor_Type_ID" />
+            </Principal>
+            <Dependent Role="instructor">
+              <PropertyRef Name="Instructor_Type_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1001,6 +1004,7 @@
           <EntitySet Name="employee_type" EntityType="Self.employee_type" Schema="repsont1_rotm" store:Type="Tables" />
           <EntitySet Name="gender" EntityType="Self.gender" Schema="repsont1_rotm" store:Type="Tables" />
           <EntitySet Name="instructor" EntityType="Self.instructor" Schema="repsont1_rotm" store:Type="Tables" />
+          <EntitySet Name="instructor_type" EntityType="Self.instructor_type" Schema="repsont1_rotm" store:Type="Tables" />
           <EntitySet Name="mailing_list" EntityType="Self.mailing_list" Schema="repsont1_rotm" store:Type="Tables" />
           <EntitySet Name="marketing" EntityType="Self.marketing" Schema="repsont1_rotm" store:Type="Tables" />
           <EntitySet Name="marketing_type" EntityType="Self.marketing_type" Schema="repsont1_rotm" store:Type="Tables" />
@@ -1011,7 +1015,6 @@
           <EntitySet Name="registration_token" EntityType="Self.registration_token" Schema="repsont1_rotm" store:Type="Tables" />
           <EntitySet Name="reminder" EntityType="Self.reminder" Schema="repsont1_rotm" store:Type="Tables" />
           <EntitySet Name="reminder_type" EntityType="Self.reminder_type" Schema="repsont1_rotm" store:Type="Tables" />
-          <EntitySet Name="supplier" EntityType="Self.supplier" Schema="repsont1_rotm" store:Type="Tables" />
           <EntitySet Name="task" EntityType="Self.task" Schema="repsont1_rotm" store:Type="Tables" />
           <EntitySet Name="task_milestone" EntityType="Self.task_milestone" Schema="repsont1_rotm" store:Type="Tables" />
           <EntitySet Name="tasks_completed" EntityType="Self.tasks_completed" Schema="repsont1_rotm" store:Type="Tables" />
@@ -1070,10 +1073,6 @@
           </AssociationSet>
           <AssociationSet Name="client_contact_ibfk_1" Association="Self.client_contact_ibfk_1">
             <End Role="client_contact_type" EntitySet="client_contact_type" />
-            <End Role="client_contact" EntitySet="client_contact" />
-          </AssociationSet>
-          <AssociationSet Name="client_contact_ibfk_2" Association="Self.client_contact_ibfk_2">
-            <End Role="title" EntitySet="title" />
             <End Role="client_contact" EntitySet="client_contact" />
           </AssociationSet>
           <AssociationSet Name="client_contact_ibfk_3" Association="Self.client_contact_ibfk_3">
@@ -1136,16 +1135,20 @@
             <End Role="milestone" EntitySet="milestone" />
             <End Role="employee_milestone" EntitySet="employee_milestone" />
           </AssociationSet>
+          <AssociationSet Name="ins_FK-4" Association="Self.ins_FK-4">
+            <End Role="gender" EntitySet="gender" />
+            <End Role="instructor" EntitySet="instructor" />
+          </AssociationSet>
           <AssociationSet Name="instructor_ibfk_1" Association="Self.instructor_ibfk_1">
             <End Role="employee" EntitySet="employee" />
             <End Role="instructor" EntitySet="instructor" />
           </AssociationSet>
-          <AssociationSet Name="instructor_ibfk_2" Association="Self.instructor_ibfk_2">
-            <End Role="supplier" EntitySet="supplier" />
-            <End Role="instructor" EntitySet="instructor" />
-          </AssociationSet>
           <AssociationSet Name="instructor_ibfk_3" Association="Self.instructor_ibfk_3">
             <End Role="title" EntitySet="title" />
+            <End Role="instructor" EntitySet="instructor" />
+          </AssociationSet>
+          <AssociationSet Name="instructorfk_2" Association="Self.instructorfk_2">
+            <End Role="instructor_type" EntitySet="instructor_type" />
             <End Role="instructor" EntitySet="instructor" />
           </AssociationSet>
           <AssociationSet Name="marketing_ibfk_1" Association="Self.marketing_ibfk_1">
@@ -1245,7 +1248,6 @@
           <EntitySet Name="employee_milestone" EntityType="repsont1_rotmModel.employee_milestone" />
           <EntitySet Name="employee_type" EntityType="repsont1_rotmModel.employee_type" />
           <EntitySet Name="genders" EntityType="repsont1_rotmModel.gender" />
-          <EntitySet Name="instructors" EntityType="repsont1_rotmModel.instructor" />
           <EntitySet Name="mailing_list" EntityType="repsont1_rotmModel.mailing_list" />
           <EntitySet Name="marketings" EntityType="repsont1_rotmModel.marketing" />
           <EntitySet Name="marketing_type" EntityType="repsont1_rotmModel.marketing_type" />
@@ -1256,11 +1258,9 @@
           <EntitySet Name="registration_token" EntityType="repsont1_rotmModel.registration_token" />
           <EntitySet Name="reminders" EntityType="repsont1_rotmModel.reminder" />
           <EntitySet Name="reminder_type" EntityType="repsont1_rotmModel.reminder_type" />
-          <EntitySet Name="suppliers" EntityType="repsont1_rotmModel.supplier" />
           <EntitySet Name="tasks" EntityType="repsont1_rotmModel.task" />
           <EntitySet Name="task_milestone" EntityType="repsont1_rotmModel.task_milestone" />
           <EntitySet Name="tasks_completed" EntityType="repsont1_rotmModel.tasks_completed" />
-          <EntitySet Name="titles" EntityType="repsont1_rotmModel.title" />
           <EntitySet Name="training_course" EntityType="repsont1_rotmModel.training_course" />
           <EntitySet Name="training_course_instance" EntityType="repsont1_rotmModel.training_course_instance" />
           <EntitySet Name="training_course_type" EntityType="repsont1_rotmModel.training_course_type" />
@@ -1337,10 +1337,6 @@
             <End Role="client_contact_type" EntitySet="client_contact_type" />
             <End Role="client_contact" EntitySet="client_contact" />
           </AssociationSet>
-          <AssociationSet Name="client_contact_ibfk_2" Association="repsont1_rotmModel.client_contact_ibfk_2">
-            <End Role="title" EntitySet="titles" />
-            <End Role="client_contact" EntitySet="client_contact" />
-          </AssociationSet>
           <AssociationSet Name="client_mailinglist_ibfk_2" Association="repsont1_rotmModel.client_mailinglist_ibfk_2">
             <End Role="mailing_list" EntitySet="mailing_list" />
             <End Role="client_mailinglist" EntitySet="client_mailinglist" />
@@ -1352,18 +1348,6 @@
           <AssociationSet Name="employee_milestone_ibfk_2" Association="repsont1_rotmModel.employee_milestone_ibfk_2">
             <End Role="milestone" EntitySet="milestones" />
             <End Role="employee_milestone" EntitySet="employee_milestone" />
-          </AssociationSet>
-          <AssociationSet Name="instructor_ibfk_2" Association="repsont1_rotmModel.instructor_ibfk_2">
-            <End Role="supplier" EntitySet="suppliers" />
-            <End Role="instructor" EntitySet="instructors" />
-          </AssociationSet>
-          <AssociationSet Name="instructor_ibfk_3" Association="repsont1_rotmModel.instructor_ibfk_3">
-            <End Role="title" EntitySet="titles" />
-            <End Role="instructor" EntitySet="instructors" />
-          </AssociationSet>
-          <AssociationSet Name="training_course_instance_ibfk_2" Association="repsont1_rotmModel.training_course_instance_ibfk_2">
-            <End Role="instructor" EntitySet="instructors" />
-            <End Role="training_course_instance" EntitySet="training_course_instance" />
           </AssociationSet>
           <AssociationSet Name="marketing_ibfk_2" Association="repsont1_rotmModel.marketing_ibfk_2">
             <End Role="mailing_list" EntitySet="mailing_list" />
@@ -1438,10 +1422,6 @@
             <End Role="gender" EntitySet="genders" />
             <End Role="employee" EntitySet="employees" />
           </AssociationSet>
-          <AssociationSet Name="employee_ibfk_4" Association="repsont1_rotmModel.employee_ibfk_4">
-            <End Role="title" EntitySet="titles" />
-            <End Role="employee" EntitySet="employees" />
-          </AssociationSet>
           <AssociationSet Name="employee_mailinglist_ibfk_1" Association="repsont1_rotmModel.employee_mailinglist_ibfk_1">
             <End Role="employee" EntitySet="employees" />
             <End Role="employee_mailinglist" EntitySet="employee_mailinglist" />
@@ -1450,10 +1430,6 @@
             <End Role="employee" EntitySet="employees" />
             <End Role="employee_milestone" EntitySet="employee_milestone" />
           </AssociationSet>
-          <AssociationSet Name="instructor_ibfk_1" Association="repsont1_rotmModel.instructor_ibfk_1">
-            <End Role="employee" EntitySet="employees" />
-            <End Role="instructor" EntitySet="instructors" />
-          </AssociationSet>
           <AssociationSet Name="registration_token_ibfk_2" Association="repsont1_rotmModel.registration_token_ibfk_2">
             <End Role="employee" EntitySet="employees" />
             <End Role="registration_token" EntitySet="registration_token" />
@@ -1461,6 +1437,33 @@
           <AssociationSet Name="training_course_ibfk_2" Association="repsont1_rotmModel.training_course_ibfk_2">
             <End Role="employee" EntitySet="employees" />
             <End Role="training_course" EntitySet="training_course" />
+          </AssociationSet>
+          <EntitySet Name="titles" EntityType="repsont1_rotmModel.title" />
+          <AssociationSet Name="employee_ibfk_4" Association="repsont1_rotmModel.employee_ibfk_4">
+            <End Role="title" EntitySet="titles" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <EntitySet Name="instructors" EntityType="repsont1_rotmModel.instructor" />
+          <AssociationSet Name="instructor_ibfk_1" Association="repsont1_rotmModel.instructor_ibfk_1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="instructor" EntitySet="instructors" />
+          </AssociationSet>
+          <AssociationSet Name="instructor_ibfk_3" Association="repsont1_rotmModel.instructor_ibfk_3">
+            <End Role="title" EntitySet="titles" />
+            <End Role="instructor" EntitySet="instructors" />
+          </AssociationSet>
+          <AssociationSet Name="training_course_instance_ibfk_2" Association="repsont1_rotmModel.training_course_instance_ibfk_2">
+            <End Role="instructor" EntitySet="instructors" />
+            <End Role="training_course_instance" EntitySet="training_course_instance" />
+          </AssociationSet>
+          <AssociationSet Name="ins_FK_4" Association="repsont1_rotmModel.ins_FK_4">
+            <End Role="gender" EntitySet="genders" />
+            <End Role="instructor" EntitySet="instructors" />
+          </AssociationSet>
+          <EntitySet Name="instructor_type" EntityType="repsont1_rotmModel.instructor_type" />
+          <AssociationSet Name="instructorfk_2" Association="repsont1_rotmModel.instructorfk_2">
+            <End Role="instructor_type" EntitySet="instructor_type" />
+            <End Role="instructor" EntitySet="instructors" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="LoginEmail_Result" />
@@ -1593,12 +1596,10 @@
           <Property Name="Contact_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Contact_Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Contact_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Title_ID" Type="Int32" />
           <Property Name="Client_Contact_Type_ID" Type="Int32" />
           <Property Name="Client_ID" Type="Int32" />
           <NavigationProperty Name="client" Relationship="repsont1_rotmModel.client_contact_ibfk_3" FromRole="client_contact" ToRole="client" />
           <NavigationProperty Name="client_contact_type" Relationship="repsont1_rotmModel.client_contact_ibfk_1" FromRole="client_contact" ToRole="client_contact_type" />
-          <NavigationProperty Name="title" Relationship="repsont1_rotmModel.client_contact_ibfk_2" FromRole="client_contact" ToRole="title" />
         </EntityType>
         <EntityType Name="client_contact_type">
           <Key>
@@ -1687,22 +1688,7 @@
           <Property Name="Gender_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Gender1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="employees" Relationship="repsont1_rotmModel.employee_ibfk_2" FromRole="gender" ToRole="employee" />
-        </EntityType>
-        <EntityType Name="instructor">
-          <Key>
-            <PropertyRef Name="Instructor_ID" />
-          </Key>
-          <Property Name="Instructor_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Instructor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Instructor_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Instructor_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Employee_ID" Type="Int32" />
-          <Property Name="Supplier_ID" Type="Int32" />
-          <Property Name="Title_ID" Type="Int32" />
-          <NavigationProperty Name="supplier" Relationship="repsont1_rotmModel.instructor_ibfk_2" FromRole="instructor" ToRole="supplier" />
-          <NavigationProperty Name="title" Relationship="repsont1_rotmModel.instructor_ibfk_3" FromRole="instructor" ToRole="title" />
-          <NavigationProperty Name="training_course_instance" Relationship="repsont1_rotmModel.training_course_instance_ibfk_2" FromRole="instructor" ToRole="training_course_instance" />
-          <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.instructor_ibfk_1" FromRole="instructor" ToRole="employee" />
+          <NavigationProperty Name="instructors" Relationship="repsont1_rotmModel.ins_FK_4" FromRole="gender" ToRole="instructor" />
         </EntityType>
         <EntityType Name="mailing_list">
           <Key>
@@ -1811,15 +1797,6 @@
           <Property Name="Reminder_Type_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="reminders" Relationship="repsont1_rotmModel.reminder_ibfk_1" FromRole="reminder_type" ToRole="reminder" />
         </EntityType>
-        <EntityType Name="supplier">
-          <Key>
-            <PropertyRef Name="Supplier_ID" />
-          </Key>
-          <Property Name="Supplier_ID" Type="Int32" Nullable="false" />
-          <Property Name="Supplier_Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Supplier_Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="instructors" Relationship="repsont1_rotmModel.instructor_ibfk_2" FromRole="supplier" ToRole="instructor" />
-        </EntityType>
         <EntityType Name="task">
           <Key>
             <PropertyRef Name="Task_ID" />
@@ -1853,16 +1830,6 @@
           <NavigationProperty Name="booking_instance" Relationship="repsont1_rotmModel.tasks_completed_ibfk_2" FromRole="tasks_completed" ToRole="booking_instance" />
           <NavigationProperty Name="task" Relationship="repsont1_rotmModel.tasks_completed_ibfk_1" FromRole="tasks_completed" ToRole="task" />
         </EntityType>
-        <EntityType Name="title">
-          <Key>
-            <PropertyRef Name="Title_ID" />
-          </Key>
-          <Property Name="Title_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="client_contact" Relationship="repsont1_rotmModel.client_contact_ibfk_2" FromRole="title" ToRole="client_contact" />
-          <NavigationProperty Name="instructors" Relationship="repsont1_rotmModel.instructor_ibfk_3" FromRole="title" ToRole="instructor" />
-          <NavigationProperty Name="employees" Relationship="repsont1_rotmModel.employee_ibfk_4" FromRole="title" ToRole="employee" />
-        </EntityType>
         <EntityType Name="training_course">
           <Key>
             <PropertyRef Name="Training_Course_ID" />
@@ -1888,9 +1855,9 @@
           <Property Name="Instructor_ID" Type="Int32" />
           <Property Name="Training_Course_ID" Type="Int32" />
           <NavigationProperty Name="attendances" Relationship="repsont1_rotmModel.attendance_ibfk_2" FromRole="training_course_instance" ToRole="attendance" />
-          <NavigationProperty Name="instructor" Relationship="repsont1_rotmModel.training_course_instance_ibfk_2" FromRole="training_course_instance" ToRole="instructor" />
           <NavigationProperty Name="training_course" Relationship="repsont1_rotmModel.training_course_instance_ibfk_1" FromRole="training_course_instance" ToRole="training_course" />
           <NavigationProperty Name="venue" Relationship="repsont1_rotmModel.training_course_instance_ibfk_3" FromRole="training_course_instance" ToRole="venue" />
+          <NavigationProperty Name="instructor" Relationship="repsont1_rotmModel.training_course_instance_ibfk_2" FromRole="training_course_instance" ToRole="instructor" />
         </EntityType>
         <EntityType Name="training_course_type">
           <Key>
@@ -2129,18 +2096,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="client_contact_ibfk_2">
-          <End Type="repsont1_rotmModel.title" Role="title" Multiplicity="0..1" />
-          <End Type="repsont1_rotmModel.client_contact" Role="client_contact" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="title">
-              <PropertyRef Name="Title_ID" />
-            </Principal>
-            <Dependent Role="client_contact">
-              <PropertyRef Name="Title_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="client_mailinglist_ibfk_2">
           <End Type="repsont1_rotmModel.mailing_list" Role="mailing_list" Multiplicity="1" />
           <End Type="repsont1_rotmModel.client_mailinglist" Role="client_mailinglist" Multiplicity="*" />
@@ -2174,42 +2129,6 @@
             </Principal>
             <Dependent Role="employee_milestone">
               <PropertyRef Name="Milestone_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="instructor_ibfk_2">
-          <End Type="repsont1_rotmModel.supplier" Role="supplier" Multiplicity="0..1" />
-          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="supplier">
-              <PropertyRef Name="Supplier_ID" />
-            </Principal>
-            <Dependent Role="instructor">
-              <PropertyRef Name="Supplier_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="instructor_ibfk_3">
-          <End Type="repsont1_rotmModel.title" Role="title" Multiplicity="0..1" />
-          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="title">
-              <PropertyRef Name="Title_ID" />
-            </Principal>
-            <Dependent Role="instructor">
-              <PropertyRef Name="Title_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="training_course_instance_ibfk_2">
-          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="0..1" />
-          <End Type="repsont1_rotmModel.training_course_instance" Role="training_course_instance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="instructor">
-              <PropertyRef Name="Instructor_ID" />
-            </Principal>
-            <Dependent Role="training_course_instance">
-              <PropertyRef Name="Instructor_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2369,12 +2288,12 @@
           <NavigationProperty Name="employee_client" Relationship="repsont1_rotmModel.employee_client_ibfk_1" FromRole="employee" ToRole="employee_client" />
           <NavigationProperty Name="employee_type" Relationship="repsont1_rotmModel.employee_ibfk_1" FromRole="employee" ToRole="employee_type" />
           <NavigationProperty Name="gender" Relationship="repsont1_rotmModel.employee_ibfk_2" FromRole="employee" ToRole="gender" />
-          <NavigationProperty Name="title" Relationship="repsont1_rotmModel.employee_ibfk_4" FromRole="employee" ToRole="title" />
           <NavigationProperty Name="employee_mailinglist" Relationship="repsont1_rotmModel.employee_mailinglist_ibfk_1" FromRole="employee" ToRole="employee_mailinglist" />
           <NavigationProperty Name="employee_milestone" Relationship="repsont1_rotmModel.employee_milestone_ibfk_1" FromRole="employee" ToRole="employee_milestone" />
-          <NavigationProperty Name="instructors" Relationship="repsont1_rotmModel.instructor_ibfk_1" FromRole="employee" ToRole="instructor" />
           <NavigationProperty Name="registration_token" Relationship="repsont1_rotmModel.registration_token_ibfk_2" FromRole="employee" ToRole="registration_token" />
           <NavigationProperty Name="training_course" Relationship="repsont1_rotmModel.training_course_ibfk_2" FromRole="employee" ToRole="training_course" />
+          <NavigationProperty Name="title" Relationship="repsont1_rotmModel.employee_ibfk_4" FromRole="employee" ToRole="title" />
+          <NavigationProperty Name="instructors" Relationship="repsont1_rotmModel.instructor_ibfk_1" FromRole="employee" ToRole="instructor" />
         </EntityType>
         <Association Name="employee_ibfk_3">
           <End Type="repsont1_rotmModel.address" Role="address" Multiplicity="0..1" />
@@ -2460,18 +2379,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="employee_ibfk_4">
-          <End Type="repsont1_rotmModel.title" Role="title" Multiplicity="0..1" />
-          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="title">
-              <PropertyRef Name="Title_ID" />
-            </Principal>
-            <Dependent Role="employee">
-              <PropertyRef Name="Title_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="employee_mailinglist_ibfk_1">
           <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="1" />
           <End Type="repsont1_rotmModel.employee_mailinglist" Role="employee_mailinglist" Multiplicity="*" />
@@ -2492,18 +2399,6 @@
               <PropertyRef Name="Employee_ID" />
             </Principal>
             <Dependent Role="employee_milestone">
-              <PropertyRef Name="Employee_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="instructor_ibfk_1">
-          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="0..1" />
-          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="employee">
-              <PropertyRef Name="Employee_ID" />
-            </Principal>
-            <Dependent Role="instructor">
               <PropertyRef Name="Employee_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2529,6 +2424,115 @@
             </Principal>
             <Dependent Role="training_course">
               <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="title">
+          <Key>
+            <PropertyRef Name="Title_ID" />
+          </Key>
+          <Property Name="Title_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employees" Relationship="repsont1_rotmModel.employee_ibfk_4" FromRole="title" ToRole="employee" />
+          <NavigationProperty Name="instructors" Relationship="repsont1_rotmModel.instructor_ibfk_3" FromRole="title" ToRole="instructor" />
+        </EntityType>
+        <Association Name="employee_ibfk_4">
+          <End Type="repsont1_rotmModel.title" Role="title" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="title">
+              <PropertyRef Name="Title_ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="Title_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="instructor">
+          <Key>
+            <PropertyRef Name="Instructor_ID" />
+          </Key>
+          <Property Name="Instructor_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Instructor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Instructor_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Instructor_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Instructor_Cellphone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Instructor_Type_ID" Type="Int32" />
+          <Property Name="Title_ID" Type="Int32" />
+          <Property Name="Gender_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.instructor_ibfk_1" FromRole="instructor" ToRole="employee" />
+          <NavigationProperty Name="title" Relationship="repsont1_rotmModel.instructor_ibfk_3" FromRole="instructor" ToRole="title" />
+          <NavigationProperty Name="training_course_instance" Relationship="repsont1_rotmModel.training_course_instance_ibfk_2" FromRole="instructor" ToRole="training_course_instance" />
+          <NavigationProperty Name="gender" Relationship="repsont1_rotmModel.ins_FK_4" FromRole="instructor" ToRole="gender" />
+          <NavigationProperty Name="instructor_type" Relationship="repsont1_rotmModel.instructorfk_2" FromRole="instructor" ToRole="instructor_type" />
+        </EntityType>
+        <Association Name="instructor_ibfk_1">
+          <End Type="repsont1_rotmModel.employee" Role="employee" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="instructor">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="instructor_ibfk_3">
+          <End Type="repsont1_rotmModel.title" Role="title" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="title">
+              <PropertyRef Name="Title_ID" />
+            </Principal>
+            <Dependent Role="instructor">
+              <PropertyRef Name="Title_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="training_course_instance_ibfk_2">
+          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.training_course_instance" Role="training_course_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="instructor">
+              <PropertyRef Name="Instructor_ID" />
+            </Principal>
+            <Dependent Role="training_course_instance">
+              <PropertyRef Name="Instructor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ins_FK_4">
+          <End Type="repsont1_rotmModel.gender" Role="gender" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="Gender_ID" />
+            </Principal>
+            <Dependent Role="instructor">
+              <PropertyRef Name="Gender_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="instructor_type">
+          <Key>
+            <PropertyRef Name="Instructor_Type_ID" />
+          </Key>
+          <Property Name="Instructor_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Instructor_Type_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Instrutor_Type_Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="instructors" Relationship="repsont1_rotmModel.instructorfk_2" FromRole="instructor_type" ToRole="instructor" />
+        </EntityType>
+        <Association Name="instructorfk_2">
+          <End Type="repsont1_rotmModel.instructor_type" Role="instructor_type" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.instructor" Role="instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="instructor_type">
+              <PropertyRef Name="Instructor_Type_ID" />
+            </Principal>
+            <Dependent Role="instructor">
+              <PropertyRef Name="Instructor_Type_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2648,7 +2652,6 @@
               <MappingFragment StoreEntitySet="client_contact">
                 <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
                 <ScalarProperty Name="Client_Contact_Type_ID" ColumnName="Client_Contact_Type_ID" />
-                <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
                 <ScalarProperty Name="Contact_Email" ColumnName="Contact_Email" />
                 <ScalarProperty Name="Contact_Phone" ColumnName="Contact_Phone" />
                 <ScalarProperty Name="Contact_Surname" ColumnName="Contact_Surname" />
@@ -2734,19 +2737,6 @@
               <MappingFragment StoreEntitySet="gender">
                 <ScalarProperty Name="Gender1" ColumnName="Gender" />
                 <ScalarProperty Name="Gender_ID" ColumnName="Gender_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="instructors">
-            <EntityTypeMapping TypeName="repsont1_rotmModel.instructor">
-              <MappingFragment StoreEntitySet="instructor">
-                <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
-                <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
-                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
-                <ScalarProperty Name="Instructor_Email" ColumnName="Instructor_Email" />
-                <ScalarProperty Name="Instructor_Surname" ColumnName="Instructor_Surname" />
-                <ScalarProperty Name="Instructor_Name" ColumnName="Instructor_Name" />
-                <ScalarProperty Name="Instructor_ID" ColumnName="Instructor_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2849,15 +2839,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="suppliers">
-            <EntityTypeMapping TypeName="repsont1_rotmModel.supplier">
-              <MappingFragment StoreEntitySet="supplier">
-                <ScalarProperty Name="Supplier_Phone" ColumnName="Supplier_Phone" />
-                <ScalarProperty Name="Supplier_Company" ColumnName="Supplier_Company" />
-                <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tasks">
             <EntityTypeMapping TypeName="repsont1_rotmModel.task">
               <MappingFragment StoreEntitySet="task">
@@ -2883,14 +2864,6 @@
                 <ScalarProperty Name="Task_Comments" ColumnName="Task_Comments" />
                 <ScalarProperty Name="Booking_Instance_ID" ColumnName="Booking_Instance_ID" />
                 <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="titles">
-            <EntityTypeMapping TypeName="repsont1_rotmModel.title">
-              <MappingFragment StoreEntitySet="title">
-                <ScalarProperty Name="Title1" ColumnName="Title" />
-                <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2954,6 +2927,38 @@
                 <ScalarProperty Name="Employee_Surname" ColumnName="Employee_Surname" />
                 <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
                 <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="titles">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.title">
+              <MappingFragment StoreEntitySet="title">
+                <ScalarProperty Name="Title1" ColumnName="Title" />
+                <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="instructors">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.instructor">
+              <MappingFragment StoreEntitySet="instructor">
+                <ScalarProperty Name="Gender_ID" ColumnName="Gender_ID" />
+                <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
+                <ScalarProperty Name="Instructor_Type_ID" ColumnName="Instructor_Type_ID" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Instructor_Cellphone" ColumnName="Instructor_Cellphone" />
+                <ScalarProperty Name="Instructor_Email" ColumnName="Instructor_Email" />
+                <ScalarProperty Name="Instructor_Surname" ColumnName="Instructor_Surname" />
+                <ScalarProperty Name="Instructor_Name" ColumnName="Instructor_Name" />
+                <ScalarProperty Name="Instructor_ID" ColumnName="Instructor_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="instructor_type">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.instructor_type">
+              <MappingFragment StoreEntitySet="instructor_type">
+                <ScalarProperty Name="Instrutor_Type_Description" ColumnName="Instrutor_Type_Description" />
+                <ScalarProperty Name="Instructor_Type_Name" ColumnName="Instructor_Type_Name" />
+                <ScalarProperty Name="Instructor_Type_ID" ColumnName="Instructor_Type_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

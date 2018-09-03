@@ -9,16 +9,25 @@ using System.Web.Mvc;
 using ROTM;
 
 namespace ROTM.Controllers
-{
-    [Authorize]
+{   [Authorize]
     public class bookingsController : Controller
     {
         private Entities db = new Entities();
 
         // GET: bookings
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            var bookings = db.bookings.Include(b => b.address).Include(b => b.booking_type).Include(b => b.client).Include(b => b.employee);
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var bookings = from s in (db.bookings.Include(b => b.address).Include(b => b.booking_type).Include(b => b.client).Include(b => b.employee)) select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                bookings = bookings.Where(s => s.Booking_Name.Contains(searchString) || s.Booking_Date.ToString().Contains(searchString) || s.Booking_Start_Time.ToString().Contains(searchString) || s.Booking_End_Time.ToString().Contains(searchString));
+            }
+
+            //var bookings = db.bookings.Include(b => b.address).Include(b => b.booking_type).Include(b => b.client).Include(b => b.employee);
             return View(bookings.ToList());
         }
 

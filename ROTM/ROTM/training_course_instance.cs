@@ -11,7 +11,8 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class training_course_instance
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,19 +20,43 @@ namespace ROTM
         {
             this.attendances = new HashSet<attendance>();
         }
-    
+
         public int Training_Course_Instance_ID { get; set; }
+
+        [Required]
+        [Display(Name = "Date")]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> Instance_Date { get; set; }
+
+        [Required]
+        [Display(Name = "Start Time")]
+        [DataType(DataType.Time)]
         public Nullable<System.TimeSpan> Instance_Start_Time { get; set; }
+
+        [Required]
+        [Display(Name = "End Time")]
+        [DataType(DataType.Time)]
         public Nullable<System.TimeSpan> Instance_End_Time { get; set; }
+
+        [Required]
+        [Display(Name = "Venue Name")]
+        [StringLength(50)]
         public Nullable<int> Venue_ID { get; set; }
+
+        [Required]
+        [Display(Name = "Instructor Name")]
+        [StringLength(50)]
         public Nullable<int> Instructor_ID { get; set; }
+
+        [Required]
+        [Display(Name = "Training Course Name")]
+        [StringLength(50)]
         public Nullable<int> Training_Course_ID { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<attendance> attendances { get; set; }
-        public virtual instructor instructor { get; set; }
         public virtual training_course training_course { get; set; }
         public virtual venue venue { get; set; }
+        public virtual instructor instructor { get; set; }
     }
 }

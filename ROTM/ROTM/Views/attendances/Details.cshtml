@@ -1,0 +1,50 @@
+﻿@model ROTM.attendance
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>attendance</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Replied_Going)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Replied_Going)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Actual_Attendance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Actual_Attendance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.training_course_instance.Training_Course_Instance_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.training_course_instance.Training_Course_Instance_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employee.Employee_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employee.Employee_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

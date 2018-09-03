@@ -16,9 +16,17 @@ namespace ROTM.Controllers
         private Entities db = new Entities();
 
         // GET: training_course
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            var training_course = db.training_course.Include(t => t.employee).Include(t => t.training_course_type);
+            ViewData["CurrentFilter"] = searchString;
+
+            var training_course = from s in (db.training_course.Include(t => t.employee).Include(t => t.training_course_type)) select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                training_course = training_course.Where(s => s.Training_Course_Name.Contains(searchString) || s.Training_Course_Description.Contains(searchString));
+            }
+            //var training_course = db.training_course.Include(t => t.employee).Include(t => t.training_course_type);
             return View(training_course.ToList());
         }
 

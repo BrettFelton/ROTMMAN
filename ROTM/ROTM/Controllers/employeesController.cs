@@ -19,9 +19,17 @@ namespace ROTM.Controllers
         private Entities db = new Entities();
 
         // GET: employees
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            var employees = db.employees.Include(e => e.address).Include(e => e.employee_type).Include(e => e.gender).Include(e => e.title);
+            ViewData["CurrentFilter"] = searchString;
+
+            var employees = from s in (db.employees.Include(e => e.address).Include(e => e.employee_type).Include(e => e.gender).Include(e => e.title)) select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                employees = employees.Where(s => s.Employee_Name.Contains(searchString) || s.Employee_Surname.Contains(searchString) || s.Employee_Email.Contains(searchString) || s.Employee_Home_Phone.Contains(searchString) || s.Employee_Cellphone.Contains(searchString) || s.Employee_RSA_ID.Contains(searchString) );
+            }
+            //var employees = db.employees.Include(e => e.address).Include(e => e.employee_type).Include(e => e.gender).Include(e => e.title);
             return View(employees.ToList());
         }
 

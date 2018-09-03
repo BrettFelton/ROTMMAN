@@ -11,15 +11,25 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class attendance
     {
         public int Training_Course_Instance_ID { get; set; }
         public int Employee_ID { get; set; }
+
+        [Required]
+        [Display(Name = "Replied Going")]
+        [Range(typeof(bool), "true", "true")]
         public Nullable<bool> Replied_Going { get; set; }
+
+        [Required]
+        [Display(Name = "Actual Attendance")]
+        [Range(typeof(bool), "true", "true")]
         public Nullable<bool> Actual_Attendance { get; set; }
-    
+
         public virtual training_course_instance training_course_instance { get; set; }
         public virtual employee employee { get; set; }
     }
 }
+
