@@ -40,17 +40,14 @@ namespace ROTM
 
         [Required]
         [Display(Name = "Venue Name")]
-        [StringLength(50)]
         public Nullable<int> Venue_ID { get; set; }
 
         [Required]
         [Display(Name = "Instructor Name")]
-        [StringLength(50)]
         public Nullable<int> Instructor_ID { get; set; }
 
         [Required]
         [Display(Name = "Training Course Name")]
-        [StringLength(50)]
         public Nullable<int> Training_Course_ID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

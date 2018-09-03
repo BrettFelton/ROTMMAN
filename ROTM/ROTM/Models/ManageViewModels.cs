@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -23,6 +24,47 @@ namespace ROTM.Models
     public class FactorViewModel
     {
         public string Purpose { get; set; }
+    }
+
+    public class UpdateProfileDetails
+    {
+        [Required]
+        [Display(Name = "Employee Name")]
+        [StringLength(50)]
+        public string Name { get; set; }
+
+        [Display(Name = "Employee Surname")]
+        [StringLength(50)]
+        public string Surname { get; set; }
+
+        [Display(Name = "Home Phone Number")]
+        [Phone]
+        public string Home_Phone { get; set; }
+
+        [Display(Name = "Cell Phone Number")]
+        [Phone]
+        public string Cell_Phone { get; set; }
+
+        [Display(Name = "RSA ID")]
+        [StringLength(13)]
+        public string RSA_ID { get; set; }
+
+        [Display(Name = "Employee Type")]
+        public Nullable<int> Employee_Type_ID { get; set; }
+
+        [Display(Name = "Gender")]
+        public Nullable<int> Gender_ID { get; set; }
+
+        [Display(Name = "Address")]
+        public Nullable<int> Address_ID { get; set; }
+
+        [Display(Name = "Title")]
+        public Nullable<int> Title_ID { get; set; }
+
+        public virtual employee_type employee_type { get; set; }
+        public virtual gender gender { get; set; }
+        public virtual title title { get; set; }
+        public virtual address address { get; set; }
     }
 
     public class SetPasswordViewModel

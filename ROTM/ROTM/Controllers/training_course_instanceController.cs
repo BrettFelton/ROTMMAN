@@ -10,6 +10,7 @@ using ROTM;
 
 namespace ROTM.Controllers
 {
+    [Authorize]
     public class training_course_instanceController : Controller
     {
         private Entities db = new Entities();
@@ -54,9 +55,16 @@ namespace ROTM.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.training_course_instance.Add(training_course_instance);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (training_course_instance.Instance_Start_Time < training_course_instance.Instance_End_Time)
+                {
+                    db.training_course_instance.Add(training_course_instance);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else if (training_course_instance.Instance_Start_Time >= training_course_instance.Instance_End_Time)
+                {
+                    ViewBag.Error = "The End time cannot be at the same time or an earlier time then the start time.";
+                }
             }
 
             ViewBag.Training_Course_ID = new SelectList(db.training_course, "Training_Course_ID", "Training_Course_Name", training_course_instance.Training_Course_ID);
@@ -92,9 +100,16 @@ namespace ROTM.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(training_course_instance).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (training_course_instance.Instance_Start_Time < training_course_instance.Instance_End_Time)
+                {
+                    db.Entry(training_course_instance).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else if (training_course_instance.Instance_Start_Time >= training_course_instance.Instance_End_Time)
+                {
+                    ViewBag.Error = "The End time cannot be at the same time or an earlier time then the start time.";
+                }
             }
             ViewBag.Training_Course_ID = new SelectList(db.training_course, "Training_Course_ID", "Training_Course_Name", training_course_instance.Training_Course_ID);
             ViewBag.Venue_ID = new SelectList(db.venues, "Venue_ID", "Venue_Name", training_course_instance.Venue_ID);

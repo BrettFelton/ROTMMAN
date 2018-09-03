@@ -11,7 +11,8 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class training_course_type
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,15 @@ namespace ROTM
         }
     
         public int Training_Course_Type_ID { get; set; }
+
+        [Required]
+        [Display(Name = "Course Name")]
+        [StringLength(50)]
         public string Course_Name { get; set; }
+
+        [Required]
+        [Display(Name = "Course Description")]
+        [StringLength(255)]
         public string Course_Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -11,107 +11,107 @@ using ROTM;
 namespace ROTM.Controllers
 {
     [Authorize]
-    public class instructor_typeController : Controller
+    public class addressesController : Controller
     {
         private Entities db = new Entities();
 
-        // GET: instructor_type
+        // GET: addresses
         public ActionResult Index()
         {
-            return View(db.instructor_type.ToList());
+            return View(db.addresses.ToList());
         }
 
-        // GET: instructor_type/Details/5
+        // GET: addresses/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            instructor_type instructor_type = db.instructor_type.Find(id);
-            if (instructor_type == null)
+            address address = db.addresses.Find(id);
+            if (address == null)
             {
                 return HttpNotFound();
             }
-            return View(instructor_type);
+            return View(address);
         }
 
-        // GET: instructor_type/Create
+        // GET: addresses/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: instructor_type/Create
+        // POST: addresses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Instructor_Type_ID,Instructor_Type_Name,Instrutor_Type_Description")] instructor_type instructor_type)
+        public ActionResult Create([Bind(Include = "Address_ID,Street_Name,Suburb,City,Province,Country")] address address)
         {
             if (ModelState.IsValid)
             {
-                db.instructor_type.Add(instructor_type);
+                db.addresses.Add(address);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(instructor_type);
+            return View(address);
         }
 
-        // GET: instructor_type/Edit/5
+        // GET: addresses/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            instructor_type instructor_type = db.instructor_type.Find(id);
-            if (instructor_type == null)
+            address address = db.addresses.Find(id);
+            if (address == null)
             {
                 return HttpNotFound();
             }
-            return View(instructor_type);
+            return View(address);
         }
 
-        // POST: instructor_type/Edit/5
+        // POST: addresses/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Instructor_Type_ID,Instructor_Type_Name,Instrutor_Type_Description")] instructor_type instructor_type)
+        public ActionResult Edit([Bind(Include = "Address_ID,Street_Name,Suburb,City,Province,Country")] address address)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(instructor_type).State = EntityState.Modified;
+                db.Entry(address).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(instructor_type);
+            return View(address);
         }
 
-        // GET: instructor_type/Delete/5
+        // GET: addresses/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            instructor_type instructor_type = db.instructor_type.Find(id);
-            if (instructor_type == null)
+            address address = db.addresses.Find(id);
+            if (address == null)
             {
                 return HttpNotFound();
             }
-            return View(instructor_type);
+            return View(address);
         }
 
-        // POST: instructor_type/Delete/5
+        // POST: addresses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            instructor_type instructor_type = db.instructor_type.Find(id);
-            db.instructor_type.Remove(instructor_type);
+            address address = db.addresses.Find(id);
+            db.addresses.Remove(address);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

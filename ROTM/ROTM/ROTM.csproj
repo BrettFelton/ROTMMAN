@@ -255,6 +255,7 @@
     </Compile>
     <Compile Include="Controllers\access_levelController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\addressesController.cs" />
     <Compile Include="Controllers\attendancesController.cs" />
     <Compile Include="Controllers\bookingsController.cs" />
     <Compile Include="Controllers\booking_typeController.cs" />
@@ -530,6 +531,12 @@
     <Content Include="Views\instructor_type\Details.cshtml" />
     <Content Include="Views\instructor_type\Edit.cshtml" />
     <Content Include="Views\instructor_type\Index.cshtml" />
+    <Content Include="Views\addresses\Create.cshtml" />
+    <Content Include="Views\addresses\Delete.cshtml" />
+    <Content Include="Views\addresses\Details.cshtml" />
+    <Content Include="Views\addresses\Edit.cshtml" />
+    <Content Include="Views\addresses\Index.cshtml" />
+    <Content Include="Views\Manage\UpdateProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

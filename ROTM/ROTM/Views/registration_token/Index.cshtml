@@ -4,7 +4,7 @@
 }
 <h2>Index</h2>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Generate Registration Token", "Create")
 </p>
 <table class="table">
     <tr>
@@ -39,7 +39,7 @@
             </td>*@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Registration_Token_ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Registration_Token_ID }) |
+                @*@Html.ActionLink("Details", "Details", new { id = item.Registration_Token_ID }) |*@
                 @Html.ActionLink("Delete", "Delete", new { id = item.Registration_Token_ID })
             </td>
         </tr>

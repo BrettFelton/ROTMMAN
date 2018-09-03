@@ -46,22 +46,18 @@ namespace ROTM
 
         [Required]
         [Display(Name = "Employee Name")]
-        [StringLength(50)]
         public Nullable<int> Employee_ID { get; set; }
 
         [Required]
         [Display(Name = "Instructor Type Name")]
-        [StringLength(50)]
         public Nullable<int> Instructor_Type_ID { get; set; }
 
         [Required]
         [Display(Name = "Title")]
-        [StringLength(50)]
         public Nullable<int> Title_ID { get; set; }
 
         [Required]
         [Display(Name = "Gender")]
-        [StringLength(50)]
         public int Gender_ID { get; set; }
 
         public virtual employee employee { get; set; }
