@@ -17,8 +17,8 @@ namespace ROTM
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public task()
         {
-            this.tasks_completed = new HashSet<tasks_completed>();
             this.task_milestone = new HashSet<task_milestone>();
+            this.tasks_completed = new HashSet<tasks_completed>();
         }
     
         public int Task_ID { get; set; }
@@ -26,8 +26,8 @@ namespace ROTM
         public string Task_Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tasks_completed> tasks_completed { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<task_milestone> task_milestone { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tasks_completed> tasks_completed { get; set; }
     }
 }

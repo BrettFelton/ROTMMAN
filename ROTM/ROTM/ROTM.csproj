@@ -256,6 +256,7 @@
     <Compile Include="Controllers\attendancesController.cs" />
     <Compile Include="Controllers\bookingsController.cs" />
     <Compile Include="Controllers\booking_typeController.cs" />
+    <Compile Include="Controllers\clientsController.cs" />
     <Compile Include="Controllers\client_typeController.cs" />
     <Compile Include="Controllers\employeesController.cs" />
     <Compile Include="Controllers\employee_typeController.cs" />
@@ -447,6 +448,11 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\clients\Create.cshtml" />
+    <Content Include="Views\clients\Delete.cshtml" />
+    <Content Include="Views\clients\Details.cshtml" />
+    <Content Include="Views\clients\Edit.cshtml" />
+    <Content Include="Views\clients\Index.cshtml" />
     <Content Include="Views\booking_type\Create.cshtml" />
     <Content Include="Views\booking_type\Delete.cshtml" />
     <Content Include="Views\booking_type\Details.cshtml" />
@@ -512,6 +518,11 @@
     <Content Include="Views\training_course_instance\Details.cshtml" />
     <Content Include="Views\training_course_instance\Edit.cshtml" />
     <Content Include="Views\training_course_instance\Index.cshtml" />
+    <Content Include="Views\instructors\Create.cshtml" />
+    <Content Include="Views\instructors\Delete.cshtml" />
+    <Content Include="Views\instructors\Details.cshtml" />
+    <Content Include="Views\instructors\Edit.cshtml" />
+    <Content Include="Views\instructors\Index.cshtml" />
     <Content Include="Views\instructor_type\Create.cshtml" />
     <Content Include="Views\instructor_type\Delete.cshtml" />
     <Content Include="Views\instructor_type\Details.cshtml" />
@@ -523,12 +534,6 @@
     <Content Include="Views\addresses\Edit.cshtml" />
     <Content Include="Views\addresses\Index.cshtml" />
     <Content Include="Views\Manage\UpdateProfile.cshtml" />
-    <Content Include="Views\Account\TokenRegister.cshtml" />
-    <Content Include="Views\instructors\Create.cshtml" />
-    <Content Include="Views\instructors\Delete.cshtml" />
-    <Content Include="Views\instructors\Details.cshtml" />
-    <Content Include="Views\instructors\Edit.cshtml" />
-    <Content Include="Views\instructors\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

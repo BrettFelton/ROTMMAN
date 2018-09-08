@@ -19,11 +19,11 @@ namespace ROTM
         {
             this.clients = new HashSet<client>();
         }
-    
+
         public int Client_Type_ID { get; set; }
         public string Client_Type_Name { get; set; }
         public string Client_Type_Description { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<client> clients { get; set; }
     }

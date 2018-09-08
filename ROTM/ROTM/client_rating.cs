@@ -11,7 +11,8 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class client_rating
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,11 +20,19 @@ namespace ROTM
         {
             this.clients = new HashSet<client>();
         }
-    
+
         public int Client_Rating_ID { get; set; }
+
+        [Required]
+        [Display(Name = "Rating Name")]
+        [StringLength(50)]
         public string Rating_Name { get; set; }
+
+        [Required]
+        [Display(Name = "Rating Description")]
+        [StringLength(255)]
         public string Rating_Description { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<client> clients { get; set; }
     }

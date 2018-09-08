@@ -17,18 +17,26 @@ namespace ROTM
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public client()
         {
+            this.bookings = new HashSet<booking>();
             this.client_contact = new HashSet<client_contact>();
             this.client_mailinglist = new HashSet<client_mailinglist>();
             this.employee_client = new HashSet<employee_client>();
         }
-    
+
         public int Client_ID { get; set; }
         public string Client_Name { get; set; }
         public string Client_Cellphone { get; set; }
         public string Client_Email { get; set; }
         public Nullable<int> Client_Rating_ID { get; set; }
+<<<<<<< HEAD
+=======
+
+        [Display(Name = "Type")]
+>>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         public Nullable<int> Client_Type_ID { get; set; }
-    
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<booking> bookings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<client_contact> client_contact { get; set; }
         public virtual client_rating client_rating { get; set; }

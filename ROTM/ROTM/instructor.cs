@@ -19,17 +19,36 @@ namespace ROTM
         {
             this.training_course_instance = new HashSet<training_course_instance>();
         }
-    
+
+
         public int Instructor_ID { get; set; }
         public string Instructor_Name { get; set; }
         public string Instructor_Surname { get; set; }
+<<<<<<< HEAD
         public string Instructor_Email { get; set; }
+=======
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Instructor Email")]
+        public string Instructor_Email { get; set; }
+
+        [Required]
+        [Display(Name = "Instructor Cellphone")]
+        [Phone]
+>>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         public string Instructor_Cellphone { get; set; }
         public Nullable<int> Employee_ID { get; set; }
         public Nullable<int> Instructor_Type_ID { get; set; }
         public Nullable<int> Title_ID { get; set; }
+<<<<<<< HEAD
+=======
+
+        [Required]
+        [Display(Name = "Gender")]
+>>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         public int Gender_ID { get; set; }
-    
+
         public virtual employee employee { get; set; }
         public virtual title title { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

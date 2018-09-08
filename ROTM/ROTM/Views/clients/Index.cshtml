@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ROTM.client>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Search: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            @Html.ActionLink("Show Full List", "Index", "Clients")
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Client_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Client_Cellphone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Client_Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.client_rating.Rating_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.client_type.Client_Type_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Client_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Client_Cellphone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Client_Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.client_rating.Rating_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.client_type.Client_Type_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Client_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Client_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Client_ID })
+        </td>
+    </tr>
+}
+
+</table>

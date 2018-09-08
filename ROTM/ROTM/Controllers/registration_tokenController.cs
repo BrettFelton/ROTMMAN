@@ -54,15 +54,11 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Registration_Token_ID,Registration_Token1,New_Email,Access_Level_ID,Employee_ID")] registration_token registration_token)
         {
-            //New token
             RNGCryptoServiceProvider rngCryptoServiceProvider = new RNGCryptoServiceProvider();
             byte[] randomBytes = new byte[6];
             rngCryptoServiceProvider.GetBytes(randomBytes);
 
-            //Validation for duplicate emails
-            bool val = Validate(registration_token.New_Email);
-
-            if (ModelState.IsValid && val == false)
+            if (ModelState.IsValid)
             {
                 registration_token.Registration_Token1 = Convert.ToBase64String(randomBytes);
                 registration_token.Employee_ID = null;
@@ -78,19 +74,12 @@ namespace ROTM.Controllers
                 client.Credentials = new System.Net.NetworkCredential("no-reply@repsonthemove.com", "k1Yvi2&5");
                 client.Host = "nl1-wss2.a2hosting.com";
                 mail.Subject = "Registration Token";
-                mail.Body = "Hi " + registration_token.New_Email + "\n\nHere is you registration token: " + Convert.ToBase64String(randomBytes) + "\n\nRegards" + "\nReps On The Move Team";
+                mail.Body = "Hi " + registration_token.New_Email + "\n\nHere is you registration token: " + Convert.ToBase64String(randomBytes) + "\nIf you are a manager you can ignore this token as it is just for security, go onto https://repsonthemove.com/Account/Register and register as a normal. " + "\n\nRegards" + "\nReps On The Move Team";
                 client.Send(mail);
 
 
 
                 return RedirectToAction("Index");
-            }
-            else if (val == true)
-            {
-                ViewBag.Access_Level_ID = new SelectList(db.access_level, "Access_Level_ID", "Access_Level_Name", registration_token.Access_Level_ID);
-                ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", registration_token.Employee_ID);
-                ViewBag.StatusMessage = "There is already an: " + registration_token.New_Email + " email address registered for a access token.";
-                return View();
             }
 
             ViewBag.Access_Level_ID = new SelectList(db.access_level, "Access_Level_ID", "Access_Level_Name", registration_token.Access_Level_ID);
@@ -122,20 +111,11 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Registration_Token_ID,Registration_Token1,New_Email,Access_Level_ID,Employee_ID")] registration_token registration_token)
         {
-            //Validation for duplicate emails
-            bool val = db.registration_token.Any(s => s.New_Email == registration_token.New_Email && s.Registration_Token_ID != registration_token.Registration_Token_ID);
-            if (ModelState.IsValid && val == false)
+            if (ModelState.IsValid)
             {
                 db.Entry(registration_token).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            else if (val == true)
-            {
-                ViewBag.Access_Level_ID = new SelectList(db.access_level, "Access_Level_ID", "Access_Level_Name", registration_token.Access_Level_ID);
-                ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", registration_token.Employee_ID);
-                ViewBag.StatusMessage = "There is already an: " + registration_token.New_Email + " email address registered for a access token.";
-                return View();
             }
             ViewBag.Access_Level_ID = new SelectList(db.access_level, "Access_Level_ID", "Access_Level_Name", registration_token.Access_Level_ID);
             ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", registration_token.Employee_ID);
@@ -175,20 +155,6 @@ namespace ROTM.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        public bool Validate(string stri)
-        {
-            //var employees = from s in (db.employees.Include(e => e.address).Include(e => e.employee_type).Include(e => e.gender).Include(e => e.title)) select s;
-            var checkTC = (from s in (db.registration_token) where s.New_Email == stri select s).FirstOrDefault();
-            if (checkTC != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }

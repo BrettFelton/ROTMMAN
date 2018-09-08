@@ -29,9 +29,9 @@ namespace ROTM
         public Nullable<int> Address_ID { get; set; }
     
         public virtual address address { get; set; }
+        public virtual booking booking { get; set; }
         public virtual quote quote { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tasks_completed> tasks_completed { get; set; }
-        public virtual booking booking { get; set; }
     }
 }

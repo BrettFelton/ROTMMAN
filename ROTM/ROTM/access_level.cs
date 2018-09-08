@@ -19,11 +19,11 @@ namespace ROTM
         {
             this.registration_token = new HashSet<registration_token>();
         }
-    
+
         public int Access_Level_ID { get; set; }
         public string Access_Level_Name { get; set; }
         public string Access_Level_Description { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<registration_token> registration_token { get; set; }
     }

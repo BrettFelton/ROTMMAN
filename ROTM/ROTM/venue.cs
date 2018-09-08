@@ -19,13 +19,20 @@ namespace ROTM
         {
             this.training_course_instance = new HashSet<training_course_instance>();
         }
-    
+
         public int Venue_ID { get; set; }
         public string Venue_Name { get; set; }
         public string Venue_Description { get; set; }
+<<<<<<< HEAD
+=======
+
+        [Required]
+        [Display(Name = "Venue Size")]
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
+>>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         public Nullable<int> Venue_Size { get; set; }
         public Nullable<int> Address_ID { get; set; }
-    
+
         public virtual address address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<training_course_instance> training_course_instance { get; set; }

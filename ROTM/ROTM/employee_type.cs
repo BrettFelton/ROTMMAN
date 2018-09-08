@@ -19,11 +19,11 @@ namespace ROTM
         {
             this.employees = new HashSet<employee>();
         }
-    
+
         public int Employee_Type_ID { get; set; }
         public string Type_Name { get; set; }
         public string Type_Description { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<employee> employees { get; set; }
     }

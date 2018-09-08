@@ -20,7 +20,7 @@ namespace ROTM.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            var bookings = from s in (db.bookings.Include(b => b.address).Include(b => b.booking_type).Include(b => b.employee)) select s;
+            var bookings = from s in (db.bookings.Include(b => b.address).Include(b => b.booking_type).Include(b => b.client).Include(b => b.employee)) select s;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -72,6 +72,7 @@ namespace ROTM.Controllers
 
             ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name", booking.Address_ID);
             ViewBag.Booking_Type_ID = new SelectList(db.booking_type, "Booking_Type_ID", "Booking_Type_Name", booking.Booking_Type_ID);
+            ViewBag.Client_ID = new SelectList(db.clients, "Client_ID", "Client_Name", booking.Client_ID);
             ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", booking.Employee_ID);
             return View(booking);
         }
@@ -90,6 +91,7 @@ namespace ROTM.Controllers
             }
             ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name", booking.Address_ID);
             ViewBag.Booking_Type_ID = new SelectList(db.booking_type, "Booking_Type_ID", "Booking_Type_Name", booking.Booking_Type_ID);
+            ViewBag.Client_ID = new SelectList(db.clients, "Client_ID", "Client_Name", booking.Client_ID);
             ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", booking.Employee_ID);
             return View(booking);
         }
@@ -109,6 +111,7 @@ namespace ROTM.Controllers
             }
             ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name", booking.Address_ID);
             ViewBag.Booking_Type_ID = new SelectList(db.booking_type, "Booking_Type_ID", "Booking_Type_Name", booking.Booking_Type_ID);
+            ViewBag.Client_ID = new SelectList(db.clients, "Client_ID", "Client_Name", booking.Client_ID);
             ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", booking.Employee_ID);
             return View(booking);
         }

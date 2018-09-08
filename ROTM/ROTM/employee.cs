@@ -19,50 +19,65 @@ namespace ROTM
         {
             this.attendances = new HashSet<attendance>();
             this.audit_trail = new HashSet<audit_trail>();
+            this.bookings = new HashSet<booking>();
             this.employee_client = new HashSet<employee_client>();
             this.employee_mailinglist = new HashSet<employee_mailinglist>();
-            this.training_course = new HashSet<training_course>();
-            this.instructors = new HashSet<instructor>();
             this.employee_milestone = new HashSet<employee_milestone>();
+            this.instructors = new HashSet<instructor>();
             this.registration_token = new HashSet<registration_token>();
-            this.bookings = new HashSet<booking>();
+            this.training_course = new HashSet<training_course>();
         }
-    
+
         public int Employee_ID { get; set; }
         public string Employee_Name { get; set; }
         public string Employee_Surname { get; set; }
         public string Employee_Email { get; set; }
         public string Employee_Home_Phone { get; set; }
+<<<<<<< HEAD
         public string Employee_Cellphone { get; set; }
+=======
+
+        [Display(Name = "Cell Phone Number")]
+        [Phone]
+        public string Employee_Cellphone { get; set; }
+
+        [Display(Name = "RSA ID")]
+        [StringLength(13)]
+>>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         public string Employee_RSA_ID { get; set; }
         public string Employee_Avatar { get; set; }
         public Nullable<int> Employee_Type_ID { get; set; }
         public string Encrypted_Password { get; set; }
         public Nullable<int> Gender_ID { get; set; }
         public Nullable<int> Address_ID { get; set; }
+<<<<<<< HEAD
+=======
+
+        [Display(Name = "Title")]
+>>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         public Nullable<int> Title_ID { get; set; }
-    
+
         public virtual address address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<attendance> attendances { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<audit_trail> audit_trail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<booking> bookings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<employee_client> employee_client { get; set; }
         public virtual employee_type employee_type { get; set; }
         public virtual gender gender { get; set; }
+        public virtual title title { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<employee_mailinglist> employee_mailinglist { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<training_course> training_course { get; set; }
-        public virtual title title { get; set; }
+        public virtual ICollection<employee_milestone> employee_milestone { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<instructor> instructors { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<employee_milestone> employee_milestone { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<registration_token> registration_token { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<booking> bookings { get; set; }
+        public virtual ICollection<training_course> training_course { get; set; }
     }
 }

@@ -14,12 +14,6 @@ namespace ROTM
     
     public partial class client_contact
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public client_contact()
-        {
-            this.bookings = new HashSet<booking>();
-        }
-    
         public int Client_Contact_ID { get; set; }
         public string Contact_Name { get; set; }
         public string Contact_Surname { get; set; }
@@ -30,7 +24,5 @@ namespace ROTM
     
         public virtual client client { get; set; }
         public virtual client_contact_type client_contact_type { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<booking> bookings { get; set; }
     }
 }
