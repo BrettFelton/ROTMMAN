@@ -11,7 +11,8 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,12 +24,9 @@ namespace ROTM
             this.employees = new HashSet<employee>();
         }
         public int Address_ID { get; set; }
+
+        [Display(Name = "Street Name")]
         public string Street_Name { get; set; }
-<<<<<<< HEAD
-        public string Suburb { get; set; }
-        public string City { get; set; }
-        public string Province { get; set; }
-=======
         [Display(Name = "Suburb")]
         public string Suburb { get; set; }
         [Display(Name = "City")]
@@ -36,7 +34,6 @@ namespace ROTM
         [Display(Name = "Province")]
         public string Province { get; set; }
         [Display(Name = "Country")]
->>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         public string Country { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

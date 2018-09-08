@@ -11,7 +11,8 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,15 +25,26 @@ namespace ROTM
         }
 
         public int Client_ID { get; set; }
+
+        [Required]
+        [Display(Name = "Client Name")]
+        [StringLength(50)]
         public string Client_Name { get; set; }
+
+        [Required]
+        [Display(Name = "Cell Phone Number")]
+        [Phone]
         public string Client_Cellphone { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
         public string Client_Email { get; set; }
+
+        [Display(Name = "Rating")]
         public Nullable<int> Client_Rating_ID { get; set; }
-<<<<<<< HEAD
-=======
 
         [Display(Name = "Type")]
->>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         public Nullable<int> Client_Type_ID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

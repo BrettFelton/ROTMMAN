@@ -11,7 +11,8 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -29,13 +30,24 @@ namespace ROTM
         }
 
         public int Employee_ID { get; set; }
+
+        [Required]
+        [Display(Name = "Employee Name")]
+        [StringLength(50)]
         public string Employee_Name { get; set; }
+
+        [Display(Name = "Employee Surname")]
+        [StringLength(50)]
         public string Employee_Surname { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
         public string Employee_Email { get; set; }
+
+        [Display(Name = "Home Phone Number")]
+        [Phone]
         public string Employee_Home_Phone { get; set; }
-<<<<<<< HEAD
-        public string Employee_Cellphone { get; set; }
-=======
 
         [Display(Name = "Cell Phone Number")]
         [Phone]
@@ -43,18 +55,28 @@ namespace ROTM
 
         [Display(Name = "RSA ID")]
         [StringLength(13)]
->>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         public string Employee_RSA_ID { get; set; }
+
+        [Display(Name = "Avatar")]
+        [DataType(DataType.Upload)]
         public string Employee_Avatar { get; set; }
+
+        [Display(Name = "Employee Type")]
         public Nullable<int> Employee_Type_ID { get; set; }
+
+        [Required]
+        [StringLength(40, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Encrypted_Password { get; set; }
+
+        [Display(Name = "Gender")]
         public Nullable<int> Gender_ID { get; set; }
+
+        [Display(Name = "Address")]
         public Nullable<int> Address_ID { get; set; }
-<<<<<<< HEAD
-=======
 
         [Display(Name = "Title")]
->>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         public Nullable<int> Title_ID { get; set; }
 
         public virtual address address { get; set; }

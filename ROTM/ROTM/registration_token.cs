@@ -11,23 +11,24 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class registration_token
     {
         public int Registration_Token_ID { get; set; }
-<<<<<<< HEAD
-=======
         [Display(Name = "Registration Token")]
         [StringLength(40)]
->>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         public string Registration_Token1 { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
         public string New_Email { get; set; }
-<<<<<<< HEAD
-=======
 
         [Display(Name = "Access Level")]
->>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         public Nullable<int> Access_Level_ID { get; set; }
+
+        [Display(Name = "Employee")]
         public Nullable<int> Employee_ID { get; set; }
 
         public virtual access_level access_level { get; set; }
