@@ -255,8 +255,6 @@
     </Compile>
     <Compile Include="Controllers\access_levelController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\addressesController.cs" />
-    <Compile Include="Controllers\attendancesController.cs" />
     <Compile Include="Controllers\bookingsController.cs" />
     <Compile Include="Controllers\booking_typeController.cs" />
     <Compile Include="Controllers\clientsController.cs" />
@@ -264,8 +262,6 @@
     <Compile Include="Controllers\employeesController.cs" />
     <Compile Include="Controllers\employee_typeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\instructorsController.cs" />
-    <Compile Include="Controllers\instructor_typeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\registration_tokenController.cs" />
     <Compile Include="Controllers\tasksController.cs" />

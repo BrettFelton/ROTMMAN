@@ -57,16 +57,16 @@ namespace ROTM
         public virtual DbSet<reminder> reminders { get; set; }
         public virtual DbSet<reminder_type> reminder_type { get; set; }
         public virtual DbSet<task> tasks { get; set; }
-        public virtual DbSet<task_milestone> task_milestone { get; set; }
         public virtual DbSet<tasks_completed> tasks_completed { get; set; }
         public virtual DbSet<training_course> training_course { get; set; }
         public virtual DbSet<training_course_instance> training_course_instance { get; set; }
         public virtual DbSet<training_course_type> training_course_type { get; set; }
-        public virtual DbSet<venue> venues { get; set; }
         public virtual DbSet<employee> employees { get; set; }
         public virtual DbSet<title> titles { get; set; }
         public virtual DbSet<instructor> instructors { get; set; }
         public virtual DbSet<instructor_type> instructor_type { get; set; }
+        public virtual DbSet<task_milestone> task_milestone { get; set; }
+        public virtual DbSet<venue> venues { get; set; }
     
         public virtual ObjectResult<LoginEmail_Result> LoginEmail(ObjectParameter email, ObjectParameter passwords)
         {

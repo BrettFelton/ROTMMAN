@@ -31,8 +31,8 @@
           </Key>
           <Property Name="Training_Course_Instance_ID" Type="int" Nullable="false" />
           <Property Name="Employee_ID" Type="int" Nullable="false" />
-          <Property Name="Replied_Going" Type="bit" />
-          <Property Name="Actual_Attendance" Type="bit" />
+          <Property Name="Replied_Going" Type="bool" Nullable="false" />
+          <Property Name="Actual_Attendance" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="audit_trail">
           <Key>
@@ -54,7 +54,7 @@
           <Property Name="Booking_Start_Time" Type="time" Precision="0" />
           <Property Name="Booking_End_Time" Type="time" Precision="0" />
           <Property Name="Booking_Type_ID" Type="int" />
-          <Property Name="Client_ID" Type="int" />
+          <Property Name="Client_Contact_ID" Type="int" />
           <Property Name="Employee_ID" Type="int" />
           <Property Name="Address_ID" Type="int" />
         </EntityType>
@@ -186,7 +186,8 @@
           </Key>
           <Property Name="Employee_ID" Type="int" Nullable="false" />
           <Property Name="Milestone_ID" Type="int" Nullable="false" />
-          <Property Name="Task_Repetions" Type="int" />
+          <Property Name="Reason_Milestone" Type="varchar" MaxLength="256" />
+          <Property Name="Milestone_Progress" Type="int" />
         </EntityType>
         <EntityType Name="employee_type">
           <Key>
@@ -329,8 +330,7 @@
           </Key>
           <Property Name="Task_ID" Type="int" Nullable="false" />
           <Property Name="Milestone_ID" Type="int" Nullable="false" />
-          <Property Name="Reason_Milestone" Type="varchar" MaxLength="255" />
-          <Property Name="Milestone_Progress" Type="int" />
+          <Property Name="Task_Repetion" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tasks_completed">
           <Key>
@@ -436,18 +436,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="booking_ibfk_2">
-          <End Role="client" Type="Self.client" Multiplicity="0..1" />
-          <End Role="booking" Type="Self.booking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="client">
-              <PropertyRef Name="Client_ID" />
-            </Principal>
-            <Dependent Role="booking">
-              <PropertyRef Name="Client_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="booking_ibfk_3">
           <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
           <End Role="booking" Type="Self.booking" Multiplicity="*" />
@@ -509,7 +497,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="booking_reminders_ibfk_1">
-          <End Role="booking" Type="Self.booking" Multiplicity="1" />
+          <End Role="booking" Type="Self.booking" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="booking_reminders" Type="Self.booking_reminders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="booking">
@@ -723,6 +713,18 @@
             </Principal>
             <Dependent Role="employee_milestone">
               <PropertyRef Name="Milestone_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk5">
+          <End Role="client_contact" Type="Self.client_contact" Multiplicity="0..1" />
+          <End Role="booking" Type="Self.booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client_contact">
+              <PropertyRef Name="Client_Contact_ID" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="Client_Contact_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1039,10 +1041,6 @@
             <End Role="booking_type" EntitySet="booking_type" />
             <End Role="booking" EntitySet="booking" />
           </AssociationSet>
-          <AssociationSet Name="booking_ibfk_2" Association="Self.booking_ibfk_2">
-            <End Role="client" EntitySet="client" />
-            <End Role="booking" EntitySet="booking" />
-          </AssociationSet>
           <AssociationSet Name="booking_ibfk_3" Association="Self.booking_ibfk_3">
             <End Role="employee" EntitySet="employee" />
             <End Role="booking" EntitySet="booking" />
@@ -1134,6 +1132,10 @@
           <AssociationSet Name="employee_milestone_ibfk_2" Association="Self.employee_milestone_ibfk_2">
             <End Role="milestone" EntitySet="milestone" />
             <End Role="employee_milestone" EntitySet="employee_milestone" />
+          </AssociationSet>
+          <AssociationSet Name="fk5" Association="Self.fk5">
+            <End Role="client_contact" EntitySet="client_contact" />
+            <End Role="booking" EntitySet="booking" />
           </AssociationSet>
           <AssociationSet Name="ins_FK-4" Association="Self.ins_FK-4">
             <End Role="gender" EntitySet="gender" />
@@ -1259,12 +1261,10 @@
           <EntitySet Name="reminders" EntityType="repsont1_rotmModel.reminder" />
           <EntitySet Name="reminder_type" EntityType="repsont1_rotmModel.reminder_type" />
           <EntitySet Name="tasks" EntityType="repsont1_rotmModel.task" />
-          <EntitySet Name="task_milestone" EntityType="repsont1_rotmModel.task_milestone" />
           <EntitySet Name="tasks_completed" EntityType="repsont1_rotmModel.tasks_completed" />
           <EntitySet Name="training_course" EntityType="repsont1_rotmModel.training_course" />
           <EntitySet Name="training_course_instance" EntityType="repsont1_rotmModel.training_course_instance" />
           <EntitySet Name="training_course_type" EntityType="repsont1_rotmModel.training_course_type" />
-          <EntitySet Name="venues" EntityType="repsont1_rotmModel.venue" />
           <AssociationSet Name="registration_token_ibfk_1" Association="repsont1_rotmModel.registration_token_ibfk_1">
             <End Role="access_level" EntitySet="access_level" />
             <End Role="registration_token" EntitySet="registration_token" />
@@ -1277,20 +1277,12 @@
             <End Role="address" EntitySet="addresses" />
             <End Role="booking_instance" EntitySet="booking_instance" />
           </AssociationSet>
-          <AssociationSet Name="venue_ibfk_1" Association="repsont1_rotmModel.venue_ibfk_1">
-            <End Role="address" EntitySet="addresses" />
-            <End Role="venue" EntitySet="venues" />
-          </AssociationSet>
           <AssociationSet Name="attendance_ibfk_2" Association="repsont1_rotmModel.attendance_ibfk_2">
             <End Role="training_course_instance" EntitySet="training_course_instance" />
             <End Role="attendance" EntitySet="attendances" />
           </AssociationSet>
           <AssociationSet Name="booking_ibfk_1" Association="repsont1_rotmModel.booking_ibfk_1">
             <End Role="booking_type" EntitySet="booking_type" />
-            <End Role="booking" EntitySet="bookings" />
-          </AssociationSet>
-          <AssociationSet Name="booking_ibfk_2" Association="repsont1_rotmModel.booking_ibfk_2">
-            <End Role="client" EntitySet="clients" />
             <End Role="booking" EntitySet="bookings" />
           </AssociationSet>
           <AssociationSet Name="booking_instance_ibfk_2" Association="repsont1_rotmModel.booking_instance_ibfk_2">
@@ -1361,10 +1353,6 @@
             <End Role="marketing_type" EntitySet="marketing_type" />
             <End Role="marketing" EntitySet="marketings" />
           </AssociationSet>
-          <AssociationSet Name="task_milestone_ibfk_2" Association="repsont1_rotmModel.task_milestone_ibfk_2">
-            <End Role="milestone" EntitySet="milestones" />
-            <End Role="task_milestone" EntitySet="task_milestone" />
-          </AssociationSet>
           <AssociationSet Name="quote_ibfk_1" Association="repsont1_rotmModel.quote_ibfk_1">
             <End Role="quote_status" EntitySet="quote_status" />
             <End Role="quote" EntitySet="quotes" />
@@ -1372,10 +1360,6 @@
           <AssociationSet Name="reminder_ibfk_1" Association="repsont1_rotmModel.reminder_ibfk_1">
             <End Role="reminder_type" EntitySet="reminder_type" />
             <End Role="reminder" EntitySet="reminders" />
-          </AssociationSet>
-          <AssociationSet Name="task_milestone_ibfk_1" Association="repsont1_rotmModel.task_milestone_ibfk_1">
-            <End Role="task" EntitySet="tasks" />
-            <End Role="task_milestone" EntitySet="task_milestone" />
           </AssociationSet>
           <AssociationSet Name="tasks_completed_ibfk_1" Association="repsont1_rotmModel.tasks_completed_ibfk_1">
             <End Role="task" EntitySet="tasks" />
@@ -1387,10 +1371,6 @@
           </AssociationSet>
           <AssociationSet Name="training_course_instance_ibfk_1" Association="repsont1_rotmModel.training_course_instance_ibfk_1">
             <End Role="training_course" EntitySet="training_course" />
-            <End Role="training_course_instance" EntitySet="training_course_instance" />
-          </AssociationSet>
-          <AssociationSet Name="training_course_instance_ibfk_3" Association="repsont1_rotmModel.training_course_instance_ibfk_3">
-            <End Role="venue" EntitySet="venues" />
             <End Role="training_course_instance" EntitySet="training_course_instance" />
           </AssociationSet>
           <EntitySet Name="employees" EntityType="repsont1_rotmModel.employee" />
@@ -1465,6 +1445,28 @@
             <End Role="instructor_type" EntitySet="instructor_type" />
             <End Role="instructor" EntitySet="instructors" />
           </AssociationSet>
+          <AssociationSet Name="fk5" Association="repsont1_rotmModel.fk5">
+            <End Role="client_contact" EntitySet="client_contact" />
+            <End Role="booking" EntitySet="bookings" />
+          </AssociationSet>
+          <EntitySet Name="task_milestone" EntityType="repsont1_rotmModel.task_milestone" />
+          <EntitySet Name="venues" EntityType="repsont1_rotmModel.venue" />
+          <AssociationSet Name="venue_ibfk_1" Association="repsont1_rotmModel.venue_ibfk_1">
+            <End Role="address" EntitySet="addresses" />
+            <End Role="venue" EntitySet="venues" />
+          </AssociationSet>
+          <AssociationSet Name="task_milestone_ibfk_2" Association="repsont1_rotmModel.task_milestone_ibfk_2">
+            <End Role="milestone" EntitySet="milestones" />
+            <End Role="task_milestone" EntitySet="task_milestone" />
+          </AssociationSet>
+          <AssociationSet Name="task_milestone_ibfk_1" Association="repsont1_rotmModel.task_milestone_ibfk_1">
+            <End Role="task" EntitySet="tasks" />
+            <End Role="task_milestone" EntitySet="task_milestone" />
+          </AssociationSet>
+          <AssociationSet Name="training_course_instance_ibfk_3" Association="repsont1_rotmModel.training_course_instance_ibfk_3">
+            <End Role="venue" EntitySet="venues" />
+            <End Role="training_course_instance" EntitySet="training_course_instance" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="LoginEmail_Result" />
         <EntityType Name="access_level">
@@ -1488,8 +1490,8 @@
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="bookings" Relationship="repsont1_rotmModel.booking_ibfk_4" FromRole="address" ToRole="booking" />
           <NavigationProperty Name="booking_instance" Relationship="repsont1_rotmModel.booking_instance_ibfk_3" FromRole="address" ToRole="booking_instance" />
-          <NavigationProperty Name="venues" Relationship="repsont1_rotmModel.venue_ibfk_1" FromRole="address" ToRole="venue" />
           <NavigationProperty Name="employees" Relationship="repsont1_rotmModel.employee_ibfk_3" FromRole="address" ToRole="employee" />
+          <NavigationProperty Name="venues" Relationship="repsont1_rotmModel.venue_ibfk_1" FromRole="address" ToRole="venue" />
         </EntityType>
         <EntityType Name="attendance">
           <Key>
@@ -1524,15 +1526,15 @@
           <Property Name="Booking_Start_Time" Type="Time" />
           <Property Name="Booking_End_Time" Type="Time" />
           <Property Name="Booking_Type_ID" Type="Int32" />
-          <Property Name="Client_ID" Type="Int32" />
           <Property Name="Employee_ID" Type="Int32" />
           <Property Name="Address_ID" Type="Int32" />
           <NavigationProperty Name="address" Relationship="repsont1_rotmModel.booking_ibfk_4" FromRole="booking" ToRole="address" />
           <NavigationProperty Name="booking_type" Relationship="repsont1_rotmModel.booking_ibfk_1" FromRole="booking" ToRole="booking_type" />
-          <NavigationProperty Name="client" Relationship="repsont1_rotmModel.booking_ibfk_2" FromRole="booking" ToRole="client" />
           <NavigationProperty Name="booking_instance" Relationship="repsont1_rotmModel.booking_instance_ibfk_2" FromRole="booking" ToRole="booking_instance" />
           <NavigationProperty Name="booking_reminders" Relationship="repsont1_rotmModel.booking_reminders_ibfk_1" FromRole="booking" ToRole="booking_reminders" />
           <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.booking_ibfk_3" FromRole="booking" ToRole="employee" />
+          <Property Name="Client_Contact_ID" Type="Int32" />
+          <NavigationProperty Name="client_contact" Relationship="repsont1_rotmModel.fk5" FromRole="booking" ToRole="client_contact" />
         </EntityType>
         <EntityType Name="booking_instance">
           <Key>
@@ -1580,7 +1582,6 @@
           <Property Name="Client_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Client_Rating_ID" Type="Int32" />
           <Property Name="Client_Type_ID" Type="Int32" />
-          <NavigationProperty Name="bookings" Relationship="repsont1_rotmModel.booking_ibfk_2" FromRole="client" ToRole="booking" />
           <NavigationProperty Name="client_contact" Relationship="repsont1_rotmModel.client_contact_ibfk_3" FromRole="client" ToRole="client_contact" />
           <NavigationProperty Name="client_rating" Relationship="repsont1_rotmModel.client_ibfk_1" FromRole="client" ToRole="client_rating" />
           <NavigationProperty Name="client_type" Relationship="repsont1_rotmModel.client_ibfk_2" FromRole="client" ToRole="client_type" />
@@ -1600,6 +1601,7 @@
           <Property Name="Client_ID" Type="Int32" />
           <NavigationProperty Name="client" Relationship="repsont1_rotmModel.client_contact_ibfk_3" FromRole="client_contact" ToRole="client" />
           <NavigationProperty Name="client_contact_type" Relationship="repsont1_rotmModel.client_contact_ibfk_1" FromRole="client_contact" ToRole="client_contact_type" />
+          <NavigationProperty Name="bookings" Relationship="repsont1_rotmModel.fk5" FromRole="client_contact" ToRole="booking" />
         </EntityType>
         <EntityType Name="client_contact_type">
           <Key>
@@ -1668,9 +1670,10 @@
           </Key>
           <Property Name="Employee_ID" Type="Int32" Nullable="false" />
           <Property Name="Milestone_ID" Type="Int32" Nullable="false" />
-          <Property Name="Task_Repetions" Type="Int32" />
           <NavigationProperty Name="milestone" Relationship="repsont1_rotmModel.employee_milestone_ibfk_2" FromRole="employee_milestone" ToRole="milestone" />
           <NavigationProperty Name="employee" Relationship="repsont1_rotmModel.employee_milestone_ibfk_1" FromRole="employee_milestone" ToRole="employee" />
+          <Property Name="Reason_Milestone" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Milestone_Progress" Type="Int32" />
         </EntityType>
         <EntityType Name="employee_type">
           <Key>
@@ -1804,20 +1807,8 @@
           <Property Name="Task_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Task_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Task_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="task_milestone" Relationship="repsont1_rotmModel.task_milestone_ibfk_1" FromRole="task" ToRole="task_milestone" />
           <NavigationProperty Name="tasks_completed" Relationship="repsont1_rotmModel.tasks_completed_ibfk_1" FromRole="task" ToRole="tasks_completed" />
-        </EntityType>
-        <EntityType Name="task_milestone">
-          <Key>
-            <PropertyRef Name="Task_ID" />
-            <PropertyRef Name="Milestone_ID" />
-          </Key>
-          <Property Name="Task_ID" Type="Int32" Nullable="false" />
-          <Property Name="Milestone_ID" Type="Int32" Nullable="false" />
-          <Property Name="Reason_Milestone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Milestone_Progress" Type="Int32" />
-          <NavigationProperty Name="milestone" Relationship="repsont1_rotmModel.task_milestone_ibfk_2" FromRole="task_milestone" ToRole="milestone" />
-          <NavigationProperty Name="task" Relationship="repsont1_rotmModel.task_milestone_ibfk_1" FromRole="task_milestone" ToRole="task" />
+          <NavigationProperty Name="task_milestone" Relationship="repsont1_rotmModel.task_milestone_ibfk_1" FromRole="task" ToRole="task_milestone" />
         </EntityType>
         <EntityType Name="tasks_completed">
           <Key>
@@ -1856,8 +1847,8 @@
           <Property Name="Training_Course_ID" Type="Int32" />
           <NavigationProperty Name="attendances" Relationship="repsont1_rotmModel.attendance_ibfk_2" FromRole="training_course_instance" ToRole="attendance" />
           <NavigationProperty Name="training_course" Relationship="repsont1_rotmModel.training_course_instance_ibfk_1" FromRole="training_course_instance" ToRole="training_course" />
-          <NavigationProperty Name="venue" Relationship="repsont1_rotmModel.training_course_instance_ibfk_3" FromRole="training_course_instance" ToRole="venue" />
           <NavigationProperty Name="instructor" Relationship="repsont1_rotmModel.training_course_instance_ibfk_2" FromRole="training_course_instance" ToRole="instructor" />
+          <NavigationProperty Name="venue" Relationship="repsont1_rotmModel.training_course_instance_ibfk_3" FromRole="training_course_instance" ToRole="venue" />
         </EntityType>
         <EntityType Name="training_course_type">
           <Key>
@@ -1867,18 +1858,6 @@
           <Property Name="Course_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Course_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="training_course" Relationship="repsont1_rotmModel.training_course_ibfk_1" FromRole="training_course_type" ToRole="training_course" />
-        </EntityType>
-        <EntityType Name="venue">
-          <Key>
-            <PropertyRef Name="Venue_ID" />
-          </Key>
-          <Property Name="Venue_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Venue_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Venue_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Venue_Size" Type="Int32" />
-          <Property Name="Address_ID" Type="Int32" />
-          <NavigationProperty Name="address" Relationship="repsont1_rotmModel.venue_ibfk_1" FromRole="venue" ToRole="address" />
-          <NavigationProperty Name="training_course_instance" Relationship="repsont1_rotmModel.training_course_instance_ibfk_3" FromRole="venue" ToRole="training_course_instance" />
         </EntityType>
         <Association Name="registration_token_ibfk_1">
           <End Type="repsont1_rotmModel.access_level" Role="access_level" Multiplicity="0..1" />
@@ -1916,18 +1895,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="venue_ibfk_1">
-          <End Type="repsont1_rotmModel.address" Role="address" Multiplicity="0..1" />
-          <End Type="repsont1_rotmModel.venue" Role="venue" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="address">
-              <PropertyRef Name="Address_ID" />
-            </Principal>
-            <Dependent Role="venue">
-              <PropertyRef Name="Address_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="attendance_ibfk_2">
           <End Type="repsont1_rotmModel.training_course_instance" Role="training_course_instance" Multiplicity="1" />
           <End Type="repsont1_rotmModel.attendance" Role="attendance" Multiplicity="*" />
@@ -1949,18 +1916,6 @@
             </Principal>
             <Dependent Role="booking">
               <PropertyRef Name="Booking_Type_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="booking_ibfk_2">
-          <End Type="repsont1_rotmModel.client" Role="client" Multiplicity="0..1" />
-          <End Type="repsont1_rotmModel.booking" Role="booking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="client">
-              <PropertyRef Name="Client_ID" />
-            </Principal>
-            <Dependent Role="booking">
-              <PropertyRef Name="Client_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2168,18 +2123,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="task_milestone_ibfk_2">
-          <End Type="repsont1_rotmModel.milestone" Role="milestone" Multiplicity="1" />
-          <End Type="repsont1_rotmModel.task_milestone" Role="task_milestone" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="milestone">
-              <PropertyRef Name="Milestone_ID" />
-            </Principal>
-            <Dependent Role="task_milestone">
-              <PropertyRef Name="Milestone_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="quote_ibfk_1">
           <End Type="repsont1_rotmModel.quote_status" Role="quote_status" Multiplicity="0..1" />
           <End Type="repsont1_rotmModel.quote" Role="quote" Multiplicity="*" />
@@ -2201,18 +2144,6 @@
             </Principal>
             <Dependent Role="reminder">
               <PropertyRef Name="Reminder_Type_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="task_milestone_ibfk_1">
-          <End Type="repsont1_rotmModel.task" Role="task" Multiplicity="1" />
-          <End Type="repsont1_rotmModel.task_milestone" Role="task_milestone" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="task">
-              <PropertyRef Name="Task_ID" />
-            </Principal>
-            <Dependent Role="task_milestone">
-              <PropertyRef Name="Task_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2249,18 +2180,6 @@
             </Principal>
             <Dependent Role="training_course_instance">
               <PropertyRef Name="Training_Course_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="training_course_instance_ibfk_3">
-          <End Type="repsont1_rotmModel.venue" Role="venue" Multiplicity="0..1" />
-          <End Type="repsont1_rotmModel.training_course_instance" Role="training_course_instance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="venue">
-              <PropertyRef Name="Venue_ID" />
-            </Principal>
-            <Dependent Role="training_course_instance">
-              <PropertyRef Name="Venue_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2536,6 +2455,89 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk5">
+          <End Type="repsont1_rotmModel.client_contact" Role="client_contact" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.booking" Role="booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client_contact">
+              <PropertyRef Name="Client_Contact_ID" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="Client_Contact_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="task_milestone">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+            <PropertyRef Name="Milestone_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="Int32" Nullable="false" />
+          <Property Name="Milestone_ID" Type="Int32" Nullable="false" />
+          <Property Name="Task_Repetion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="milestone" Relationship="repsont1_rotmModel.task_milestone_ibfk_2" FromRole="task_milestone" ToRole="milestone" />
+          <NavigationProperty Name="task" Relationship="repsont1_rotmModel.task_milestone_ibfk_1" FromRole="task_milestone" ToRole="task" />
+        </EntityType>
+        <EntityType Name="venue">
+          <Key>
+            <PropertyRef Name="Venue_ID" />
+          </Key>
+          <Property Name="Venue_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Venue_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Venue_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Venue_Size" Type="Int32" />
+          <Property Name="Address_ID" Type="Int32" />
+          <NavigationProperty Name="address" Relationship="repsont1_rotmModel.venue_ibfk_1" FromRole="venue" ToRole="address" />
+          <NavigationProperty Name="training_course_instance" Relationship="repsont1_rotmModel.training_course_instance_ibfk_3" FromRole="venue" ToRole="training_course_instance" />
+        </EntityType>
+        <Association Name="venue_ibfk_1">
+          <End Type="repsont1_rotmModel.address" Role="address" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.venue" Role="venue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="venue">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="task_milestone_ibfk_2">
+          <End Type="repsont1_rotmModel.milestone" Role="milestone" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.task_milestone" Role="task_milestone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="milestone">
+              <PropertyRef Name="Milestone_ID" />
+            </Principal>
+            <Dependent Role="task_milestone">
+              <PropertyRef Name="Milestone_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="task_milestone_ibfk_1">
+          <End Type="repsont1_rotmModel.task" Role="task" Multiplicity="1" />
+          <End Type="repsont1_rotmModel.task_milestone" Role="task_milestone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="task">
+              <PropertyRef Name="Task_ID" />
+            </Principal>
+            <Dependent Role="task_milestone">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="training_course_instance_ibfk_3">
+          <End Type="repsont1_rotmModel.venue" Role="venue" Multiplicity="0..1" />
+          <End Type="repsont1_rotmModel.training_course_instance" Role="training_course_instance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="venue">
+              <PropertyRef Name="Venue_ID" />
+            </Principal>
+            <Dependent Role="training_course_instance">
+              <PropertyRef Name="Venue_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2592,9 +2594,9 @@
           <EntitySetMapping Name="bookings">
             <EntityTypeMapping TypeName="repsont1_rotmModel.booking">
               <MappingFragment StoreEntitySet="booking">
+                <ScalarProperty Name="Client_Contact_ID" ColumnName="Client_Contact_ID" />
                 <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
                 <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
-                <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
                 <ScalarProperty Name="Booking_Type_ID" ColumnName="Booking_Type_ID" />
                 <ScalarProperty Name="Booking_End_Time" ColumnName="Booking_End_Time" />
                 <ScalarProperty Name="Booking_Start_Time" ColumnName="Booking_Start_Time" />
@@ -2717,7 +2719,8 @@
           <EntitySetMapping Name="employee_milestone">
             <EntityTypeMapping TypeName="repsont1_rotmModel.employee_milestone">
               <MappingFragment StoreEntitySet="employee_milestone">
-                <ScalarProperty Name="Task_Repetions" ColumnName="Task_Repetions" />
+                <ScalarProperty Name="Milestone_Progress" ColumnName="Milestone_Progress" />
+                <ScalarProperty Name="Reason_Milestone" ColumnName="Reason_Milestone" />
                 <ScalarProperty Name="Milestone_ID" ColumnName="Milestone_ID" />
                 <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
               </MappingFragment>
@@ -2848,16 +2851,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="task_milestone">
-            <EntityTypeMapping TypeName="repsont1_rotmModel.task_milestone">
-              <MappingFragment StoreEntitySet="task_milestone">
-                <ScalarProperty Name="Milestone_Progress" ColumnName="Milestone_Progress" />
-                <ScalarProperty Name="Reason_Milestone" ColumnName="Reason_Milestone" />
-                <ScalarProperty Name="Milestone_ID" ColumnName="Milestone_ID" />
-                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tasks_completed">
             <EntityTypeMapping TypeName="repsont1_rotmModel.tasks_completed">
               <MappingFragment StoreEntitySet="tasks_completed">
@@ -2897,17 +2890,6 @@
                 <ScalarProperty Name="Course_Description" ColumnName="Course_Description" />
                 <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
                 <ScalarProperty Name="Training_Course_Type_ID" ColumnName="Training_Course_Type_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="venues">
-            <EntityTypeMapping TypeName="repsont1_rotmModel.venue">
-              <MappingFragment StoreEntitySet="venue">
-                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
-                <ScalarProperty Name="Venue_Size" ColumnName="Venue_Size" />
-                <ScalarProperty Name="Venue_Description" ColumnName="Venue_Description" />
-                <ScalarProperty Name="Venue_Name" ColumnName="Venue_Name" />
-                <ScalarProperty Name="Venue_ID" ColumnName="Venue_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2959,6 +2941,26 @@
                 <ScalarProperty Name="Instrutor_Type_Description" ColumnName="Instrutor_Type_Description" />
                 <ScalarProperty Name="Instructor_Type_Name" ColumnName="Instructor_Type_Name" />
                 <ScalarProperty Name="Instructor_Type_ID" ColumnName="Instructor_Type_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="task_milestone">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.task_milestone">
+              <MappingFragment StoreEntitySet="task_milestone">
+                <ScalarProperty Name="Task_Repetion" ColumnName="Task_Repetion" />
+                <ScalarProperty Name="Milestone_ID" ColumnName="Milestone_ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="venues">
+            <EntityTypeMapping TypeName="repsont1_rotmModel.venue">
+              <MappingFragment StoreEntitySet="venue">
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="Venue_Size" ColumnName="Venue_Size" />
+                <ScalarProperty Name="Venue_Description" ColumnName="Venue_Description" />
+                <ScalarProperty Name="Venue_Name" ColumnName="Venue_Name" />
+                <ScalarProperty Name="Venue_ID" ColumnName="Venue_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

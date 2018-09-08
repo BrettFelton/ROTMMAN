@@ -12,20 +12,18 @@ namespace ROTM
     using System;
     using System.Collections.Generic;
     
-    public partial class title
+    public partial class instructor_type
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public title()
+        public instructor_type()
         {
-            this.employees = new HashSet<employee>();
             this.instructors = new HashSet<instructor>();
         }
     
-        public int Title_ID { get; set; }
-        public string Title1 { get; set; }
+        public int Instructor_Type_ID { get; set; }
+        public string Instructor_Type_Name { get; set; }
+        public string Instrutor_Type_Description { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<employee> employees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<instructor> instructors { get; set; }
     }
