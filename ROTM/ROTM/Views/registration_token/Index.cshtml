@@ -4,7 +4,7 @@
 }
 <h2>Index</h2>
 <p>
-    @Html.ActionLink("Generate Registration Token", "Create")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -17,9 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.access_level.Access_Level_Name)
         </th>
-        @*<th>
+        <th>
             @Html.DisplayNameFor(model => model.employee.Employee_Name)
-        </th>*@
+        </th>
         <th></th>
     </tr>
     @foreach (var item in Model)
@@ -34,12 +34,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.access_level.Access_Level_Name)
             </td>
-            @*<td>
+            <td>
                 @Html.DisplayFor(modelItem => item.employee.Employee_Name)
-            </td>*@
+            </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Registration_Token_ID }) |
-                @*@Html.ActionLink("Details", "Details", new { id = item.Registration_Token_ID }) |*@
+                @Html.ActionLink("Details", "Details", new { id = item.Registration_Token_ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Registration_Token_ID })
             </td>
         </tr>

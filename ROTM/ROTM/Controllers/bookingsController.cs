@@ -9,14 +9,18 @@ using System.Web.Mvc;
 using ROTM;
 
 namespace ROTM.Controllers
-{   [Authorize]
+{
+    [Authorize]
     public class bookingsController : Controller
     {
         private Entities db = new Entities();
 
         // GET: bookings
-        public ActionResult Index(string searchString)
+        public ActionResult Index()
         {
+<<<<<<< HEAD
+            var bookings = db.bookings.Include(b => b.address).Include(b => b.booking_type).Include(b => b.client).Include(b => b.employee);
+=======
 
             ViewData["CurrentFilter"] = searchString;
 
@@ -28,6 +32,7 @@ namespace ROTM.Controllers
             }
 
             //var bookings = db.bookings.Include(b => b.address).Include(b => b.booking_type).Include(b => b.client).Include(b => b.employee);
+>>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
             return View(bookings.ToList());
         }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
@@ -35,7 +34,6 @@ namespace ROTM.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : message == ManageMessageId.UpdateProfileSuccess ? "Your profile has been updated"
                 : "";
 
             //var userId = User.Identity.GetUserId();
@@ -45,7 +43,7 @@ namespace ROTM.Controllers
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(IntID),
-                //PhoneNumber = await 4
+                //PhoneNumber = await UserManager
                 //.GetPhoneNumberAsync(userId),
                 //TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 //Logins = await UserManager.GetLoginsAsync(userId),
@@ -53,65 +51,6 @@ namespace ROTM.Controllers
             };
             return View(model);
             //return View("Index");
-        }
-
-
-        public ActionResult UpdateProfile()
-        {
-            var userId = System.Web.HttpContext.Current.Session["UserID"] as String;
-            int IntID = Convert.ToInt32(userId);
-
-            employee employee = db.employees.Find(IntID);
-            UpdateProfileDetails model = new UpdateProfileDetails();
-            model.Name = employee.Employee_Name;
-            model.Surname = employee.Employee_Surname;
-            model.Home_Phone = employee.Employee_Home_Phone;
-            model.Cell_Phone = employee.Employee_Cellphone;
-            model.RSA_ID = employee.Employee_RSA_ID;
-            model.Gender_ID = employee.Gender_ID;
-            model.Employee_Type_ID = employee.Employee_Type_ID;
-            model.Address_ID = employee.Address_ID;
-            model.Title_ID = employee.Title_ID;
-
-            if (employee == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name", employee.Address_ID);
-            ViewBag.Employee_Type_ID = new SelectList(db.employee_type, "Employee_Type_ID", "Type_Name", employee.Employee_Type_ID);
-            ViewBag.Gender_ID = new SelectList(db.genders, "Gender_ID", "Gender1", employee.Gender_ID);
-            ViewBag.Title_ID = new SelectList(db.titles, "Title_ID", "Title1", employee.Title_ID);
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult UpdateProfile(UpdateProfileDetails model)
-        {
-            var userId = System.Web.HttpContext.Current.Session["UserID"] as String;
-            int IntID = Convert.ToInt32(userId);
-
-            employee employee = db.employees.Find(IntID);
-
-            employee.Employee_Name = model.Name;
-            employee.Employee_Surname = model.Surname;
-            employee.Employee_Home_Phone = model.Home_Phone;
-            employee.Employee_Cellphone = model.Cell_Phone;
-            employee.Employee_RSA_ID = model.RSA_ID;
-            employee.Gender_ID = model.Gender_ID;
-            employee.Employee_Type_ID = model.Employee_Type_ID;
-            employee.Address_ID = model.Address_ID;
-            employee.Title_ID = model.Title_ID;
-
-            db.Entry(employee).State = EntityState.Modified;
-            db.SaveChanges();
-
-            ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name", employee.Address_ID);
-            ViewBag.Employee_Type_ID = new SelectList(db.employee_type, "Employee_Type_ID", "Type_Name", employee.Employee_Type_ID);
-            ViewBag.Gender_ID = new SelectList(db.genders, "Gender_ID", "Gender1", employee.Gender_ID);
-            ViewBag.Title_ID = new SelectList(db.titles, "Title_ID", "Title1", employee.Title_ID);
-
-            return RedirectToAction("Index", new { Message = ManageMessageId.UpdateProfileSuccess });
         }
 
         //        //
@@ -476,7 +415,6 @@ namespace ROTM.Controllers
         {
             AddPhoneSuccess,
             ChangePasswordSuccess,
-            UpdateProfileSuccess,
             SetTwoFactorSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,

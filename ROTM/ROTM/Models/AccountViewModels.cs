@@ -77,6 +77,6 @@ namespace ROTM.Models
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
-        public string Email { get; set; }
+        public string Employee_Email { get; set; }
     }
 }

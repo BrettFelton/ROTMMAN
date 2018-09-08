@@ -32,11 +32,11 @@ namespace ROTM
         public int Employee_ID { get; set; }
 
         [Required]
-        [Display(Name = "Employee Name")]
+        [Display(Name = "Name")]
         [StringLength(50)]
         public string Employee_Name { get; set; }
 
-        [Display(Name = "Employee Surname")]
+        [Display(Name = "Surname")]
         [StringLength(50)]
         public string Employee_Surname { get; set; }
 
@@ -65,7 +65,7 @@ namespace ROTM
         public Nullable<int> Employee_Type_ID { get; set; }
 
         [Required]
-        [StringLength(40, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Encrypted_Password { get; set; }

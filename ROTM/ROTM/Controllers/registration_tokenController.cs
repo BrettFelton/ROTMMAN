@@ -12,7 +12,6 @@ using ROTM;
 
 namespace ROTM.Controllers
 {
-    [Authorize]
     public class registration_tokenController : Controller
     {
         private Entities db = new Entities();

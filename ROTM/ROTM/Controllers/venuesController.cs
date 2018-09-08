@@ -16,19 +16,9 @@ namespace ROTM.Controllers
         private Entities db = new Entities();
 
         // GET: venues
-        public ActionResult Index(string searchString)
+        public ActionResult Index()
         {
-
-            ViewData["CurrentFilter"] = searchString;
-
-            var venues = from s in (db.venues.Include(v => v.address)) select s;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                venues = venues.Where(s => s.Venue_Name.Contains(searchString) || s.Venue_Description.Contains(searchString) || s.Venue_Size.ToString().Contains(searchString));
-            }
-
-            //var venues = db.venues.Include(v => v.address);
+            var venues = db.venues.Include(v => v.address);
             return View(venues.ToList());
         }
 

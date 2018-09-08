@@ -21,13 +21,13 @@
             @Html.DisplayNameFor(model => model.Instance_End_Time)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.instructor.Instructor_Name)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.training_course.Training_Course_Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.venue.Venue_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.instructor.Instructor_Name)
         </th>
         <th></th>
     </tr>
@@ -44,13 +44,13 @@
             @Html.DisplayFor(modelItem => item.Instance_End_Time)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.instructor.Instructor_Name)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.training_course.Training_Course_Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.venue.Venue_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.instructor.Instructor_Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Training_Course_Instance_ID }) |

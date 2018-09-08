@@ -12,8 +12,6 @@ using Microsoft.Owin.Security;
 using ROTM.Models;
 using System.Security.Cryptography;
 using System.Text;
-using System.Net.Mail;
-using System.Data.Entity;
 
 namespace ROTM.Controllers
 {
@@ -211,71 +209,33 @@ namespace ROTM.Controllers
             return View();
         }
 
+        //
+        // POST: /Account/ForgotPassword
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = await UserManager.FindByNameAsync(model.Email);
+        //        if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+        //        {
+        //            // Don't reveal that the user does not exist or is not confirmed
+        //            return View("ForgotPasswordConfirmation");
+        //        }
 
-        //POST: /Account/ForgotPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
-        {
-            using (db)
-            {
-                var chkUser = (from s in db.employees where s.Employee_Email == model.Email select s).FirstOrDefault();
-                if (ModelState.IsValid && chkUser != null)
-                {
-                    SHA1 sha1 = SHA1.Create();
-                    //Create A token
-                    RNGCryptoServiceProvider rngCryptoServiceProvider = new RNGCryptoServiceProvider();
-                    byte[] randomBytes = new byte[6];
-                    rngCryptoServiceProvider.GetBytes(randomBytes);
+        //        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+        //        // Send an email with this link
+        //        // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+        //        // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+        //        // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+        //        // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+        //    }
 
-                    //Hash the token
-                    var hashData = sha1.ComputeHash(Encoding.UTF8.GetBytes(Convert.ToBase64String(randomBytes)));
-                    var Newtoken = new StringBuilder(hashData.Length * 2);
-                    foreach (byte b in hashData)
-                    {
-                        Newtoken.Append(b.ToString("X2"));
-                    }
-
-
- 
-                    chkUser.Encrypted_Password = Newtoken.ToString();
-                   //This is for an emal service Remeber this !
-                    MailMessage mail = new MailMessage("no-reply@repsonthemove.com", model.Email);
-                    SmtpClient client = new SmtpClient();
-                    client.Port = 25;
-                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    client.Credentials = new System.Net.NetworkCredential("no-reply@repsonthemove.com", "k1Yvi2&5");
-                    client.Host = "nl1-wss2.a2hosting.com";
-                    mail.Subject = "Password Change";
-                    mail.Body = "Hi " + chkUser.Employee_Name + " " + chkUser.Employee_Surname + "\n\nHere is a new password for you: " + Convert.ToBase64String(randomBytes) + " , please use this password on your next login. If you would like navigate to your profile and change your password. Otherwise keep this one safe. If this was not you please contact admin immediately " + "\n\nRegards" + "\nReps On The Move Team";
-                    client.Send(mail);
-
-                    db.Entry(chkUser).State = EntityState.Modified;
-                    db.SaveChanges();
-                    //var user = await UserManager.FindByNameAsync(model.Email);
-                    //if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-                    //{
-                    //    // Don't reveal that the user does not exist or is not confirmed
-                    //    return View("ForgotPasswordConfirmation");
-                    //}
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                    // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    //return RedirectToAction("ForgotPasswordConfirmation", "Account");
-                    return RedirectToAction("Login");
-                }
-                else
-                {
-                    ViewBag.Error = "Email address does not exist.";
-                }
-            }
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
 
         //
         // GET: /Account/ForgotPasswordConfirmation

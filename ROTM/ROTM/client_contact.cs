@@ -19,10 +19,15 @@ namespace ROTM
         public string Contact_Surname { get; set; }
         public string Contact_Phone { get; set; }
         public string Contact_Email { get; set; }
+        public Nullable<int> Title_ID { get; set; }
         public Nullable<int> Client_Contact_Type_ID { get; set; }
         public Nullable<int> Client_ID { get; set; }
     
         public virtual client client { get; set; }
         public virtual client_contact_type client_contact_type { get; set; }
+<<<<<<< HEAD
+        public virtual title title { get; set; }
+=======
+>>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
     }
 }

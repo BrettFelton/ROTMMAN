@@ -9,17 +9,6 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-
-<form asp-action="Index" method="get">
-    <div class="form-actions no-color">
-        <p>
-            Search: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
-            @Html.ActionLink("Show Full List", "Index", "training_course")
-        </p>
-    </div>
-</form>
-
 <table class="table">
     <tr>
         <th>

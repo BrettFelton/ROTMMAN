@@ -27,7 +27,7 @@ namespace ROTM
         public int Client_ID { get; set; }
 
         [Required]
-        [Display(Name = "Client Name")]
+        [Display(Name = "Name")]
         [StringLength(50)]
         public string Client_Name { get; set; }
 
