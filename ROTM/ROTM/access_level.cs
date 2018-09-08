@@ -11,7 +11,8 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class access_level
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,15 @@ namespace ROTM
         }
 
         public int Access_Level_ID { get; set; }
+
+        [Required]
+        [Display(Name = "Access Level Name")]
+        [StringLength(50)]
         public string Access_Level_Name { get; set; }
+
+        [Required]
+        [Display(Name = "Access Level Description")]
+        [StringLength(255)]
         public string Access_Level_Description { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

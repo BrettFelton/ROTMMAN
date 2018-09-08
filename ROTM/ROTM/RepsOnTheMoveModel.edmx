@@ -31,8 +31,8 @@
           </Key>
           <Property Name="Training_Course_Instance_ID" Type="int" Nullable="false" />
           <Property Name="Employee_ID" Type="int" Nullable="false" />
-          <Property Name="Replied_Going" Type="bool" Nullable="false" />
-          <Property Name="Actual_Attendance" Type="bool" Nullable="false" />
+          <Property Name="Replied_Going" Type="bit" />
+          <Property Name="Actual_Attendance" Type="bit" />
         </EntityType>
         <EntityType Name="audit_trail">
           <Key>
