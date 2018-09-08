@@ -60,11 +60,19 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Training_Course_ID,Training_Course_Name,Training_Course_Description,Employee_ID,Training_Course_Type_ID")] training_course training_course)
         {
-            if (ModelState.IsValid)
+            bool val = Validate(training_course.Training_Course_Name);
+            if (ModelState.IsValid && val == false)
             {
                 db.training_course.Add(training_course);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            else if (val == true)
+            {
+                ViewBag.StatusMessage = "There is already an: " + training_course.Training_Course_Name + " type in the database.";
+                ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", training_course.Employee_ID);
+                ViewBag.Training_Course_Type_ID = new SelectList(db.training_course_type, "Training_Course_Type_ID", "Course_Name", training_course.Training_Course_Type_ID);
+                return View();
             }
 
             ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", training_course.Employee_ID);
@@ -96,11 +104,19 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Training_Course_ID,Training_Course_Name,Training_Course_Description,Employee_ID,Training_Course_Type_ID")] training_course training_course)
         {
-            if (ModelState.IsValid)
+            bool val = db.training_course.Any(s => s.Training_Course_Name == training_course.Training_Course_Name && s.Training_Course_ID != training_course.Training_Course_ID);
+            if (ModelState.IsValid && val == false)
             {
                 db.Entry(training_course).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            else if (val == true)
+            {
+                ViewBag.StatusMessage = "There is already an: " + training_course.Training_Course_Name + " type in the database.";
+                ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", training_course.Employee_ID);
+                ViewBag.Training_Course_Type_ID = new SelectList(db.training_course_type, "Training_Course_Type_ID", "Course_Name", training_course.Training_Course_Type_ID);
+                return View();
             }
             ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", training_course.Employee_ID);
             ViewBag.Training_Course_Type_ID = new SelectList(db.training_course_type, "Training_Course_Type_ID", "Course_Name", training_course.Training_Course_Type_ID);
@@ -140,6 +156,20 @@ namespace ROTM.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public bool Validate(string stri)
+        {
+            //var employees = from s in (db.employees.Include(e => e.address).Include(e => e.employee_type).Include(e => e.gender).Include(e => e.title)) select s;
+            var checkTC = (from s in (db.training_course) where s.Training_Course_Name == stri select s).FirstOrDefault();
+            if (checkTC != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

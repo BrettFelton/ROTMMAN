@@ -20,7 +20,7 @@ namespace ROTM
         {
             this.training_course_instance = new HashSet<training_course_instance>();
         }
-
+    
         public int Venue_ID { get; set; }
 
         [Required]
@@ -35,13 +35,13 @@ namespace ROTM
 
         [Required]
         [Display(Name = "Venue Size")]
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
+        [Range(5, 1000, ErrorMessage = "Please enter a number that is above 5 but below 1000")]
         public Nullable<int> Venue_Size { get; set; }
 
         [Required]
         [Display(Name = "Address")]
         public Nullable<int> Address_ID { get; set; }
-
+    
         public virtual address address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<training_course_instance> training_course_instance { get; set; }

@@ -27,6 +27,13 @@ namespace ROTM.Models
         //public bool RememberMe { get; set; }
     }
 
+    public class AccessTokenRegister
+    {
+        [Required]
+        [Display(Name = "Registration Token")]
+        public string Registration_Token { get; set; }
+    }
+
     public class RegisterViewModel : employee
     {
         //[Required]

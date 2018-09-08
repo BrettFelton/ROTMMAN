@@ -11,7 +11,8 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class milestone
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,7 +23,15 @@ namespace ROTM
         }
     
         public int Milestone_ID { get; set; }
+
+        [Required]
+        [Display(Name = "Milestone Name")]
+        [StringLength(50)]
         public string Milestone_Name { get; set; }
+
+        [Required]
+        [Display(Name = "Milestone Description")]
+        [StringLength(255)]
         public string Milestone_Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

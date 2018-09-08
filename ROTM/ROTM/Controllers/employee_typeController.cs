@@ -49,13 +49,18 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Employee_Type_ID,Type_Name,Type_Description")] employee_type employee_type)
         {
-            if (ModelState.IsValid)
+            bool val = Validate(employee_type.Type_Name);
+            if (ModelState.IsValid && val == false)
             {
                 db.employee_type.Add(employee_type);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            else if (val == true)
+            {
+                ViewBag.StatusMessage = "There is already an: " + employee_type.Type_Name + " type in the database.";
+                return View();
+            }
             return View(employee_type);
         }
 
@@ -81,11 +86,18 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Employee_Type_ID,Type_Name,Type_Description")] employee_type employee_type)
         {
-            if (ModelState.IsValid)
+            //bool val = Validate(employee_type.Type_Name, ValID);
+            bool val = db.employee_type.Any(s => s.Type_Name == employee_type.Type_Name && s.Employee_Type_ID != employee_type.Employee_Type_ID);
+            if (ModelState.IsValid && val == false)
             {
                 db.Entry(employee_type).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            else if (val == true)
+            {
+                ViewBag.StatusMessage = "There is already an: " + employee_type.Type_Name + " type in the database.";
+                return View();
             }
             return View(employee_type);
         }
@@ -123,6 +135,20 @@ namespace ROTM.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public bool Validate(string stri)
+        {
+            //var employees = from s in (db.employees.Include(e => e.address).Include(e => e.employee_type).Include(e => e.gender).Include(e => e.title)) select s;
+            var checkEmployee = (from s in (db.employee_type) where s.Type_Name == stri select s).FirstOrDefault();
+            if (checkEmployee != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

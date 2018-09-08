@@ -18,12 +18,11 @@ namespace ROTM
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public client()
         {
-            this.bookings = new HashSet<booking>();
             this.client_contact = new HashSet<client_contact>();
             this.client_mailinglist = new HashSet<client_mailinglist>();
             this.employee_client = new HashSet<employee_client>();
         }
-
+    
         public int Client_ID { get; set; }
 
         [Required]
@@ -43,12 +42,10 @@ namespace ROTM
 
         [Display(Name = "Rating")]
         public Nullable<int> Client_Rating_ID { get; set; }
-
+        
         [Display(Name = "Type")]
         public Nullable<int> Client_Type_ID { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<booking> bookings { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<client_contact> client_contact { get; set; }
         public virtual client_rating client_rating { get; set; }

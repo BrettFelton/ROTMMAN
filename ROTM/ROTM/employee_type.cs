@@ -20,7 +20,7 @@ namespace ROTM
         {
             this.employees = new HashSet<employee>();
         }
-
+    
         public int Employee_Type_ID { get; set; }
 
         [Required]
@@ -32,7 +32,7 @@ namespace ROTM
         [Display(Name = "Type Description")]
         [StringLength(255)]
         public string Type_Description { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<employee> employees { get; set; }
     }

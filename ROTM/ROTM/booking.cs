@@ -27,17 +27,17 @@ namespace ROTM
         public Nullable<System.TimeSpan> Booking_Start_Time { get; set; }
         public Nullable<System.TimeSpan> Booking_End_Time { get; set; }
         public Nullable<int> Booking_Type_ID { get; set; }
-        public Nullable<int> Client_ID { get; set; }
+        public Nullable<int> Client_Contact_ID { get; set; }
         public Nullable<int> Employee_ID { get; set; }
         public Nullable<int> Address_ID { get; set; }
     
         public virtual address address { get; set; }
         public virtual booking_type booking_type { get; set; }
-        public virtual client client { get; set; }
+        public virtual employee employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<booking_instance> booking_instance { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<booking_reminders> booking_reminders { get; set; }
-        public virtual employee employee { get; set; }
+        public virtual client_contact client_contact { get; set; }
     }
 }

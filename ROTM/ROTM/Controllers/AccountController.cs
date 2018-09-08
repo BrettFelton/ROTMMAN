@@ -123,6 +123,32 @@ namespace ROTM.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public ActionResult TokenRegister()
+        {
+            return View();
+        }
+        //POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult TokenRegister(AccessTokenRegister accessTokenRegister)
+        {
+            bool val = db.registration_token.Any(s => s.Registration_Token1 == accessTokenRegister.Registration_Token && (s.Access_Level_ID == 1 || s.Access_Level_ID == 2));
+
+            if (ModelState.IsValid && val == true)
+            {
+
+                return RedirectToAction("Register", "Account");
+            }
+            else if (val == false)
+            {
+                ViewBag.StatusMessage = "The Registration token that you have entered is invalid or does not exist, please try again.";
+                return View();
+            }
+
+            return View();
+        }
 
         //
         // GET: /Account/Register

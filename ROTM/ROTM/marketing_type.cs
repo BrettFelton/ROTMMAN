@@ -11,7 +11,8 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class marketing_type
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,15 @@ namespace ROTM
         }
     
         public int Marketing_Type_ID { get; set; }
+
+        [Required]
+        [Display(Name = "Marketing Name")]
+        [StringLength(50)]
         public string Marketing_Name { get; set; }
+
+        [Required]
+        [Display(Name = "Marketing Description")]
+        [StringLength(255)]
         public string Marketing_Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

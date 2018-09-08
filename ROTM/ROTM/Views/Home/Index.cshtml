@@ -36,7 +36,7 @@
     <div class="col-md-3">
         <h2>Employee Management</h2>
         <ul>
-            <li>@Html.ActionLink("Employee Index", "Index", "Employees")</li>
+            <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
             <li>@Html.ActionLink("Employee Type", "Index", "Employee_type")</li>
             <li>@Html.ActionLink("Generate Registration Token", "Create", "registration_token")</li>
         </ul>
@@ -44,7 +44,7 @@
     <div class="col-md-3">
         <h2>Client Management</h2>
         <ul>
-            <li>@Html.ActionLink("Client Index", "Index", "Clients")</li>
+            @*<li>@Html.ActionLink("Client Index", "Index", "Clients")</li>*@
             <li>@Html.ActionLink("Client Type", "Index", "Client_type")</li>
             @*<li>@Html.ActionLink("Client Rating Type", "Index", "Employee_type")<a asp-area="" asp-controller="Client_Rating" asp-action="">Client Rating</a></li>*@
         </ul>
@@ -52,7 +52,7 @@
     <div class="col-md-3">
         <h2>Access Level</h2>
         <ul>
-            <li>@Html.ActionLink("Access Level Index", "Index", "Access_Level")</li>
+            <li>@Html.ActionLink("Access Levels", "Index", "Access_Level")</li>
         </ul>
     </div>
     <div class="col-md-3">
@@ -82,16 +82,17 @@
         <h2>Booking & Venue Management</h2>
         <ul>
             <li>@Html.ActionLink("Venues", "Index", "Venues")</li>
-            <li>@Html.ActionLink("Address", "Index", "Addresses")</li>
+            @*<li>@Html.ActionLink("Address", "Index", "Addresses")</li>*@
             <li>@Html.ActionLink("Bookings", "Index", "bookings")</li>
+            <li>@Html.ActionLink("Booking Type", "Index", "booking_type")
         </ul>
     </div>
     <div class="col-md-3">
         <h2>Training Course Management</h2>
         <ul>
             <li>@Html.ActionLink("Training Course", "Index", "Training_Course")</li>
-            <li>@Html.ActionLink("Training Course Instance", "Index", "Training_Course_Instance")</li>
             <li>@Html.ActionLink("Training Course Type", "Index", "Training_Course_type")</li>
+            <li>@Html.ActionLink("Training Course Instance", "Index", "Training_Course_Instance")</li>
             <li>@Html.ActionLink("Instructor", "Index", "Instructors")</li>
             <li>@Html.ActionLink("Instructor Type", "Index", "Instructor_type")</li>
         </ul>

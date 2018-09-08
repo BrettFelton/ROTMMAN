@@ -18,7 +18,7 @@ namespace ROTM
         public int Reminder_ID { get; set; }
         public string Reminder_Description { get; set; }
     
-        public virtual booking booking { get; set; }
         public virtual reminder reminder { get; set; }
+        public virtual booking booking { get; set; }
     }
 }

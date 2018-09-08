@@ -49,11 +49,17 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Training_Course_Type_ID,Course_Name,Course_Description")] training_course_type training_course_type)
         {
-            if (ModelState.IsValid)
+            bool val = Validate(training_course_type.Course_Name);
+            if (ModelState.IsValid && val == false)
             {
                 db.training_course_type.Add(training_course_type);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            else if (val == true)
+            {
+                ViewBag.StatusMessage = "There is already an: " + training_course_type.Course_Name + " type in the database.";
+                return View();
             }
 
             return View(training_course_type);
@@ -81,11 +87,17 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Training_Course_Type_ID,Course_Name,Course_Description")] training_course_type training_course_type)
         {
-            if (ModelState.IsValid)
+            bool val = db.training_course_type.Any(s => s.Course_Name == training_course_type.Course_Name && s.Training_Course_Type_ID != training_course_type.Training_Course_Type_ID);
+            if (ModelState.IsValid && val == false)
             {
                 db.Entry(training_course_type).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            else if (val == true)
+            {
+                ViewBag.StatusMessage = "There is already an: " + training_course_type.Course_Name + " type in the database.";
+                return View();
             }
             return View(training_course_type);
         }
@@ -123,6 +135,20 @@ namespace ROTM.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public bool Validate(string stri)
+        {
+            //var employees = from s in (db.employees.Include(e => e.address).Include(e => e.employee_type).Include(e => e.gender).Include(e => e.title)) select s;
+            var checkTC = (from s in (db.training_course_type) where s.Course_Name == stri select s).FirstOrDefault();
+            if (checkTC != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

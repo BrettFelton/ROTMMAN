@@ -31,7 +31,6 @@ namespace ROTM
         public virtual DbSet<address> addresses { get; set; }
         public virtual DbSet<attendance> attendances { get; set; }
         public virtual DbSet<audit_trail> audit_trail { get; set; }
-        public virtual DbSet<booking> bookings { get; set; }
         public virtual DbSet<booking_instance> booking_instance { get; set; }
         public virtual DbSet<booking_reminders> booking_reminders { get; set; }
         public virtual DbSet<booking_type> booking_type { get; set; }
@@ -43,7 +42,6 @@ namespace ROTM
         public virtual DbSet<client_type> client_type { get; set; }
         public virtual DbSet<employee_client> employee_client { get; set; }
         public virtual DbSet<employee_mailinglist> employee_mailinglist { get; set; }
-        public virtual DbSet<employee_milestone> employee_milestone { get; set; }
         public virtual DbSet<employee_type> employee_type { get; set; }
         public virtual DbSet<gender> genders { get; set; }
         public virtual DbSet<mailing_list> mailing_list { get; set; }
@@ -53,11 +51,9 @@ namespace ROTM
         public virtual DbSet<notification> notifications { get; set; }
         public virtual DbSet<quote> quotes { get; set; }
         public virtual DbSet<quote_status> quote_status { get; set; }
-        public virtual DbSet<registration_token> registration_token { get; set; }
         public virtual DbSet<reminder> reminders { get; set; }
         public virtual DbSet<reminder_type> reminder_type { get; set; }
         public virtual DbSet<task> tasks { get; set; }
-        public virtual DbSet<task_milestone> task_milestone { get; set; }
         public virtual DbSet<tasks_completed> tasks_completed { get; set; }
         public virtual DbSet<training_course> training_course { get; set; }
         public virtual DbSet<training_course_instance> training_course_instance { get; set; }
@@ -67,6 +63,10 @@ namespace ROTM
         public virtual DbSet<title> titles { get; set; }
         public virtual DbSet<instructor> instructors { get; set; }
         public virtual DbSet<instructor_type> instructor_type { get; set; }
+        public virtual DbSet<employee_milestone> employee_milestone { get; set; }
+        public virtual DbSet<registration_token> registration_token { get; set; }
+        public virtual DbSet<task_milestone> task_milestone { get; set; }
+        public virtual DbSet<booking> bookings { get; set; }
     
         public virtual ObjectResult<LoginEmail_Result> LoginEmail(ObjectParameter email, ObjectParameter passwords)
         {

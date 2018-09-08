@@ -49,13 +49,18 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Booking_Type_ID,Booking_Type_Name,Booking_Type_Description")] booking_type booking_type)
         {
-            if (ModelState.IsValid)
+            bool val = Validate(booking_type.Booking_Type_Name);
+            if (ModelState.IsValid && val == false)
             {
                 db.booking_type.Add(booking_type);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            else if (val == true)
+            {
+                ViewBag.StatusMessage = "There is already an: " + booking_type.Booking_Type_Name + " type in the database.";
+                return View();
+            }
             return View(booking_type);
         }
 
@@ -81,11 +86,17 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Booking_Type_ID,Booking_Type_Name,Booking_Type_Description")] booking_type booking_type)
         {
-            if (ModelState.IsValid)
+            bool val = db.booking_type.Any(s => s.Booking_Type_Name == booking_type.Booking_Type_Name && s.Booking_Type_ID != booking_type.Booking_Type_ID);
+            if (ModelState.IsValid && val == false)
             {
                 db.Entry(booking_type).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            else if (val == true)
+            {
+                ViewBag.StatusMessage = "There is already an: " + booking_type.Booking_Type_Name + " type in the database.";
+                return View();
             }
             return View(booking_type);
         }
@@ -123,6 +134,20 @@ namespace ROTM.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public bool Validate(string stri)
+        {
+            //var employees = from s in (db.employees.Include(e => e.address).Include(e => e.employee_type).Include(e => e.gender).Include(e => e.title)) select s;
+            var checkBooking = (from s in (db.booking_type) where s.Booking_Type_Name == stri select s).FirstOrDefault();
+            if (checkBooking != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

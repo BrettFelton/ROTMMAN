@@ -55,7 +55,23 @@ namespace ROTM.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (training_course_instance.Instance_Start_Time < training_course_instance.Instance_End_Time)
+                TimeSpan end = new TimeSpan(22, 0, 0);
+                TimeSpan start = new TimeSpan(02, 59, 0);
+                bool val = db.training_course_instance.Any(s => s.Instance_Date == training_course_instance.Instance_Date 
+                && (s.Instructor_ID == training_course_instance.Instructor_ID || s.Venue_ID == training_course_instance.Venue_ID) 
+                &&
+                //inside
+                ((s.Instance_Start_Time <= training_course_instance.Instance_Start_Time && s.Instance_End_Time >= training_course_instance.Instance_End_Time)
+                //outside
+                ||(s.Instance_Start_Time >= training_course_instance.Instance_Start_Time && s.Instance_End_Time <= training_course_instance.Instance_End_Time)
+                //before start and after start
+                ||(s.Instance_Start_Time <= training_course_instance.Instance_Start_Time && training_course_instance.Instance_Start_Time <= s.Instance_End_Time)
+                //befor end and after end
+                ||(s.Instance_Start_Time <= training_course_instance.Instance_End_Time && training_course_instance.Instance_End_Time <= s.Instance_End_Time)));
+
+                bool time = training_course_instance.Instance_Start_Time <= start || training_course_instance.Instance_End_Time >= end;
+
+                if (val == false && training_course_instance.Instance_Start_Time <= training_course_instance.Instance_End_Time && time == false)
                 {
                     db.training_course_instance.Add(training_course_instance);
                     db.SaveChanges();
@@ -64,6 +80,14 @@ namespace ROTM.Controllers
                 else if (training_course_instance.Instance_Start_Time >= training_course_instance.Instance_End_Time)
                 {
                     ViewBag.Error = "The End time cannot be at the same time or an earlier time then the start time.";
+                }
+                else if (val == true)
+                {
+                    ViewBag.Error = "The training course cannot be booked because there is another training course at the same time, please try a different time, or the venue is already booked, or the instructor is already giving a lecture at that time.";
+                }
+                else if (time == true)
+                {
+                    ViewBag.Error = "The start time of a training course cannot start at any time between 00:00 and 02:59 and the end time of a training course cannot end at any time between 22:00 and 23:59.";
                 }
             }
 

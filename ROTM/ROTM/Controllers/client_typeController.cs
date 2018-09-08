@@ -49,13 +49,18 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Client_Type_ID,Client_Type_Name,Client_Type_Description")] client_type client_type)
         {
-            if (ModelState.IsValid)
+            bool val = Validate(client_type.Client_Type_Name);
+            if (ModelState.IsValid && val == false)
             {
                 db.client_type.Add(client_type);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            else if (val == true)
+            {
+                ViewBag.StatusMessage = "There is already an: " + client_type.Client_Type_Name + " type in the database.";
+                return View();
+            }
             return View(client_type);
         }
 
@@ -81,11 +86,17 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Client_Type_ID,Client_Type_Name,Client_Type_Description")] client_type client_type)
         {
-            if (ModelState.IsValid)
+            bool val = db.client_type.Any(s => s.Client_Type_Name == client_type.Client_Type_Name && s.Client_Type_ID != client_type.Client_Type_ID);
+            if (ModelState.IsValid && val == false)
             {
                 db.Entry(client_type).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            else if (val == true)
+            {
+                ViewBag.StatusMessage = "There is already an: " + client_type.Client_Type_Name + " type in the database.";
+                return View();
             }
             return View(client_type);
         }
@@ -123,6 +134,20 @@ namespace ROTM.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public bool Validate(string stri)
+        {
+            //var employees = from s in (db.employees.Include(e => e.address).Include(e => e.employee_type).Include(e => e.gender).Include(e => e.title)) select s;
+            var checkClient = (from s in (db.client_type) where s.Client_Type_Name == stri select s).FirstOrDefault();
+            if (checkClient != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
