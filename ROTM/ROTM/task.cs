@@ -11,8 +11,7 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class task
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,15 +22,7 @@ namespace ROTM
         }
     
         public int Task_ID { get; set; }
-
-        [Required]
-        [Display(Name = "Task Name")]
-        [StringLength(50)]
         public string Task_Name { get; set; }
-
-        [Required]
-        [Display(Name = "Task_Description")]
-        [StringLength(255)]
         public string Task_Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

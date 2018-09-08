@@ -11,8 +11,7 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class training_course_instance
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,35 +21,11 @@ namespace ROTM
         }
     
         public int Training_Course_Instance_ID { get; set; }
-
-
-        [Required]
-        [Display(Name = "Date")]
-        [DataType(DataType.Date)]
         public Nullable<System.DateTime> Instance_Date { get; set; }
-
-
-        [Required]
-        [Display(Name = "Start Time")]
-        [DataType(DataType.Time)]
         public Nullable<System.TimeSpan> Instance_Start_Time { get; set; }
-
-        [Required]
-        [Display(Name = "End Time")]
-        [DataType(DataType.Time)]
         public Nullable<System.TimeSpan> Instance_End_Time { get; set; }
-
-        [Required]
-        [Display(Name = "Venue Name")]
         public Nullable<int> Venue_ID { get; set; }
-
-
-        [Required]
-        [Display(Name = "Instructor Name")]
         public Nullable<int> Instructor_ID { get; set; }
-
-        [Required]
-        [Display(Name = "Training Course Name")]
         public Nullable<int> Training_Course_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
