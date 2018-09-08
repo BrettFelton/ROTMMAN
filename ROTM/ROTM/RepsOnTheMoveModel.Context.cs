@@ -46,7 +46,6 @@ namespace ROTM
         public virtual DbSet<employee_milestone> employee_milestone { get; set; }
         public virtual DbSet<employee_type> employee_type { get; set; }
         public virtual DbSet<gender> genders { get; set; }
-        public virtual DbSet<instructor> instructors { get; set; }
         public virtual DbSet<mailing_list> mailing_list { get; set; }
         public virtual DbSet<marketing> marketings { get; set; }
         public virtual DbSet<marketing_type> marketing_type { get; set; }
@@ -57,22 +56,17 @@ namespace ROTM
         public virtual DbSet<registration_token> registration_token { get; set; }
         public virtual DbSet<reminder> reminders { get; set; }
         public virtual DbSet<reminder_type> reminder_type { get; set; }
-        public virtual DbSet<supplier> suppliers { get; set; }
         public virtual DbSet<task> tasks { get; set; }
         public virtual DbSet<task_milestone> task_milestone { get; set; }
         public virtual DbSet<tasks_completed> tasks_completed { get; set; }
-        public virtual DbSet<title> titles { get; set; }
         public virtual DbSet<training_course> training_course { get; set; }
         public virtual DbSet<training_course_instance> training_course_instance { get; set; }
         public virtual DbSet<training_course_type> training_course_type { get; set; }
         public virtual DbSet<venue> venues { get; set; }
         public virtual DbSet<employee> employees { get; set; }
-<<<<<<< HEAD
-=======
         public virtual DbSet<title> titles { get; set; }
         public virtual DbSet<instructor> instructors { get; set; }
         public virtual DbSet<instructor_type> instructor_type { get; set; }
->>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
     
         public virtual ObjectResult<LoginEmail_Result> LoginEmail(ObjectParameter email, ObjectParameter passwords)
         {

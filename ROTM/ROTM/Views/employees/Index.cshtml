@@ -9,6 +9,17 @@
 @*<p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Search: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            @Html.ActionLink("Show Full List", "Index", "Employees")
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <tr>
         <th>
@@ -89,11 +100,7 @@
             @Html.DisplayFor(modelItem => item.title.Title1)
         </td>
         <td>
-<<<<<<< HEAD
-            @Html.ActionLink("Edit", "Edit", new { id=item.Employee_ID }) |
-=======
             @*@Html.ActionLink("Edit", "Edit", new { id=item.Employee_ID }) |*@
->>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
             @Html.ActionLink("Details", "Details", new { id=item.Employee_ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Employee_ID })
         </td>

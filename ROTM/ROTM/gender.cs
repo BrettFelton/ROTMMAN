@@ -21,19 +21,14 @@ namespace ROTM
             this.employees = new HashSet<employee>();
         }
 
-<<<<<<< HEAD
-=======
         public int Gender_ID { get; set; }
         [Required]
->>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
         [Display(Name = "Gender")]
+        [StringLength(50)]
         public string Gender1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<employee> employees { get; set; }
-<<<<<<< HEAD
-=======
         public virtual ICollection<instructor> instructors { get; set; }
->>>>>>> parent of 0eed6af... Validation and TrainingCourseInstanceWorking
     }
 }
